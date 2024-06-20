@@ -14,7 +14,7 @@
                 <div class="col-xl-4 col-lg-4 col-sm-6">
                     <div class="footer-widget mb-30">
                         <div class="f-widget-title mb-30">
-                            <a href="index.html"><img src="img/logo/f_logo.png" alt="img"></a>
+                            <a href="index.html"><img src="{{ Storage::url($data->logo) }}" alt="img"></a>
                         </div>
                         <div class="f-contact">
                             <p>{!! $data->description !!}</p>
@@ -23,7 +23,8 @@
                         <div class="footer-social mt-10">
                             <div class="footer-social mt-10">
                                 @foreach ($data->social_links as $link)
-                                    <a href="{{ $link['link'] }}"><i class="fab fa-{{ $link['name'] }}" style="font-size: 20px; padding:10px;"></i></a>
+                                    <a href="{{ $link['link'] }}"><i class="fab fa-{{ $link['name'] }}"
+                                            style="font-size: 20px; padding:10px;"></i></a>
                                 @endforeach
                             </div>
 
@@ -72,17 +73,17 @@
 
                                 <li><i class="icon fal fa-envelope"></i>
                                     @foreach ($data->email as $emailsString)
-                                    @php
-                                        $emailsString = trim($emailsString, '[]"');
-                                    @endphp
-                                    @foreach (explode(',', $emailsString) as $email)
-                                        <a href="mailto:{{ trim($email) }}">{{ trim($email) }}</a><br>
+                                        @php
+                                            $emailsString = trim($emailsString, '[]"');
+                                        @endphp
+                                        @foreach (explode(',', $emailsString) as $email)
+                                            <a href="mailto:{{ trim($email) }}">{{ trim($email) }}</a><br>
+                                        @endforeach
                                     @endforeach
-                                @endforeach
                                 </li>
                                 <li>
                                     <i class="icon fal fa-map-marker-check"></i>
-                                    <span>{{$data->address}}</span>
+                                    <span>{{ $data->address }}</span>
                                 </li>
 
                             </ul>
@@ -98,18 +99,28 @@
                         </div>
                         <div class="recent-blog-footer">
                             <ul>
-                                @foreach ($recentBlogs as $recentBlog)
-                                    <li>
-                                        <div class="thum" style="width: 300px; height: 80px; overflow: hidden;">
-                                            <img src="{{ asset('blog_images/' . $recentBlog->image1) }}"
-                                                alt="{{ $recentBlog->title }}" style="height: 100%; object-fit: cover;">
-                                        </div>
-                                        <div class="text">
-                                            <a
-                                                href="{{ route('blog.show', ['blog' => $recentBlog->id]) }}">{{ $recentBlog->title }}</a>
-                                            <span>{{ $recentBlog->created_at->format('d F, Y') }}</span>
-                                        </div>
-                                    </li>
+                                @php
+                                    $count = 0;
+                                @endphp
+                                @foreach ($blogs->reverse() as $blog)
+                                    @if ($blogType[0])
+                                        @php $count++; @endphp
+                                        @if ($count <= 2)
+                                            <li>
+                                                <div class="thum"
+                                                    style="width: 300px; height: 80px; overflow: hidden;">
+                                                    <img src="{{ asset('blog_images/' . $blog->image1) }}"
+                                                        alt="{{ $blog->title }}"
+                                                        style="height: 100%; object-fit: cover;">
+                                                </div>
+                                                <div class="text">
+                                                    <a
+                                                        href="{{ route('blog.show', ['blog' => $blog->id]) }}">{{ $blog->title }}</a>
+                                                    <span>{{ $blog->created_at->format('d F, Y') }}</span>
+                                                </div>
+                                            </li>
+                                        @endif
+                                    @endif
                                 @endforeach
 
 

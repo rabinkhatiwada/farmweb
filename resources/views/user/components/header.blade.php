@@ -24,6 +24,10 @@
                                    <li class="has-sub">
                                       <a href="#">Pages</a>
                                       <ul>
+                                            <li><a href="{{ url('/breeding') }}">Breeding</a></li>
+                                            <li><a href="{{ url('/feeding') }}">Feeding</a></li>
+                                            <li><a href="{{ url('/management') }}">Management</a></li>
+                                            <li><a href="{{ url('/market') }}">Market</a></li>
                                             <li><a href="{{ url('/government-support') }}">Government Support</a></li>
                                              <li><a href="{{ url('/youth-engagement') }}">Youth Engagement</a></li>
                                              <li><a href="{{ url('/cattle-farming-potential') }}">Cattle Farming Potential</a></li>

@@ -2,143 +2,201 @@
 
 namespace App\Http\Controllers;
 
+use App\Helper;
 use App\Models\Blog;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class BlogController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
-    public function index()
-
+    public function index($type)
     {
-        $blogs = Blog::all();
+        $blogs = DB::table('blogs')->where('type', $type)->get();
+        $types = Helper::blogTypes;
 
-        return view('admin.Blogs.index', ['blogs' => $blogs]);
+        return view('admin.Blogs.index', compact('types', 'blogs', 'type'));
     }
 
     /**
      * Show the form for creating a new resource.
      */
-    public function create()
+    public function create($type)
     {
-        //
+        $blogType = Helper::blogTypes[$type];
+
+        return view('admin.Blogs.add', compact('type', 'blogType'));
     }
 
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(Request $request, $type)
     {
-        $request->validate([
-            'title' => 'required|string',
-            'content' => 'required|string',
-            'image1' => 'nullable|image|mimes:jpeg,png,jpg,gif',
-            'image2' => 'nullable|image|mimes:jpeg,png,jpg,gif',
-            'facebook_url' => 'nullable|url',
-            'instagram_url' => 'nullable|url',
-            'linkedin_url' => 'nullable|url',
-            'twitter_url' => 'nullable|url',
-        ]);
+        $blogType = Helper::blogTypes[$type];
 
-        if ($request->hasFile('image1')) {
-            $image1 = $request->file('image1');
-            $imageName1 = time() . '.' . $image1->getClientOriginalExtension();
-            $image1->move(public_path('blog_images'), $imageName1);
+        if ($request->getMethod() == "GET") {
+            return view('admin.Blogs.add', compact('type', 'blogType'));
         } else {
-            $imageName = null;
-        }
-        if ($request->hasFile('image2')) {
-            $image2 = $request->file('image2');
-            $imageName2 = time() . '.' . $image2->getClientOriginalExtension();
-            $image2->move(public_path('blog_images'), $imageName2);
-        } else {
+            $imageName1 = null;
             $imageName2 = null;
+
+            if ($request->hasFile('image1')) {
+                $image1 = $request->file('image1');
+                $imageName1 = time() . '.' . $image1->getClientOriginalExtension();
+                $image1->move(public_path('blog_images'), $imageName1);
+            }
+
+            if ($request->hasFile('image2')) {
+                $image2 = $request->file('image2');
+                $imageName2 = time() . '_2.' . $image2->getClientOriginalExtension();
+                $image2->move(public_path('blog_images'), $imageName2);
+            }
+
+            $blog = new Blog();
+            $blog->type = $type;
+            $blog->title = $request->input('title', '');
+            $blog->y_url = $request->input('y_url', '');
+            $blog->fimg_Type = $request->filled('fimg_type') ? 2 : 1;
+            $blog->content = $request->input('content', '');
+            $blog->sdesc = $request->input('sdesc', '');
+            $blog->image1 = $imageName1;
+            $blog->image2 = $imageName2;
+            $blog->facebook_url = $request->input('facebook_url', '#');
+            $blog->instagram_url = $request->input('instagram_url', '#');
+            $blog->linkedin_url = $request->input('linkedin_url', '#');
+            $blog->twitter_url = $request->input('twitter_url', '#');
+
+            $datas = [];
+            foreach ($blogType[4] as $key => $input) {
+                if ($input[0] == 'file' && $request->filled($input[1])) {
+                    $file = $request->file($input[1]);
+                    $fileName = time() . '_' . $file->getClientOriginalName();
+                    $file->move(public_path('blog_files'), $fileName);
+                    // Process the file as needed
+                    $datas[$input[1]] = $fileName;
+                } else {
+                    $datas[$input[1]] = $request->input($input[1], '');
+                }
+            }
+
+            $blog->extra = json_encode($datas);
+            $blog->save();
+
+            return redirect()->route('admin.blogs.store', ['type' => $type])->with('success', 'Blog Created successfully.');
         }
-
-        $blog=new Blog();
-        $blog->title = $request->input('title');
-        $blog->content = $request->input('content');
-        $blog->image1 = $imageName1;
-        $blog->image2 = $imageName2;
-        $blog->facebook_url = $request->input('facebook_url');
-        $blog->instagram_url = $request->input('instagram_url');
-        $blog->linkedin_url = $request->input('linkedin_url');
-        $blog->twitter_url = $request->input('twitter_url');
-        $blog->save();
-
-        return redirect()->route('admin.blogs.index')->with('success', 'Blog Created successfully.');
-
-
-
     }
 
     /**
      * Display the specified resource.
      */
-    public function show(string $id)
-    {   $blogs=Blog::all();
-        $blog = Blog::findOrFail($id);
-        $previousBlog = Blog::where('id', '<', $blog->id)->orderBy('id', 'desc')->first();
+    public function show($id, $type)
+{
+    $blogType = Helper::blogTypes[$type]; // Fetching blog type details from the constant
 
-        $nextBlog = Blog::where('id', '>', $blog->id)->orderBy('id')->first();
-        $recentBlogs = Blog::orderBy('created_at', 'desc')->take(5)->get();
+    $blogs = DB::table('blogs')->where('type', $type)->get();
+    $blog = Blog::findOrFail($id);
 
+    // Fetch previous and next blogs based on type
+    $previousBlog = Blog::where('id', '<', $blog->id)
+                        ->where('type', $type)
+                        ->orderBy('id', 'desc')
+                        ->first();
 
-        return view('user.blogdetail', [
-            'blog' => $blog,
-            'blogs' => $blogs,
-            'previousBlog' => $previousBlog,
-            'nextBlog' => $nextBlog,
-            'recentBlogs'=>$recentBlogs
-        ]);
-    }
+    $nextBlog = Blog::where('id', '>', $blog->id)
+                    ->where('type', $type)
+                    ->orderBy('id')
+                    ->first();
+
+    $recentBlogs = Blog::where('type', $type)
+                        ->orderBy('created_at', 'desc')
+                        ->take(5)
+                        ->get();
+
+    return view('user.blogdetail', compact('blog', 'blogs', 'previousBlog', 'nextBlog', 'recentBlogs', 'blogType'));
+}
+
 
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(string $id)
+    public function edit($id)
     {
-        $blog = Blog::findOrFail($id);
-        return view('admin.blogs.edit', compact('blog'));
+        $blog = Blog::where('id',$id)->first();
+        $type=$blog->type;
+        $blogType = Helper::blogTypes[$type];
+
+        return view('admin.blogs.edit', compact('blog', 'type', 'blogType'));
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
-    {
-        $request->validate([
+    public function update(Request $request, $id)
+{
+    $type = $request->input('type');
+    $blogType = Helper::blogTypes[$type];
 
-        ]);
-        $blog = Blog::findOrFail($id);
-        $blog->title = $request->title;
-        $blog->content = $request->content;
-        if ($request->hasFile('image')) {
-            $image = $request->file('image');
-            $imageName = time() . '_' . $image->getClientOriginalName();
-            $image->move(public_path('blog_images'), $imageName);
-            $blog->image = $imageName;
-        }
-        $blog->facebook_url = $request->facebook_url;
-        $blog->instagram_url = $request->instagram_url;
-        $blog->linkedin_url = $request->linkedin_url;
-        $blog->twitter_url = $request->twitter_url;
+    $request->validate([]);
 
-        $blog->save();
-        return redirect()->route('admin.blogs.edit', compact('blog'))->with('success', 'Blog post updated successfully!');
+    $blog = Blog::findOrFail($id);
 
-
+    if ($request->hasFile('image1')) {
+        $image1 = $request->file('image1');
+        $imageName1 = time() . '.' . $image1->getClientOriginalExtension();
+        $image1->move(public_path('blog_images'), $imageName1);
+        $blog->image1 = $imageName1;
     }
+
+    if ($request->hasFile('image2')) {
+        $image2 = $request->file('image2');
+        $imageName2 = time() . '_2.' . $image2->getClientOriginalExtension();
+        $image2->move(public_path('blog_images'), $imageName2);
+        $blog->image2 = $imageName2;
+    }
+
+    $blog->type = $type;
+    $blog->title = $request->input('title', '');
+    $blog->y_url = $request->input('y_url', '');
+    $blog->fimg_Type = $request->filled('fimg_type') ? 2 : 1;
+    $blog->content = $request->input('content', '');
+    $blog->sdesc = $request->input('sdesc', '');
+    $blog->facebook_url = $request->input('facebook_url', '#');
+    $blog->instagram_url = $request->input('instagram_url', '#');
+    $blog->linkedin_url = $request->input('linkedin_url', '#');
+    $blog->twitter_url = $request->input('twitter_url', '#');
+
+    // Handle extra fields
+    $datas = [];
+    foreach ($blogType[4] as $input) {
+        if ($input[0] == 'file' && $request->hasFile($input[1])) {
+            $file = $request->file($input[1]);
+            $fileName = time() . '_' . $file->getClientOriginalName();
+            $file->move(public_path('blog_files'), $fileName);
+            $datas[$input[1]] = $fileName;
+        } else {
+            $datas[$input[1]] = $request->input($input[1], '');
+        }
+    }
+
+    $blog->extra = json_encode($datas);
+
+    $blog->save();
+
+    return redirect()->route('admin.blogs.edit', ['blog' => $blog->id, 'type' => $type])->with('success', $blogType[1] . ' updated successfully!');
+}
+
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(string $id)
+    public function destroy($id)
     {
         $blog = Blog::findOrFail($id);
         $blog->delete();
-        return redirect()->route('admin.blogs.index',['blog' => $blog])->with('success', 'Product deleted successfully.');
+
+        return redirect()->route('admin.blogs.index', ['type' => $blog->type])->with('success', 'Product deleted successfully.');
     }
 }

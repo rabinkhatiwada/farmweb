@@ -1,15 +1,7 @@
-Landing Page/ Home Page
-    Hero Section
-        High-quality banner image/video slider
-        Catchy tagline and brief introduction
-        Call-to-action buttons (e.g., "Learn More," "Contact Us")
-        Brief summaries with links to key sections: Breeding, Feeding, Management, Market
-
-    About Us
-        Heading
-        Paragraph
-        image
-
-    
-
-
+Blog-
+ Feature Image type
+ type
+ youtube url
+ extra
+ short description
+ 

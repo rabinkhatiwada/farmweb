@@ -5,7 +5,22 @@ use App\Models\Setting;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\DB;
 
+
+
+
 class Helper{
+
+    //key=>title plural,singular,has_sort_description,has_long_description,extras=[],show image
+    //extra type,name,col-md,title
+    public const blogTypes=[
+        'blog'=>['Blogs','Blog',false,true,[],true],
+        'notice'=>['Notices','Notice',true,false,[
+            ['file','extra_file','3','Notice File']
+        ],true],
+        'faq'=>['Faq', 'FAQ',true, false,[],false],
+
+    ];
+
     public static function getSetting($key){
         //Cache::rememberForever($key,function()use($key){
             $data= DB::table('settings')->where('key',$key)->first('value');
@@ -18,6 +33,8 @@ class Helper{
             return '';
        // });
     }
+
+
 
     public static function setSetting($key,$value){
         $data=DB::table('settings')->where('key',$key)->first();

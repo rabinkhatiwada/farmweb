@@ -51,7 +51,7 @@
                                             <ul>
                                                 <li><i class="fal fa-eye"></i> 100 Views </li>
                                                 <li><i class="fal fa-comments"></i> 35 Comments</li>
-                                                <li><i class="fal fa-calendar-alt"></i> 24th March 2023</li>
+                                                <li><i class="fal fa-calendar-alt"></i> {{ $blog->created_at->format('d F, Y') }}</li>
                                             </ul>
                                         </div>
                                         <h2><a href="{{ route('blog.show', ['blog' => $blog->id]) }}">{{ $blog->title }}</a></h2>
@@ -125,19 +125,23 @@
                         <section id="recent-posts-4" class="widget widget_recent_entries">
                             <h2 class="widget-title">Recent Posts</h2>
                             <ul>
-                                <li>
-                                    <a href="#">User Experience Psychology And Performance Smshing</a>
-                                    <span class="post-date">August 19, 2020</span>
-                                </li>
-                                <li>
-                                    <a href="#">Monthly Web Development Up Cost Of JavaScript</a>
-                                    <span class="post-date">August 19, 2020</span>
-                                </li>
-                                <li>
-                                    <a href="#">There are many variation passages of like available.</a>
-                                    <span class="post-date">August 19, 2020</span>
-                                </li>
+                                @php
+                                    $count = 0;
+                                @endphp
+                                @foreach ($blogs->reverse() as $blog)
+                                    @if ($blogType[0])
+                                        @php $count++; @endphp
+                                        @if ($count <= 5)
+
+                                            <li>
+                                                <a href="{{ route('blog.show', ['blog' => $blog->id]) }}">{{ $blog->title }}</a>
+                                                <span class="post-date">{{ $blog->created_at->format('d F, Y') }}</span>
+                                            </li>
+                                        @endif
+                                    @endif
+                                @endforeach
                             </ul>
+
                         </section>
                         <section id="tag_cloud-1" class="widget widget_tag_cloud">
                             <h2 class="widget-title">Tag</h2>
@@ -164,7 +168,7 @@
         </div>
     </section>
     <!-- inner-blog-end -->
-   
+
 
 </main>
 

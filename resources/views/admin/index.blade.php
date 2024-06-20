@@ -77,8 +77,11 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/Dropify/0.2.2/js/dropify.min.js"
         integrity="sha512-8QFTrG0oeOiyWo/VM9Y8kgxdlCryqhIxVeRpWSezdRRAvarxVtwLnGroJgnVW9/XBRduxO/z1GblzPrMQoeuew=="
         crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
     <script>
         $(document).ready(function() {
+            $('#summernote').summernote();
+            $('#myTable').DataTable();
             $('.dropify').dropify({
                 messages: {
                     'default': 'Upload Image',
@@ -88,20 +91,7 @@
                 }
             });
         });
-    </script>
-    <script>
-        $(document).ready(function() {
-            $('#summernote').summernote();
-        });
-    </script>
-    <script>
-        $(document).ready(function() {
-            $('#myTable').DataTable();
-        });
-    </script>
 
-
-    <script>
         document.addEventListener('DOMContentLoaded', function() {
             var closeButtons = document.querySelectorAll('.btn-close');
             closeButtons.forEach(function(button) {
@@ -124,6 +114,7 @@
         }
     </script>
 
+    @yield('js')
 </body>
 
 </html>
