@@ -5,6 +5,8 @@
         @php
             $data = App\Helper::getHomePageSetting();
             $adata = App\Helper::getAboutPageSettings();
+            $sdata = App\Helper::getServicePageSetting();
+
 
             function getYouTubeThumbnail($url)
             {
@@ -143,14 +145,14 @@
                 <div class="row align-items-center">
                     <div class="col-lg-6 col-md-12">
                         <div class="section-title center-align mb-20">
-                            <h5>Our Services</h5>
+                            <h5>{{$sdata->heading1}}</h5>
                             <h2>
-                                What We Provide
+                                {{$sdata->heading2}}
                             </h2>
                         </div>
                     </div>
                     <div class="col-lg-6 col-md-6 text-right  d-none d-lg-block">
-                        <a href="#contact" class="btn ss-btn wow fadeInDown animated" data-animation="fadeInDown"
+                        <a href="{{ url('/services') }}" class="btn ss-btn wow fadeInDown animated" data-animation="fadeInDown"
                             data-delay=".4s">View All Services</a>
                     </div>
                     <div class="col-lg-12">
@@ -186,7 +188,7 @@
 
                     <div class="col-lg-6 col-md-12">
                         <div class="wow fadeInLeft animated" data-animation="fadeInLeft" data-delay=".4s">
-                            <img src="{{ Storage::url($adata->aboutimage1) }}" alt="class image">
+                            <img src="{{ Storage::url($adata->aboutimage2) }}" alt="class image">
                         </div>
 
                     </div>

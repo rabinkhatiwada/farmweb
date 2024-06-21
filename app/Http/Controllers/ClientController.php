@@ -42,8 +42,10 @@ class ClientController extends Controller
         $teams = Blog::where('type', 'team')->get();
         $types = Helper::blogTypes;
         $blogType = Helper::blogTypes[$type] ?? null;
+        $objectives = Blog::where('type', 'objective')->get();
 
-        return view('user.about', compact('blogs', 'types', 'blogType', 'faqs', 'brands', 'teams'));
+
+        return view('user.about', compact('blogs', 'types', 'blogType', 'faqs', 'brands', 'teams', 'objectives'));
     }
 
     public function services()

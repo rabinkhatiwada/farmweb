@@ -112,7 +112,7 @@
                     value="{!! $data->newsletterheading !!}">
             </div>
             <div class="col-md-6">
-                <label for="title">Youtube Video URL:</label>
+                <label for="title">Featured Video URL:</label>
                 <input class="form-control" type="text" name="videourl" id="title"
                     value="{!! $data->videourl !!}">
             </div>

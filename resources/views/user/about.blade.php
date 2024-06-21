@@ -138,45 +138,25 @@
                             </div>
 
                             <ul>
-                                <li>
-                                    <div class="step-box wow fadeInUp animated" data-animation="fadeInUp" data-delay=".4s">
-                                        <div class="dnumber">
-                                            <div class="date-box"><img src="img/icon/fea-icon04.png" alt="icon">
+                                @foreach ($objectives as $objective)
+                                    <li>
+                                        <div class="step-box wow fadeInUp animated" data-animation="fadeInUp"
+                                            data-delay=".4s">
+                                            <div class="dnumber">
+                                                <div class="date-box"><img
+                                                        src="{{ asset('blog_images/' . $objective->image1) }}"
+                                                        alt="icon">
+                                                </div>
+                                            </div>
+                                            <div class="text">
+                                                <h3>{{ $objective->title }}</h3>
+                                                <p>{!! $objective->sdesc !!}</p>
                                             </div>
                                         </div>
-                                        <div class="text">
-                                            <h3>Wind Solar Energy</h3>
-                                            <p>Special wedding garments are often worn, and the ceremony is sttimes followed
-                                                by a wedding reception. Music, poetry, prayers, or readings.</p>
-                                        </div>
-                                    </div>
-                                </li>
-                                <li>
-                                    <div class="step-box wow fadeInUp animated" data-animation="fadeInUp" data-delay=".4s">
-                                        <div class="dnumber">
-                                            <div class="date-box"><img src="img/icon/fea-icon05.png" alt="icon">
-                                            </div>
-                                        </div>
-                                        <div class="text">
-                                            <h3>Forest Planting</h3>
-                                            <p>Special wedding garments are often worn, and the ceremony is sttimes followed
-                                                by a wedding reception. Music, poetry, prayers, or readings.</p>
-                                        </div>
-                                    </div>
-                                </li>
-                                <li>
-                                    <div class="step-box wow fadeInUp animated" data-animation="fadeInUp" data-delay=".4s">
-                                        <div class="dnumber">
-                                            <div class="date-box"><img src="img/icon/fea-icon06.png" alt="icon">
-                                            </div>
-                                        </div>
-                                        <div class="text">
-                                            <h3>Recycling Agriculture</h3>
-                                            <p>Special wedding garments are often worn, and the ceremony is sttimes followed
-                                                by a wedding reception. Music, poetry, prayers, or readings.</p>
-                                        </div>
-                                    </div>
-                                </li>
+                                    </li>
+                                @endforeach
+
+
                             </ul>
                         </div>
                     </div>
