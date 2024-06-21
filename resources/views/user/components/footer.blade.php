@@ -139,7 +139,7 @@
         <div class="container">
             <div class="row align-items-center">
                 <div class="col-lg-6">
-                    Copyright &copy; Dcfarm 2023 . All rights reserved.
+                    {{$data->copyright}}
                 </div>
                 <div class="col-lg-6 text-right text-xl-right">
                     <ul>

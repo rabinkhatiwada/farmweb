@@ -275,6 +275,6 @@
         </section>
         <!-- inner-blog-end -->
 
-    </main>
+    </main> 
 
 @endsection

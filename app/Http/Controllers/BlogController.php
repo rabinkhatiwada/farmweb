@@ -94,12 +94,11 @@ class BlogController extends Controller
      */
     public function show($id, $type)
 {
-    $blogType = Helper::blogTypes[$type]; // Fetching blog type details from the constant
+    $blogType = Helper::blogTypes[$type];
 
     $blogs = DB::table('blogs')->where('type', $type)->get();
     $blog = Blog::findOrFail($id);
 
-    // Fetch previous and next blogs based on type
     $previousBlog = Blog::where('id', '<', $blog->id)
                         ->where('type', $type)
                         ->orderBy('id', 'desc')

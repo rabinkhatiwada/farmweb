@@ -11,6 +11,12 @@
                     Blogs
                 </a>
             </li>
+            <li class="sidebar-item">
+                <a href="{{ route('admin.gallery.index') }}" class="sidebar-link">
+                    <i class="fa fa-edit"></i>
+                    Gallery
+                </a>
+            </li>
 
             <li class="sidebar-item">
                 <a href="{{ route('admin.messages.index') }}" class="sidebar-link">
@@ -32,6 +38,13 @@
             </li>
 
             <li class="sidebar-item">
+                <a href="{{ route('admin.blogs.index', ['type' => 'objective'   ]) }}" class="sidebar-link">
+                    <i class="fa fa-list" aria-hidden="true"></i>
+                    Objectives
+                </a>
+            </li>
+
+            <li class="sidebar-item">
                 <a href="#" class="sidebar-link collapsed" data-bs-target="#pages" data-bs-toggle="collapse"
                     aria-expanded="false"><i class="fa fa-cogs" aria-hidden="true"></i>
                 </i>
@@ -39,7 +52,29 @@
                 </a>
                 <ul id="pages" class="sidebar-dropdown list-unstyled collapse" data-bs-parent="#sidebar">
                     <li class="sidebar-item">
-                        <a href="{{ route('admin.blogs.index', ['type' => 'about']) }}" class="sidebar-link mx-2"><i class="fa fa-wrench" aria-hidden="true"></i> Footer</a>
+                        <a href="{{ route('admin.setting.home') }}" class="sidebar-link mx-2"><i class="fa fa-wrench" aria-hidden="true"></i> Home</a>
+                    </li>
+                    <li class="sidebar-item">
+                        <a href="{{ route('admin.sliders.index') }}" class="sidebar-link mx-2"><i class="fa fa-wrench" aria-hidden="true"></i> Slider Page</a>
+                    </li>
+                    <li class="sidebar-item">
+                        <a href="{{ route('admin.blogs.index', ['type' => 'feature']) }}" class="sidebar-link mx-2"><i class="fa fa-wrench" aria-hidden="true"></i> Features</a>
+                    </li>
+                    <li class="sidebar-item">
+                        <a href="{{ route('admin.setting.about') }}" class="sidebar-link mx-2"><i class="fa fa-wrench" aria-hidden="true"></i> About Page</a>
+                    </li>
+                    <li class="sidebar-item">
+                        <a href="{{ route('admin.setting.service') }}" class="sidebar-link mx-2"><i class="fa fa-wrench" aria-hidden="true"></i> Service Page</a>
+                    </li>
+                    <li class="sidebar-item">
+                        <a href="{{ route('admin.setting.blog') }}" class="sidebar-link mx-2"><i class="fa fa-wrench" aria-hidden="true"></i> Blog Page</a>
+                    </li>
+
+                    <li class="sidebar-item">
+                        <a href="{{ route('admin.blogs.index', ['type' => 'brand']) }}" class="sidebar-link mx-2"><i class="fa fa-wrench" aria-hidden="true"></i> Brand</a>
+                    </li>
+                    <li class="sidebar-item">
+                        <a href="{{ route('admin.blogs.index', ['type' => 'team']) }}" class="sidebar-link mx-2"><i class="fa fa-wrench" aria-hidden="true"></i> Team</a>
                     </li>
                     <li class="sidebar-item">
                         <a href="{{ route('admin.setting.footer') }}" class="sidebar-link mx-2"><i class="fa fa-wrench" aria-hidden="true"></i> Footer</a>

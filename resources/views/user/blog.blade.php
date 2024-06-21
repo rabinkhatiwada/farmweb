@@ -3,10 +3,16 @@
 @section('content')
 
     <main>
+        @php
+        $data=App\Helper::getBlogPageSetting();
+        $socialmediadata = App\Helper::getFooterSetting();
+
+
+        @endphp
 
         <!-- breadcrumb-area -->
         <section class="breadcrumb-area d-flex  p-relative align-items-center"
-            style="background-image:url(img/bg/bdrc-bg.jpg)">
+            style="background-image:url({{ Storage::url($data->bgimage) }})">
 
             <div class="container">
                 <div class="row align-items-center">
@@ -18,7 +24,7 @@
 
                                     <nav aria-label="breadcrumb">
                                         <ol class="breadcrumb">
-                                            <li class="breadcrumb-item"><a href="">Home</a></li>
+                                            <li class="breadcrumb-item"><a href="{{ url('/') }}">Home</a></li>
                                             <li class="breadcrumb-item active" aria-current="page">Blog</li>
                                         </ol>
                                     </nav>
@@ -54,10 +60,10 @@
                                                 <li><i class="fal fa-calendar-alt"></i> {{ $blog->created_at->format('d F, Y') }}</li>
                                             </ul>
                                         </div>
-                                        <h2><a href="{{ route('blog.show', ['blog' => $blog->id]) }}">{{ $blog->title }}</a></h2>
+                                        <h2><a href="{{ route('blog.show', ['type' => $blog->type, 'blog' => $blog->id]) }}">{{ $blog->title }}</a></h2>
                                         <p>{!! substr(strip_tags($blog->content), 0, 350) !!}</p>
                                         <div class="blog__btn">
-                                            <a href="{{ route('blog.show', ['blog' => $blog->id]) }}" class="btn">Read More <i
+                                            <a href="{{ route('blog.show', ['type' => $blog->type, 'blog' => $blog->id]) }}" class="btn">Read More <i
                                                     class="fal fa-long-arrow-right"></i></a>
                                         </div>
                                     </div>
@@ -105,23 +111,15 @@
                             <h2 class="widget-title">Follow Us</h2>
                             <div class="textwidget custom-html-widget">
                                 <div class="widget-social">
-                                    <a href="#"><i class="fab fa-twitter"></i></a>
-                                    <a href="#"><i class="fab fa-pinterest-p"></i></a>
-                                    <a href="#"><i class="fab fa-facebook-f"></i></a>
-                                    <a href="#"><i class="fab fa-instagram"></i></a>
-                                    <a href="#"><i class="fab fa-wordpress"></i></a>
+                                    @foreach ($socialmediadata->social_links as $link)
+                                    <a href="{{ $link['link'] }}"><i class="fab fa-{{ $link['name'] }}"
+                                            style="font-size: 20px; padding:10px;"></i></a>
+                                @endforeach
+
                                 </div>
                             </div>
                         </section>
-                        <section id="categories-1" class="widget widget_categories">
-                            <h2 class="widget-title">Categories</h2>
-                            <ul>
-                                <li class="cat-item cat-item-16"><a href="#">Branding</a> (4)</li>
-                                <li class="cat-item cat-item-23"><a href="#">Corporat</a> (3)</li>
-                                <li class="cat-item cat-item-18"><a href="#">Design</a> (3)</li>
-                                <li class="cat-item cat-item-22"><a href="#">Gallery</a> (3)</li>
-                            </ul>
-                        </section>
+
                         <section id="recent-posts-4" class="widget widget_recent_entries">
                             <h2 class="widget-title">Recent Posts</h2>
                             <ul>
@@ -134,8 +132,9 @@
                                         @if ($count <= 5)
 
                                             <li>
-                                                <a href="{{ route('blog.show', ['blog' => $blog->id]) }}">{{ $blog->title }}</a>
+                                                <a href="{{ route('blog.show', ['type' => $blog->type, 'blog' => $blog->id]) }}">{{ $blog->title }}</a>
                                                 <span class="post-date">{{ $blog->created_at->format('d F, Y') }}</span>
+
                                             </li>
                                         @endif
                                     @endif
@@ -143,25 +142,7 @@
                             </ul>
 
                         </section>
-                        <section id="tag_cloud-1" class="widget widget_tag_cloud">
-                            <h2 class="widget-title">Tag</h2>
-                            <div class="tagcloud">
-                                <a href="#" class="tag-cloud-link tag-link-28 tag-link-position-1"
-                                    style="font-size: 8pt;" aria-label="app (1 item)">app</a>
-                                <a href="#" class="tag-cloud-link tag-link-17 tag-link-position-2"
-                                    style="font-size: 8pt;" aria-label="Branding (1 item)">Branding</a>
-                                <a href="#" class="tag-cloud-link tag-link-20 tag-link-position-3"
-                                    style="font-size: 8pt;" aria-label="corporat (1 item)">corporat</a>
-                                <a href="#" class="tag-cloud-link tag-link-24 tag-link-position-4"
-                                    style="font-size: 16.4pt;" aria-label="Design (2 items)">Design</a>
-                                <a href="#" class="tag-cloud-link tag-link-25 tag-link-position-5"
-                                    style="font-size: 22pt;" aria-label="gallery (3 items)">gallery</a>
-                                <a href="#" class="tag-cloud-link tag-link-26 tag-link-position-6"
-                                    style="font-size: 8pt;" aria-label="video (1 item)">video</a>
-                                <a href="#" class="tag-cloud-link tag-link-29 tag-link-position-7"
-                                    style="font-size: 16.4pt;" aria-label="web design (2 items)">web design</a>
-                            </div>
-                        </section>
+                      
                     </aside>
                 </div>
             </div>

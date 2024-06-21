@@ -132,6 +132,12 @@
                     </div>
                 </div>
             </div>
+            <div class="row mt-2">
+                <div class="col-md-12">
+                    <label for="copyright">Copyright</label>
+                    <input type="text" class="form-control" placeholder="" name="copyright" value="{{$data->copyright}}">
+                </div>
+            </div>
 
             <button class="btn btn-success mt-3 float-end">Save</button>
         </form>

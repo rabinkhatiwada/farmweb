@@ -1,13 +1,16 @@
 <?php
 
 use App\Helper;
+use App\Http\Controllers\GalleryController;
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\BlogController;
 use App\Http\Controllers\ClientController;
 use App\Http\Controllers\MsgController;
 use App\Http\Controllers\SettingController;
+use App\Http\Controllers\SliderController;
 use App\Http\Controllers\TestimonialController;
 use App\Models\Blog;
+use App\Models\Gallery;
 use App\Models\Testimonial;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Route;
@@ -20,7 +23,6 @@ Route::get('/services', [ClientController::class, 'services'])->name('services')
 
 Route::get('/blogs', [ClientController::class, 'blogs'])->name('blogs');
 
-Route::get('/blogs/{blog}', [ClientController::class, 'blogShow'])->name('blog.show');
 
 Route::get('/contact', [ClientController::class, 'contact'])->name('contact');
 
@@ -56,10 +58,32 @@ Route::prefix('admin')->name('admin.')->middleware('auth')->group(function () {
         Route::match(['get', 'put'], 'update/{testimonial}', [TestimonialController::class, 'update'])->name('update');
         Route::delete('/delete/{testimonial}', [TestimonialController::class, 'destroy'])->name('delete');
     });
+    Route::prefix('sliders')->name('sliders.')->group(function () {
+        Route::get('', [SliderController::class, 'index'])->name('index');
+        Route::get('create', [SliderController::class, 'create'])->name('create');
+        Route::post('store', [SliderController::class, 'store'])->name('store');
+        Route::get('edit/{slider}', [SliderController::class, 'edit'])->name('edit');
+        Route::put('update/{slider}', [SliderController::class, 'update'])->name('update');
+        Route::delete('delete/{slider}', [SliderController::class, 'destroy'])->name('destroy');
+    });
+    Route::prefix('gallery')->name('gallery.')->group(function () {
+        Route::get('', [GalleryController::class, 'index'])->name('index');
+        Route::get('create', [GalleryController::class, 'create'])->name('create');
+        Route::post('store', [GalleryController::class, 'store'])->name('store');
+        Route::delete('/{id}', [GalleryController::class, 'destroy'])->name('destroy');
+
+
+    });
     Route::prefix('setting')->name('setting.')->group(function(){
         Route::get('', [SettingController::class, 'index'])->name('index');
+        Route::match(['GET', 'POST'],'/home', [SettingController::class, 'homePage'])->name('home');
         Route::match(['GET', 'POST'],'/contact', [SettingController::class, 'contactPage'])->name('contact');
         Route::match(['GET', 'POST'],'/footer', [SettingController::class, 'footerPage'])->name('footer');
+        Route::match(['GET', 'POST'],'/about', [SettingController::class, 'aboutPage'])->name('about');
+        Route::match(['GET', 'POST'],'/service', [SettingController::class, 'servicePage'])->name('service');
+        Route::match(['GET', 'POST'],'/blog', [SettingController::class, 'blogPage'])->name('blog');
+
+
 
 
 

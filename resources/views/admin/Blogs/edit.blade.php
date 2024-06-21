@@ -1,5 +1,5 @@
 @extends('admin.index')
-@section('title', 'Edit Blog')
+@section('title', 'Edit ' . $blogType[1])
 
 @section('jumbo')
     <li class="breadcrumb-item"><a href="{{ route('admin.blogs.index', ['type' => $type]) }}">{{ $blogType[0] }}</a></li>
@@ -33,56 +33,73 @@
             @csrf
             @method('PUT')
             <div class="row mb-3">
-                @if ($blogType[5]) <!-- Check if blogType has feature image -->
-                    <div class="col-md-3 mt-1">
-                        <div class="row mb-3 align-items-center">
-                            <div class="col-9">
-                                <h6>Choose Feature Image Type:</h6>
-                            </div>
-                            <div class="col-3 text-right">
-                                <input type="checkbox" id="inputTypeSwitch">
-                                <label for="inputTypeSwitch" id="switchText"> Image</label>
+                @if ($type == 'blog')
+                    <div class="col-md-4">
+                        <div class="mb-3">
+                            <label for="inputTypeSwitch" class="form-label">Choose Feature Image Type:</label>
+                            <div class="form-check form-switch">
+                                <input class="form-check-input" type="checkbox" id="inputTypeSwitch" name="fimg_type" {{ $blog->fimg_type ? 'checked' : '' }}>
+                                <label class="form-check-label" for="inputTypeSwitch" id="switchText">{{ $blog->fimg_type ? ' YouTube Link' : ' Image' }}</label>
                             </div>
                         </div>
-                        <div class="row mb-3">
-                            <div class="col-12" id="imageInput">
-                                <input type="file" class="image-upload dropify" id="image" name="image" accept="image/*" data-default-file="{{ asset('blog_images/' . $blog->image1) }}">
-                            </div>
-                            <div class="col-12 hidden" id="urlInput">
-                                <input type="text" class="form-control" id="imageUrl" name="y_url" placeholder="Enter YouTube URL">
-                            </div>
+                        <div class="mb-3" id="imageInput" style="{{ $blog->fimg_type ? 'display:none;' : '' }}">
+                            <label for="image" class="form-label">{{ $blogType[1] }} Image</label>
+                            <input type="file" class="form-control image-upload dropify" id="image" name="image1" accept="image/*" data-default-file="{{ asset('blog_images/' . $blog->image1) }}">
+                        </div>
+                        <div class="mb-3" id="urlInput" style="{{ $blog->fimg_type ? '' : 'display:none;' }}">
+                            <label for="y_url" class="form-label">YouTube URL</label>
+                            <input type="text" class="form-control" id="y_url" name="y_url" value="{{ $blog->y_url }}">
+                        </div>
+                    </div>
+                @else
+                    <div class="col-md-4">
+                        <div class="mb-3">
+                            <label for="image" class="form-label">{{ $blogType[1] }} Image</label>
+                            <input type="file" class="form-control image-upload dropify" id="image" name="image1" accept="image/*" data-default-file="{{ asset('blog_images/' . $blog->image1) }}">
                         </div>
                     </div>
                 @endif
-                <div class="col-md-9">
+                <div class="col-md-8">
                     <div>
                         <label for="title" class="form-label">{{ $blogType[1] }} Title</label>
                         <input type="text" class="form-control" id="title" name="title" value="{{ $blog->title }}">
                     </div>
-                    @if ($blogType[2]) <!-- Check if blogType has short description -->
-                        <div>
-                            <label for="sdesc" class="form-label">{{ $blogType[1] }} Short Description</label>
-                            <textarea class="form-control" id="sdesc" name="sdesc" rows="">{{ $blog->sdesc }}</textarea>
-                        </div>
-                    @endif
-                    @if ($blogType[3]) <!-- Check if blogType has content -->
-                        <div>
-                            <label for="content" class="form-label">Content</label>
-                            <textarea class="form-control" id="summernote" name="content" rows="">{{ $blog->content }}</textarea>
-                        </div>
-                    @endif
-                    <div class="row">
-                        @foreach ($blogType[4] as $input)
-                            @if ($input[0] == 'file')
-                                <div class="col-md-{{ $input[2] }}">
-                                    <label for="{{ $input[1] }}">{{ $input[3] }}</label>
-                                    <input type="{{ $input[0] }}" name="{{ $input[1] }}" id="{{ $input[1] }}" class="form-control dropify">
-                                </div>
-                            @endif
-                        @endforeach
-                    </div>
                 </div>
             </div>
+            @if ($blogType[2])
+                <div class="mb-3">
+                    <label for="sdesc" class="form-label">{{ $blogType[1] }} Short Description</label>
+                    <textarea class="form-control" id="sdesc" name="sdesc" rows="">{{ $blog->sdesc }}</textarea>
+                </div>
+            @endif
+            @if ($blogType[3])
+                <div class="mb-3">
+                    <label for="content" class="form-label">Content</label>
+                    <textarea class="form-control" id="summernote" name="content" rows="">{{ $blog->content }}</textarea>
+                </div>
+            @endif
+            @if (in_array($type, ['blog', 'team']))
+                <!-- Social Media Links -->
+                <div class="row mb-3">
+                    <label class="form-label">Social Media Links</label>
+                    <div class="input-group mt-1">
+                        <span class="input-group-text"><i class="fab fa-facebook"></i></span>
+                        <input type="text" class="form-control" name="facebook_url" placeholder="Facebook URL" value="{{ $blog->facebook_url }}">
+                    </div>
+                    <div class="input-group mt-2">
+                        <span class="input-group-text"><i class="fab fa-instagram"></i></span>
+                        <input type="text" class="form-control" name="instagram_url" placeholder="Instagram URL" value="{{ $blog->instagram_url }}">
+                    </div>
+                    <div class="input-group mt-2">
+                        <span class="input-group-text"><i class="fab fa-linkedin"></i></span>
+                        <input type="text" class="form-control" name="linkedin_url" placeholder="LinkedIn URL" value="{{ $blog->linkedin_url }}">
+                    </div>
+                    <div class="input-group mt-2">
+                        <span class="input-group-text"><i class="fa fa-twitter"></i></span>
+                        <input type="text" class="form-control" name="twitter_url" placeholder="Twitter URL" value="{{ $blog->twitter_url }}">
+                    </div>
+                </div>
+            @endif
             <button type="submit" class="btn btn-success float-end">Update</button>
         </form>
     </div>
@@ -90,22 +107,21 @@
 @endsection
 
 @section('js')
-<script>
-    $(document).ready(function() {
-        $('#inputTypeSwitch').change(function() {
-            if ($(this).is(':checked')) {
-                $('#imageInput').addClass('hidden');
-                $('#urlInput').removeClass('hidden');
-                $('#switchText').text(' YouTube Link');
-            } else {
-                $('#imageInput').removeClass('hidden');
-                $('#urlInput').addClass('hidden');
-                $('#switchText').text(' Image');
-            }
+@if ($type == 'blog')
+    <script>
+        $(document).ready(function() {
+            $('#inputTypeSwitch').change(function() {
+                if ($(this).is(':checked')) {
+                    $('#imageInput').addClass('hidden');
+                    $('#urlInput').removeClass('hidden');
+                    $('#switchText').text(' YouTube Link');
+                } else {
+                    $('#imageInput').removeClass('hidden');
+                    $('#urlInput').addClass('hidden');
+                    $('#switchText').text(' Image');
+                }
+            });
         });
-
-        // Initialize Dropify for image upload
-        $('.dropify').dropify();
-    });
-</script>
+    </script>
+@endif
 @endsection

@@ -42,10 +42,20 @@
 
 <div class="row">
 
+
     <div class="col-md-7">
         <form action="" method="POST" enctype="multipart/form-data">
+
             @csrf
+            <div class="col-md-12">
+
+                <label for="bgimage">Background Image(Top):</label>
+
+                <input type="file" class="form-control image-upload dropify" id="image" name="bgimage"
+                    data-default-file="{{ Storage::url($data->bgimage) }}" accept="image/*">
+            </div>
             <div class="row">
+
                 <div class="col-md-12">
                     <label for="title">Heading:</label>
                     <input class="form-control" type="text" name="heading" id="title" value="{{ $data->heading }}">

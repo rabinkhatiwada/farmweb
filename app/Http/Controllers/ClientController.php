@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Models\Blog;
 use App\Helper;
+use App\Models\Gallery;
+use App\Models\Slider;
 use App\Models\Testimonial;
 
 class ClientController extends Controller
@@ -13,12 +15,22 @@ class ClientController extends Controller
         $type = 'blog';
         $blogs = Blog::where('type', $type)->get();
         $faqs = Blog::where('type', 'faq')->get();
+        $brands = Blog::where('type', 'brand')->get();
+        $teams = Blog::where('type', 'team')->get();
+        $services = Blog::where('type', 'service')->get();
+        $objectives = Blog::where('type', 'objective')->get();
+        $features = Blog::where('type', 'feature')->get();
+
         $types = Helper::blogTypes;
         $blogType = Helper::blogTypes[$type] ?? null;
         $testimonial = Testimonial::all();
+        $sliders = Slider::all();
+        $galleryItems = Gallery::all();
 
 
-        return view('user.home', compact('blogs', 'types','testimonial', 'blogType', 'faqs'));
+
+
+        return view('user.home', compact('blogs', 'types','testimonial', 'blogType', 'faqs', 'brands', 'teams', 'services', 'objectives', 'features', 'sliders', 'galleryItems'));
     }
 
     public function about()
@@ -26,10 +38,12 @@ class ClientController extends Controller
         $type = 'blog';
         $blogs = Blog::where('type', $type)->get();
         $faqs = Blog::where('type', 'faq')->get();
+        $brands = Blog::where('type', 'brand')->get();
+        $teams = Blog::where('type', 'team')->get();
         $types = Helper::blogTypes;
         $blogType = Helper::blogTypes[$type] ?? null;
 
-        return view('user.about', compact('blogs', 'types', 'blogType', 'faqs'));
+        return view('user.about', compact('blogs', 'types', 'blogType', 'faqs', 'brands', 'teams'));
     }
 
     public function services()
@@ -37,10 +51,12 @@ class ClientController extends Controller
         $type = 'blog';
         $blogs = Blog::where('type', $type)->get();
         $faqs = Blog::where('type', 'faq')->get();
+        $services = Blog::where('type', 'service')->get();
+
         $types = Helper::blogTypes;
         $blogType = Helper::blogTypes[$type] ?? null;
 
-        return view('user.service', compact('blogs', 'types', 'blogType', 'faqs'));
+        return view('user.service', compact('blogs', 'types', 'blogType', 'faqs', 'services'));
     }
 
     public function blogs()
@@ -60,7 +76,7 @@ class ClientController extends Controller
         $types = Helper::blogTypes;
         $blogType = Helper::blogTypes[$type] ?? null;
 
-        return view('user.blog.show', compact('blog', 'blogs', 'types', 'blogType'));
+        return view('user.blogdetail', compact('blog', 'blogs', 'types', 'blogType'));
     }
 
     public function contact()

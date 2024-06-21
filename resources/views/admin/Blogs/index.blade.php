@@ -15,28 +15,22 @@
                 <table class="table" id="myTable">
                     <thead>
                         <tr>
-                            @if ($types[$type][3])
-                                <th style="width: 20%;">{{$types[$type][1]}} Image</th>
-                            @endif
+                            <th style="width: 20%;">{{$types[$type][1]}} Image</th>
                             <th style="width: 65%;">{{$types[$type][1]}} Title</th>
-                            
                             <th style="width: 15%;">Actions</th>
                         </tr>
                     </thead>
                     <tbody>
                         @foreach ($blogs as $blog)
                             <tr>
-                                @if ($types[$type][3])
-                                    <td style="width: 20%;">
-                                        @if ($blog->image1)
-                                            <img src="{{ asset('blog_images/' . $blog->image1) }}" alt="{{ $blog->title }}" style="width: 100px; height: 75px; object-fit: cover;">
-                                        @else
-                                            No Image
-                                        @endif
-                                    </td>
-                                @endif
+                                <td style="width: 20%;">
+                                    @if ($blog->image1)
+                                        <img src="{{ asset('blog_images/' . $blog->image1) }}" alt="{{ $blog->title }}" style="width: 100px; height: 75px; object-fit: cover;">
+                                    @else
+                                        No Image
+                                    @endif
+                                </td>
                                 <td style="width: 65%;"><strong>{{ $blog->title }}</strong></td>
-
                                 <td style="width: 15%;">
                                     <a href="{{ route('admin.blogs.edit', ['blog' => $blog->id, 'type' => $type]) }}" class="btn btn-sm btn-primary">Edit</a>
                                     <form action="{{ route('admin.blogs.delete', ['blog' => $blog->id, 'type' => $type]) }}" method="POST" class="d-inline">
@@ -55,9 +49,9 @@
 @endsection
 
 @section('js')
-
+<!-- Include any additional JavaScript if needed -->
 @endsection
 
 @section('css')
-
+<!-- Include any additional CSS if needed -->
 @endsection

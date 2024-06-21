@@ -1,5 +1,5 @@
 @extends('admin.index')
-@section('title', 'Add Blog')
+@section('title', 'Add ' . $blogType[1])
 
 @section('jumbo')
     <li class="breadcrumb-item active" aria-current="page">
@@ -34,56 +34,64 @@
         <form action="{{ route('admin.blogs.store', ['type' => $type]) }}" method="POST" enctype="multipart/form-data">
             @csrf
             <div class="row mb-3">
-                    @if ($blogType[5])
-                        <div class="col-md-3 mt-1">
-                            <div class="row mb-3 align-items-center">
-                                <div class="col-9">
-                                    <h6>Choose Feature Image Type:</h6>
-                                </div>
-                                <div class="col-3 text-right">
-                                    <input type="checkbox" id="inputTypeSwitch">
-                                    <label for="inputTypeSwitch" id="switchText" name="fimg_type"> Image</label>
-                                </div>
-                            </div>
-                            <div class="row mb-3">
-                                <div class="col-12" id="imageInput">
-                                    <input type="file" class="image-upload dropify" id="image" name="image1" accept="image/*">
-                                </div>
-                                <div class="col-12 hidden" id="urlInput">
-                                    <input type="text" class="form-control" id="imageUrl" name="y_url" placeholder="Enter YouTube URL">
-                                </div>
-                            </div>
-                        </div>
-                    @endif
-                    <div class="col-md-9">
-                        <div>
-                            <label for="title" class="form-label">{{ $blogType[1] }} Title</label>
-                            <input type="text" class="form-control" id="title" name="title" value="{{ old('title') }}">
-                        </div>
-                        @if ($blogType[2])
-                            <div>
-                                <label for="sdesc" class="form-label">{{ $blogType[1] }} Short Description</label>
-                                <textarea class="form-control" id="sdesc" name="sdesc" rows="">{{ old('sdesc') }}</textarea>
-                            </div>
-                        @endif
-                        @if ($blogType[3])
-                            <div>
-                                <label for="content" class="form-label">Content</label>
-                                <textarea class="form-control" id="summernote" name="content" rows="">{{ old('content') }}</textarea>
-                            </div>
-                        @endif
-                        <div class="row">
-                            @foreach ($blogType[4] as $input)
-                                @if ($input[0] == 'file')
-                                    <div class="col-md-{{ $input[2] }}">
-                                        <label for="{{ $input[1] }}">{{ $input[3] }}</label>
-                                        <input type="{{ $input[0] }}" name="{{ $input[1] }}" id="{{ $input[1] }}" class="form-control dropify">
-                                    </div>
-                                @endif
-                            @endforeach
+                <div class="col-md-4">
+                    <div class="mb-3">
+                        <label for="inputTypeSwitch" class="form-label">Choose Feature Image Type:</label>
+                        <div class="form-check form-switch">
+                            <input class="form-check-input" type="checkbox" id="inputTypeSwitch" name="fimg_type">
+                            <label class="form-check-label" for="inputTypeSwitch" id="switchText"> Image</label>
                         </div>
                     </div>
+                    <div class="mb-3" id="imageInput">
+                        <label for="image" class="form-label">{{ $blogType[1] }} Image</label>
+                        <input type="file" class="form-control image-upload dropify" id="image" name="image1" accept="image/*">
+                    </div>
+                    <div class="mb-3 hidden" id="urlInput">
+                        <label for="y_url" class="form-label">YouTube URL</label>
+                        <input type="text" class="form-control" id="y_url" name="y_url" placeholder="Enter YouTube URL">
+                    </div>
+                </div>
+                <div class="col-md-8">
+                    <div>
+                        <label for="title" class="form-label">{{ $blogType[1] }} Title</label>
+                        <input type="text" class="form-control" id="title" name="title" value="{{ old('title') }}">
+                    </div>
+                </div>
             </div>
+            @if ($blogType[2])
+                <div class="mb-3">
+                    <label for="sdesc" class="form-label">{{ $blogType[1] }} Short Description</label>
+                    <textarea class="form-control" id="sdesc" name="sdesc" rows="">{{ old('sdesc') }}</textarea>
+                </div>
+            @endif
+            @if ($blogType[3])
+                <div class="mb-3">
+                    <label for="content" class="form-label">Content</label>
+                    <textarea class="form-control" id="summernote" name="content" rows="">{{ old('content') }}</textarea>
+                </div>
+            @endif
+            @if (in_array($type, ['blog', 'team']))
+                <!-- Social Media Links -->
+                <div class="row mb-3">
+                    <label class="form-label">Social Media Links</label>
+                    <div class="input-group mt-1">
+                        <span class="input-group-text"><i class="fab fa-facebook"></i></span>
+                        <input type="text" class="form-control" name="facebook_url" placeholder="Facebook URL">
+                    </div>
+                    <div class="input-group mt-2">
+                        <span class="input-group-text"><i class="fab fa-instagram"></i></span>
+                        <input type="text" class="form-control" name="instagram_url" placeholder="Instagram URL">
+                    </div>
+                    <div class="input-group mt-2">
+                        <span class="input-group-text"><i class="fab fa-linkedin"></i></span>
+                        <input type="text" class="form-control" name="linkedin_url" placeholder="LinkedIn URL">
+                    </div>
+                    <div class="input-group mt-2">
+                        <span class="input-group-text"><i class="fa fa-twitter"></i></span>
+                        <input type="text" class="form-control" name="twitter_url" placeholder="Twitter URL">
+                    </div>
+                </div>
+            @endif
             <button type="submit" class="btn btn-success float-end">Submit</button>
         </form>
     </div>
