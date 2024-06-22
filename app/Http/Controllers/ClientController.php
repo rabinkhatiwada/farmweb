@@ -91,5 +91,17 @@ class ClientController extends Controller
         return view('user.contact', compact('blogs', 'types', 'blogType'));
     }
 
+    public function breeding()
+    {
+        $type = 'blog';
+        $blogs = Blog::where('type', $type)->get();
+        $types = Helper::blogTypes;
+        $blogType = Helper::blogTypes[$type] ?? null;
+        $breeding = Blog::where('type', 'breeding')->get();
+
+
+        return view('user.breeding', compact('blogs', 'types', 'blogType', 'breeding'));
+    }
+
 
 }

@@ -1,12 +1,12 @@
 @extends('user.components.app')
 @section('title', 'Home')
+
 @section('content')
     <main>
         @php
             $data = App\Helper::getHomePageSetting();
             $adata = App\Helper::getAboutPageSettings();
             $sdata = App\Helper::getServicePageSetting();
-
 
             function getYouTubeThumbnail($url)
             {
@@ -35,48 +35,76 @@
 
         <!-- slider-area -->
         <section id="parallax" class="slider-area slider-two fix p-relative">
-            <div class="slider-shape ss-four layer" data-depth="0.40"><img src="img/bg/slider_shape04.png" alt="shape"></div>
+            <div class="slider-shape ss-four layer" data-depth="0.40">
+                <img src="img/bg/slider_shape04.png" alt="shape">
+            </div>
             <div class="slider-active">
                 @foreach ($sliders as $slider)
-                    <div class="single-slider slider-bg slider-bg2 d-flex align-items-center"
-                        style="background: url({{ asset('slider_images/' . $slider->image) }}) no-repeat; background-size: cover; /* Ensure the image covers the whole container */
-    background-position: center;
-">
+                    @php
+                        $backgroundStyle = '';
+                        $content = '';
+
+                        if ($slider->youtubeurl) {
+                            // Extract video ID from YouTube watch URL
+                            $videoId = '';
+                            parse_str(parse_url($slider->youtubeurl, PHP_URL_QUERY), $params);
+                            if (isset($params['v'])) {
+                                $videoId = $params['v'];
+                            }
+                            $content =
+                                '<div class="video-background">
+                                    <div class="video-foreground">
+                                        <iframe src="https://www.youtube.com/embed/' . $videoId . '?autoplay=1&mute=1&loop=1&playlist=' . $videoId . '" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
+                                    </div>
+                                </div>';
+                        } elseif ($slider->image) {
+                            $backgroundStyle =
+                                "background: url('" .
+                                asset('slider_images/' . $slider->image) .
+                                "') no-repeat; background-size: cover; background-position: center;";
+                        }
+                    @endphp
+
+                    <div class="single-slider slider-bg slider-bg2 d-flex align-items-center" style="{{ $backgroundStyle }}">
                         <div class="container">
                             <div class="row justify-content-center align-items-center">
                                 <div class="col-lg-7 col-md-8">
                                     <div class="slider-content s-slider-content pt-100">
                                         <h5 data-animation="fadeInUp" data-delay=".4s">{{ $slider->subtitle }}</h5>
-                                        <h2 data-animation="fadeInUp" data-delay=".4s">{{ $slider->title }} <span>
-                                            </span></h2>
+                                        <h2 data-animation="fadeInUp" data-delay=".4s">{{ $slider->title }}</h2>
 
                                         <div class="slider-btn mb-200">
                                             <a href="{{ $slider->button_link }}" class="btn mr-15" data-animation="fadeInUp"
-                                                data-delay=".4s">{{ $slider->button_text }} <i
-                                                    class="fal fa-long-arrow-right"></i></a>
+                                                data-delay=".4s">
+                                                {{ $slider->button_text }} <i class="fal fa-long-arrow-right"></i>
+                                            </a>
                                         </div>
-
                                     </div>
                                 </div>
                                 <div class="col-lg-5 col-md-4">
-
+                                    @if ($slider->youtubeurl)
+                                        <div class="video-container">
+                                            {!! $content !!}
+                                        </div>
+                                    @endif
                                 </div>
                             </div>
                         </div>
                     </div>
                 @endforeach
-
-
             </div>
-
-
         </section>
+
+
         <!-- slider-area-end -->
         <!-- service-area -->
         <section class="service-details-three p-relative fix">
             <div class="container">
                 <div class="row sbox">
                     @foreach ($features as $feature)
+
+
+
                         <div class="col-lg-3 col-md-6 col-sm-12">
                             <div class="services-box mb-30 text-center wow fadeInUp animated" data-animation="fadeInUp"
                                 data-delay=".4s">
@@ -145,37 +173,42 @@
                 <div class="row align-items-center">
                     <div class="col-lg-6 col-md-12">
                         <div class="section-title center-align mb-20">
-                            <h5>{{$sdata->heading1}}</h5>
-                            <h2>
-                                {{$sdata->heading2}}
-                            </h2>
+                            <h5>Quick Links</h5>
+
                         </div>
                     </div>
                     <div class="col-lg-6 col-md-6 text-right  d-none d-lg-block">
-                        <a href="{{ url('/services') }}" class="btn ss-btn wow fadeInDown animated" data-animation="fadeInDown"
-                            data-delay=".4s">View All Services</a>
+
                     </div>
                     <div class="col-lg-12">
-                        <div class="services-active">
-                            @foreach ($services as $service)
-                                <div class="services-box-05 wow fadeInUp  animated" data-animation="fadeInUp"
-                                    data-delay=".4s">
-                                    <div class="services-icon-05">
-                                        <a href="#"><img src="{{ asset('blog_images/' . $service->image1) }}"
-                                                alt="icon01"></a>
-                                    </div>
-                                    <div class="services-content-05">
-                                        <div class="icon">
-                                            <h4> <a href="single-service.html">{{ $service->title }}</a></h4>
+                        <div class="services">
+                            <div class="row">
+                                @php
+                                    $filteredTypes = array_intersect_key($types, array_flip(['breeding', 'feeding', 'management', 'market']));
+                                @endphp
+
+                                @foreach ($filteredTypes as $typeKey => $type)
+                                    <div class="col-lg-3 col-md-6">
+                                        <div class="services-box-05 wow fadeInUp animated" data-animation="fadeInUp" data-delay=".4s">
+                                            <a href="#" class="quick-link-item">
+                                                <div class="image-container" style="background: url('{{ asset('blog_images/' . $typeKey . '.jpg') }}') no-repeat center center;">
+                                                    <div class="overlay"></div>
+                                                    <div class="text-overlay">
+                                                        <h4>{{ $type[1] }}</h4>
+                                                    </div>
+                                                </div>
+                                            </a>
                                         </div>
-                                        <p>{{ $service->sdesc }}</p>
                                     </div>
-                                </div>
-                            @endforeach
-
-
+                                @endforeach
+                            </div>
                         </div>
                     </div>
+
+
+
+
+
                 </div>
             </div>
         </section>
@@ -289,9 +322,9 @@
                         <div class="col-lg-12">
                             <div class="section-title text-center wow fadeInLeft  animated" data-animation="fadeInLeft"
                                 data-delay=".4s">
-                                <h5>{{$data->galleryheading1}}</h5>
+                                <h5>{{ $data->galleryheading1 }}</h5>
                                 <h2>
-                                    {{$data->galleryheading2}}
+                                    {{ $data->galleryheading2 }}
                                 </h2>
 
                             </div>
@@ -300,9 +333,10 @@
                     </div>
 
                     <div class="row mb-3">
-                        @foreach ($galleryItems as $item)
+                        @foreach ($galleryItems->take(-3)->reverse() as $item)
                             <div class="col-md-4 mt-1">
-                                <div style="position: relative; height: 0; padding-bottom: 56.25%; overflow: hidden;" class="embed-responsive embed-responsive-16by9">
+                                <div style="position: relative; height: 0; padding-bottom: 56.25%; overflow: hidden;"
+                                    class="embed-responsive embed-responsive-16by9">
                                     @if ($item->youtube_url)
                                         @php
                                             // Extract video ID from YouTube watch URL
@@ -312,15 +346,26 @@
                                                 $videoId = $params['v'];
                                             }
                                         @endphp
-                                        <iframe style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; border: none;" src="https://www.youtube.com/embed/{{ $videoId }}" allowfullscreen></iframe>
+                                        <iframe
+                                            style="width: 100%; height: 100%; border: none;"
+                                            src="https://www.youtube.com/embed/{{ $videoId }}"
+                                            allowfullscreen></iframe>
                                     @elseif ($item->image)
-                                        <img style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; object-fit: cover;" src="{{ Storage::url($item->image) }}" alt="{{ $item->title }}" class="card-img-top">
+                                        <a href="#"><img
+                                                style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; object-fit: cover;"
+                                                src="{{ Storage::url($item->image) }}" alt="{{ $item->title }}"
+                                                class="card-img-top"></a>
                                     @endif
-
                                 </div>
                             </div>
                         @endforeach
+                        <div class="blog__btn" style="text-align: center; margin-top:20px;">
+                            <a href="" class="btn" style="display: inline-block;">View All <i
+                                    class="fal fa-long-arrow-right"></i></a>
+                        </div>
+
                     </div>
+
 
 
 
@@ -512,4 +557,102 @@
         <!-- brand-area-end -->
 
     </main>
+@endsection
+
+@section('css')
+<style>
+.services-box-05 {
+    margin-bottom: 30px;
+    position: relative;
+    overflow: hidden;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+
+
+}
+
+.quick-link-item {
+    display: block;
+    text-decoration: none;
+    position: relative;
+    color: #fff;
+}
+
+.image-container {
+    position: relative;
+    width: 100%;
+    height: 100px;
+    background-size: cover;
+    transition: transform 0.3s ease;
+}
+
+.overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: #FDCC0D;
+    transition: background-color 0.3s ease;
+}
+
+.image-container:hover .overlay {
+    background-color: #006E2F;
+}
+
+.text-overlay {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    text-align: center;
+    transition: color 0.3s ease;
+}
+
+.image-container:hover .text-overlay h4 {
+    color: #fff; /* Change this to the desired color when hovered */
+}
+
+.text-overlay h4 {
+    margin: 0;
+    font-size: 1.5em;
+    color: #000000; /* Original text color */
+}
+.video-container {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+}
+
+.video-background {
+    width: 100%;
+    height: 100%;
+}
+
+.video-foreground {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+}
+
+.video-foreground iframe {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+        pointer-events: none;
+ /* Ensures the video fills the iframe container */
+}
+
+
+
+
+
+
+
+</style>
 @endsection

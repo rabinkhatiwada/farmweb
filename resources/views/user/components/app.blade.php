@@ -4,7 +4,6 @@
 <head>
     @php
         $data = App\Helper::getHomePageSetting();
-
     @endphp
     <meta charset="utf-8">
     <meta http-equiv="x-ua-compatible" content="ie=edge">
@@ -15,6 +14,8 @@
     <!-- Place favicon.ico in the root directory -->
 
     <!-- CSS here -->
+    @yield('css')
+
 
     <link rel="stylesheet" href="{{ asset('css/bootstrap.min.css') }}">
     <link rel="stylesheet" href="{{ asset('css/animate.min.css') }}">
@@ -27,7 +28,11 @@
     <link rel="stylesheet" href="{{ asset('css/style.css') }}">
     <link rel="stylesheet" href="{{ asset('css/responsive.css') }}">
     <link rel="stylesheet" type="text/css" href="{{ asset('css/admin/index.css') }}">
-
+    <style>
+        *{
+            /* border: blue 1px solid; */
+        }
+    </style>
 </head>
 
 <body>
@@ -59,6 +64,7 @@
     <script src="{{ asset('js/jquery.magnific-popup.min.js') }}"></script>
     <script src="{{ asset('js/element-in-view.js') }}"></script>
     <script src="{{ asset('js/main.js') }}"></script>
+
 </body>
 
 </html>

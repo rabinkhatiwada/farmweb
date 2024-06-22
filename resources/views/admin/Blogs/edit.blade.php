@@ -33,7 +33,7 @@
             @csrf
             @method('PUT')
             <div class="row mb-3">
-                @if ($type == 'blog')
+                @if (in_array($type, ['blog', 'breeding', 'feeding', 'management', 'market', 'service']))
                     <div class="col-md-4">
                         <div class="mb-3">
                             <label for="inputTypeSwitch" class="form-label">Choose Feature Image Type:</label>
@@ -42,16 +42,16 @@
                                 <label class="form-check-label" for="inputTypeSwitch" id="switchText">{{ $blog->fimg_type ? ' YouTube Link' : ' Image' }}</label>
                             </div>
                         </div>
-                        <div class="mb-3" id="imageInput" style="{{ $blog->fimg_type ? 'display:none;' : '' }}">
+                        <div class="mb-3 {{ $blog->fimg_type ? 'd-none' : '' }}" id="imageInput">
                             <label for="image" class="form-label">{{ $blogType[1] }} Image</label>
                             <input type="file" class="form-control image-upload dropify" id="image" name="image1" accept="image/*" data-default-file="{{ asset('blog_images/' . $blog->image1) }}">
                         </div>
-                        <div class="mb-3" id="urlInput" style="{{ $blog->fimg_type ? '' : 'display:none;' }}">
+                        <div class="mb-3 {{ $blog->fimg_type ? '' : 'd-none' }}" id="urlInput">
                             <label for="y_url" class="form-label">YouTube URL</label>
                             <input type="text" class="form-control" id="y_url" name="y_url" value="{{ $blog->y_url }}">
                         </div>
                     </div>
-                @else
+                @elseif (in_array($type, ['objective', 'feature', 'team', 'brand']))
                     <div class="col-md-4">
                         <div class="mb-3">
                             <label for="image" class="form-label">{{ $blogType[1] }} Image</label>
@@ -66,13 +66,13 @@
                     </div>
                 </div>
             </div>
-            @if ($blogType[2])
+            @if (in_array($type, ['blog', 'faq', 'objective', 'service', 'team']))
                 <div class="mb-3">
                     <label for="sdesc" class="form-label">{{ $blogType[1] }} Short Description</label>
                     <textarea class="form-control" id="sdesc" name="sdesc" rows="">{{ $blog->sdesc }}</textarea>
                 </div>
             @endif
-            @if ($blogType[3])
+            @if (in_array($type, ['blog', 'breeding', 'feeding', 'management', 'market', 'service']))
                 <div class="mb-3">
                     <label for="content" class="form-label">Content</label>
                     <textarea class="form-control" id="summernote" name="content" rows="">{{ $blog->content }}</textarea>
@@ -107,17 +107,17 @@
 @endsection
 
 @section('js')
-@if ($type == 'blog')
+@if (in_array($type, ['blog', 'breeding', 'feeding', 'management', 'market', 'service']))
     <script>
         $(document).ready(function() {
             $('#inputTypeSwitch').change(function() {
                 if ($(this).is(':checked')) {
-                    $('#imageInput').addClass('hidden');
-                    $('#urlInput').removeClass('hidden');
+                    $('#imageInput').addClass('d-none');
+                    $('#urlInput').removeClass('d-none');
                     $('#switchText').text(' YouTube Link');
                 } else {
-                    $('#imageInput').removeClass('hidden');
-                    $('#urlInput').addClass('hidden');
+                    $('#imageInput').removeClass('d-none');
+                    $('#urlInput').addClass('d-none');
                     $('#switchText').text(' Image');
                 }
             });

@@ -36,13 +36,21 @@ class Helper{
         ], true
     ],
     'management' => [
-        'Managements', 'Management', false, true, [],
+        'Management Page', 'Management', false, true, [],
         true
-    ]
-
-
-
-
+    ],
+    'breeding' => [
+        'Breeding Page', 'Breeding', false, true, [],
+        true
+    ],
+    'feeding' => [
+        'Feeding Page', 'Feeding', false, true, [],
+        true
+    ],
+    'market' => [
+        'Market Page', 'Market', false, true, [],
+        true
+    ],
 
 
     ];
@@ -164,6 +172,18 @@ class Helper{
         ];
 
     }
+    public static function getOtherPageSetting(){
+        return (object)[
+            'b_image' => self::getSetting('other_b_image') ?? '',
+            'f_image' => self::getSetting('other_f_image') ?? '',
+            'mgmt_image' => self::getSetting('other_mgmt_image') ?? '',
+            'm_image' => self::getSetting('other_m_image') ?? '',
+
+
+        ];
+
+    }
+
 
     public static function getBlogPageSetting(){
         return (object)[

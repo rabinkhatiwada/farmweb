@@ -43,6 +43,32 @@
                     Objectives
                 </a>
             </li>
+            <li class="sidebar-item">
+                <a href="{{ route('admin.blogs.index', ['type' => 'breeding'   ]) }}" class="sidebar-link">
+                    <i class="fa fa-list" aria-hidden="true"></i>
+                    Breeding Details-Page
+                </a>
+            </li>
+
+
+            <li class="sidebar-item">
+                <a href="{{ route('admin.blogs.index', ['type' => 'feeding'   ]) }}" class="sidebar-link">
+                    <i class="fa fa-list" aria-hidden="true"></i>
+                    Feeding Details-Page
+                </a>
+            </li>
+            <li class="sidebar-item">
+                <a href="{{ route('admin.blogs.index', ['type' => 'management'   ]) }}" class="sidebar-link">
+                    <i class="fa fa-list" aria-hidden="true"></i>
+                    Mangement Details-Page
+                </a>
+            </li>
+            <li class="sidebar-item">
+                <a href="{{ route('admin.blogs.index', ['type' => 'market'   ]) }}" class="sidebar-link">
+                    <i class="fa fa-list" aria-hidden="true"></i>
+                    Market Information-Page
+                </a>
+            </li>
 
             <li class="sidebar-item">
                 <a href="#" class="sidebar-link collapsed" data-bs-target="#pages" data-bs-toggle="collapse"
@@ -68,6 +94,9 @@
                     </li>
                     <li class="sidebar-item">
                         <a href="{{ route('admin.setting.blog') }}" class="sidebar-link mx-2"><i class="fa fa-wrench" aria-hidden="true"></i> Blog Page</a>
+                    </li>
+                    <li class="sidebar-item">
+                        <a href="{{ route('admin.setting.page') }}" class="sidebar-link mx-2"><i class="fa fa-wrench" aria-hidden="true"></i> Other Pages</a>
                     </li>
 
                     <li class="sidebar-item">

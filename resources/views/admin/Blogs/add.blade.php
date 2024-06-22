@@ -34,23 +34,32 @@
         <form action="{{ route('admin.blogs.store', ['type' => $type]) }}" method="POST" enctype="multipart/form-data">
             @csrf
             <div class="row mb-3">
-                <div class="col-md-4">
-                    <div class="mb-3">
-                        <label for="inputTypeSwitch" class="form-label">Choose Feature Image Type:</label>
-                        <div class="form-check form-switch">
-                            <input class="form-check-input" type="checkbox" id="inputTypeSwitch" name="fimg_type">
-                            <label class="form-check-label" for="inputTypeSwitch" id="switchText"> Image</label>
+                @if (in_array($type, ['blog', 'breeding', 'feeding', 'management', 'market', 'service']))
+                    <div class="col-md-4">
+                        <div class="mb-3">
+                            <label for="inputTypeSwitch" class="form-label">Choose Feature Image Type:</label>
+                            <div class="form-check form-switch">
+                                <input class="form-check-input" type="checkbox" id="inputTypeSwitch" name="fimg_type">
+                                <label class="form-check-label" for="inputTypeSwitch" id="switchText"> Image</label>
+                            </div>
+                        </div>
+                        <div class="mb-3" id="imageInput">
+                            <label for="image" class="form-label">{{ $blogType[1] }} Image</label>
+                            <input type="file" class="form-control image-upload dropify" id="image" name="image1" accept="image/*">
+                        </div>
+                        <div class="mb-3 hidden" id="urlInput">
+                            <label for="y_url" class="form-label">YouTube URL</label>
+                            <input type="text" class="form-control" id="y_url" name="y_url" placeholder="Enter YouTube URL">
                         </div>
                     </div>
-                    <div class="mb-3" id="imageInput">
-                        <label for="image" class="form-label">{{ $blogType[1] }} Image</label>
-                        <input type="file" class="form-control image-upload dropify" id="image" name="image1" accept="image/*">
+                @elseif (in_array($type, ['objective', 'feature', 'team', 'brand']))
+                    <div class="col-md-4">
+                        <div class="mb-3">
+                            <label for="image" class="form-label">{{ $blogType[1] }} Image</label>
+                            <input type="file" class="form-control image-upload dropify" id="image" name="image1" accept="image/*">
+                        </div>
                     </div>
-                    <div class="mb-3 hidden" id="urlInput">
-                        <label for="y_url" class="form-label">YouTube URL</label>
-                        <input type="text" class="form-control" id="y_url" name="y_url" placeholder="Enter YouTube URL">
-                    </div>
-                </div>
+                @endif
                 <div class="col-md-8">
                     <div>
                         <label for="title" class="form-label">{{ $blogType[1] }} Title</label>
@@ -58,13 +67,13 @@
                     </div>
                 </div>
             </div>
-            @if ($blogType[2])
+            @if (in_array($type, ['blog', 'faq', 'objective', 'service', 'team']))
                 <div class="mb-3">
                     <label for="sdesc" class="form-label">{{ $blogType[1] }} Short Description</label>
                     <textarea class="form-control" id="sdesc" name="sdesc" rows="">{{ old('sdesc') }}</textarea>
                 </div>
             @endif
-            @if ($blogType[3])
+            @if (in_array($type, ['blog', 'breeding', 'feeding', 'management', 'market', 'service']))
                 <div class="mb-3">
                     <label for="content" class="form-label">Content</label>
                     <textarea class="form-control" id="summernote" name="content" rows="">{{ old('content') }}</textarea>

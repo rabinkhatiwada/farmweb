@@ -25,6 +25,8 @@ Route::get('/blogs', [ClientController::class, 'blogs'])->name('blogs');
 
 
 Route::get('/contact', [ClientController::class, 'contact'])->name('contact');
+Route::get('/breeding', [ClientController::class, 'breeding'])->name('breeding');
+
 
 Route::get('/blogs/{blog}', [BlogController::class, 'show'])->name('blog.show');
 
@@ -82,6 +84,8 @@ Route::prefix('admin')->name('admin.')->middleware('auth')->group(function () {
         Route::match(['GET', 'POST'],'/about', [SettingController::class, 'aboutPage'])->name('about');
         Route::match(['GET', 'POST'],'/service', [SettingController::class, 'servicePage'])->name('service');
         Route::match(['GET', 'POST'],'/blog', [SettingController::class, 'blogPage'])->name('blog');
+        Route::match(['GET', 'POST'],'/other-pages', [SettingController::class, 'otherPage'])->name('page');
+
 
 
 

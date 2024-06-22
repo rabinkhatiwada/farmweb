@@ -169,6 +169,34 @@ public function blogPage(Request $request)
         }
     }
 
+    public function otherPage(Request $request)
+{
+    if ($request->isMethod('GET')) {
+        $data = Helper::getOtherPageSetting();
+        return view('admin.setting.page', compact('data'));
+    } else {
+        if ($request->hasFile('b_image')) {
+            $imagePath = $request->file('b_image')->storeAs('public/images', $request->file('b_image')->getClientOriginalName());
+            Helper::setSetting('other_b_image', $imagePath);
+        }
+        if ($request->hasFile('f_image')) {
+            $imagePath = $request->file('f_image')->storeAs('public/images', $request->file('f_image')->getClientOriginalName());
+            Helper::setSetting('other_f_image', $imagePath);
+        }
+        if ($request->hasFile('mgmt_image')) {
+            $imagePath = $request->file('mgmt_image')->storeAs('public/images', $request->file('mgmt_image')->getClientOriginalName());
+            Helper::setSetting('other_mgmt_image', $imagePath);
+        }
+        if ($request->hasFile('m_image')) {
+            $imagePath = $request->file('m_image')->storeAs('public/images', $request->file('m_image')->getClientOriginalName());
+            Helper::setSetting('other_m_image', $imagePath);
+        }
+
+
+        return redirect()->back()->with('success', 'Page settings updated successfully.');
+    }
+}
+
 
 
     public function footerPage(Request $request)

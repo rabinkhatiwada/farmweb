@@ -91,22 +91,17 @@
                         <div class="col-xl-3 col-md-6">
                             <div class="single-team mb-40">
                                 <div class="team-thumb">
-                                    <div class="brd">
+                                    <div class="brd" style="width: 100%; height: 300px; overflow: hidden;">
                                         <a href="#">
-                                            <img src="{{ asset('blog_images/' . $team->image1) }}" alt="{{ $team->title }}" style="width: 100%; max-width: 100%; max-height: 200px; object-fit: cover;">
+                                            <img src="{{ asset('blog_images/' . $team->image1) }}" alt="{{ $team->title }}" style="width: 100%; height: 100%; object-fit: cover;">
                                         </a>
                                     </div>
+
                                 </div>
                                 <div class="team-info">
                                     <h4><a href="#">{{ $team->title }}</a></h4>
                                     <p>{{ $team->sdesc }}</p>
-                                    <div class="team-social">
-                                        <ul>
-                                            <li><a href="{{ $team->facebook_url }}"><i class="fab fa-facebook-f"></i></a></li>
-                                            <li><a href="{{ $team->instagram_url }}"><i class="fab fa-instagram"></i></a></li>
-                                            <li><a href="{{ $team->twitter_url }}"><i class="fab fa-twitter"></i></a></li>
-                                        </ul>
-                                    </div>
+
                                 </div>
                             </div>
                         </div>

@@ -45,15 +45,22 @@
                 </div>
             </div>
             <div class="row mb-3">
-                <div class="col-md-4">
-                    <div class="form-group">
-                        <label for="image">Image:</label>
-                        <input type="file" name="image" id="image" class="form-control-file dropify" accept="image/*" data-default-file="{{ asset('slider_images/' . $slider->image) }}">
-                        
+                <div class="col-md-6">
+                    <div class="form-check form-switch">
+                        <input class="form-check-input" type="checkbox" id="inputTypeSwitch" name="fimg_type" {{ $slider->youtubeurl ? 'checked' : '' }}>
+                        <label class="form-check-label" for="inputTypeSwitch" id="switchText"> {{ $slider->youtubeurl ? 'YouTube Link' : 'Image' }}</label>
+                    </div>
+                    <div class="mb-3 {{ $slider->youtubeurl ? 'hidden' : '' }}" id="imageInput">
+                        <label for="image" class="form-label">Slider Image</label>
+                        <input type="file" class="form-control image-upload dropify" id="image" name="image" accept="image/*" data-default-file="{{ asset('slider_images/' . $slider->image) }}">
+                    </div>
+                    <div class="mb-3 {{ $slider->youtubeurl ? '' : 'hidden' }}" id="urlInput">
+                        <label for="youtube_url" class="form-label">YouTube URL</label>
+                        <input type="text" class="form-control" id="youtube_url" name="youtubeurl" placeholder="Enter YouTube URL" value="{{ $slider->youtubeurl }}">
                     </div>
                 </div>
 
-                <div class="col-md-8">
+                <div class="col-md-6">
                     <div class="form-group">
                         <label for="button_text">Button Text:</label>
                         <input type="text" name="button_text" id="button_text" class="form-control" value="{{ $slider->button_text }}">
@@ -68,4 +75,29 @@
             <button type="submit" class="btn btn-success float-end mt-2">Update</button>
         </form>
     </div>
+@endsection
+
+@section('js')
+<script>
+    $(document).ready(function() {
+        // Initialize Dropify
+        $('.dropify').dropify();
+
+        // Handle the switch change event
+        $('#inputTypeSwitch').change(function() {
+            if ($(this).is(':checked')) {
+                $('#imageInput').addClass('hidden');
+                $('#urlInput').removeClass('hidden');
+                $('#switchText').text(' YouTube Link');
+            } else {
+                $('#imageInput').removeClass('hidden');
+                $('#urlInput').addClass('hidden');
+                $('#switchText').text(' Image');
+            }
+        });
+
+        // Trigger change event on page load to set the initial state
+        $('#inputTypeSwitch').trigger('change');
+    });
+</script>
 @endsection
