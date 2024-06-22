@@ -45,7 +45,7 @@
                         @php
                             $counter = 0;
                         @endphp
-                        @foreach ($blogs as $blog)
+                        @foreach ($blogs->reverse() as $blog)
                             @if ($counter < 5)
                                 <div class="bsingle__post mb-50">
                                     <div style="height: 600px; overflow:hidden;" class="bsingle__post-thumb">
@@ -142,7 +142,7 @@
                             </ul>
 
                         </section>
-                      
+
                     </aside>
                 </div>
             </div>

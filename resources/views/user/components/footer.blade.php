@@ -14,7 +14,7 @@
                 <div class="col-xl-4 col-lg-4 col-sm-6">
                     <div class="footer-widget mb-30">
                         <div class="f-widget-title mb-30">
-                            <a href="index.html"><img src="{{ Storage::url($data->logo) }}" alt="img"></a>
+                            <a href="{{ route('home')}}"><img src="{{ Storage::url($data->logo) }}" alt="img"></a>
                         </div>
                         <div class="f-contact">
                             <p>{!! $data->description !!}</p>

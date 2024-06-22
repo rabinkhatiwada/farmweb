@@ -2,6 +2,8 @@
 @section('title', 'Home')
 
 @section('content')
+
+
     <main>
         @php
             $data = App\Helper::getHomePageSetting();
@@ -54,7 +56,11 @@
                             $content =
                                 '<div class="video-background">
                                     <div class="video-foreground">
-                                        <iframe src="https://www.youtube.com/embed/' . $videoId . '?autoplay=1&mute=1&loop=1&playlist=' . $videoId . '" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
+                                        <iframe src="https://www.youtube.com/embed/' .
+                                $videoId .
+                                '?autoplay=1&mute=1&loop=1&playlist=' .
+                                $videoId .
+                                '" frameborder="5" allow="autoplay; encrypted-media" allowfullscreen></iframe>
                                     </div>
                                 </div>';
                         } elseif ($slider->image) {
@@ -102,9 +108,6 @@
             <div class="container">
                 <div class="row sbox">
                     @foreach ($features as $feature)
-
-
-
                         <div class="col-lg-3 col-md-6 col-sm-12">
                             <div class="services-box mb-30 text-center wow fadeInUp animated" data-animation="fadeInUp"
                                 data-delay=".4s">
@@ -142,7 +145,7 @@
                                 <h5>About Us</h5>
                                 <h2>{{ $adata->heading1 }}</h2>
                             </div>
-                            <p>{{ $adata->desc1 }}
+                            <p style="text-align: justify;">{{ $adata->desc1 }}
                             </p>
 
 
@@ -183,24 +186,23 @@
                     <div class="col-lg-12">
                         <div class="services">
                             <div class="row">
-                                @php
-                                    $filteredTypes = array_intersect_key($types, array_flip(['breeding', 'feeding', 'management', 'market']));
-                                @endphp
-
-                                @foreach ($filteredTypes as $typeKey => $type)
+                                @foreach ($data->quick_links as $link)
                                     <div class="col-lg-3 col-md-6">
-                                        <div class="services-box-05 wow fadeInUp animated" data-animation="fadeInUp" data-delay=".4s">
-                                            <a href="#" class="quick-link-item">
-                                                <div class="image-container" style="background: url('{{ asset('blog_images/' . $typeKey . '.jpg') }}') no-repeat center center;">
+                                        <div class="services-box-05 wow fadeInUp animated" data-animation="fadeInUp"
+                                            data-delay=".4s">
+                                            <a href="{{ $link['url'] }}" class="quick-link-item">
+                                                <div class="image-container"
+                                                    style="background: url(img/bg/services-bg.png); no-repeat center center;">
                                                     <div class="overlay"></div>
                                                     <div class="text-overlay">
-                                                        <h4>{{ $type[1] }}</h4>
+                                                        <h4>{{ $link['title'] }}</h4>
                                                     </div>
                                                 </div>
                                             </a>
                                         </div>
                                     </div>
                                 @endforeach
+
                             </div>
                         </div>
                     </div>
@@ -347,7 +349,7 @@
                                             }
                                         @endphp
                                         <iframe
-                                            style="width: 100%; height: 100%; border: none;"
+                                            style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; border: none;"
                                             src="https://www.youtube.com/embed/{{ $videoId }}"
                                             allowfullscreen></iframe>
                                     @elseif ($item->image)
@@ -363,8 +365,8 @@
                             <a href="" class="btn" style="display: inline-block;">View All <i
                                     class="fal fa-long-arrow-right"></i></a>
                         </div>
-
                     </div>
+
 
 
 
@@ -408,7 +410,7 @@
                                         </div>
                                     </div>
                                     <p class="pt-10 pb-20"><img src="img/testimonial/review-icon.png" alt="img"></p>
-                                    <p>“{!! $testimonial->content !!}”.</p>
+                                    <p style="text-align: justify;">“{!! $testimonial->content !!}”.</p>
 
                                     <div class="qt-img">
                                         <img src="img/testimonial/qt-icon.png" alt="img">
@@ -510,7 +512,6 @@
                                                 <div class="meta-info">
                                                     <ul>
                                                         <li><i class="fal fa-user"></i> By Admin </li>
-                                                        <li><i class="fal fa-comments"></i> 3 Comments</li>
                                                     </ul>
                                                 </div>
                                             </div>
@@ -560,99 +561,97 @@
 @endsection
 
 @section('css')
-<style>
-.services-box-05 {
-    margin-bottom: 30px;
-    position: relative;
-    overflow: hidden;
-    border-radius: 10px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    <style>
+        .services-box-05 {
+            margin-bottom: 30px;
+            position: relative;
+            overflow: hidden;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
 
 
-}
+        }
 
-.quick-link-item {
-    display: block;
-    text-decoration: none;
-    position: relative;
-    color: #fff;
-}
+        .quick-link-item {
+            display: block;
+            text-decoration: none;
+            position: relative;
+            color: #fff;
+        }
 
-.image-container {
-    position: relative;
-    width: 100%;
-    height: 100px;
-    background-size: cover;
-    transition: transform 0.3s ease;
-}
+        .image-container {
+            position: relative;
+            width: 100%;
+            height: 100px;
+            background-size: cover;
+            transition: transform 0.3s ease;
+        }
 
-.overlay {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background-color: #FDCC0D;
-    transition: background-color 0.3s ease;
-}
+        .overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: #FDCC0D;
+            transition: background-color 0.3s ease;
+        }
 
-.image-container:hover .overlay {
-    background-color: #006E2F;
-}
+        .image-container:hover .overlay {
+            background-color: #006E2F;
+        }
 
-.text-overlay {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    text-align: center;
-    transition: color 0.3s ease;
-}
+        .text-overlay {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            text-align: center;
+            transition: color 0.3s ease;
+        }
 
-.image-container:hover .text-overlay h4 {
-    color: #fff; /* Change this to the desired color when hovered */
-}
+        .image-container:hover .text-overlay h4 {
+            color: #fff;
+            /* Change this to the desired color when hovered */
+        }
 
-.text-overlay h4 {
-    margin: 0;
-    font-size: 1.5em;
-    color: #000000; /* Original text color */
-}
-.video-container {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    overflow: hidden;
-}
+        .text-overlay h4 {
+            margin: 0;
+            font-size: 1.5em;
+            color: #000000;
+            /* Original text color */
+        }
 
-.video-background {
-    width: 100%;
-    height: 100%;
-}
+        .video-container {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+        }
 
-.video-foreground {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-}
+        .video-background {
+            width: 100%;
+            height: 100%;
+        }
 
-.video-foreground iframe {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-        pointer-events: none;
- /* Ensures the video fills the iframe container */
-}
+        .video-foreground {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
 
+        }
 
-
-
-
-
-
-</style>
+        .video-foreground iframe {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            pointer-events: none;
+            /* Ensures the video fills the iframe container */
+        }
+    </style>
 @endsection

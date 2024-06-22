@@ -67,19 +67,15 @@ class ClientController extends Controller
         $blogs = Blog::where('type', $type)->get();
         $types = Helper::blogTypes;
         $blogType = Helper::blogTypes[$type] ?? null;
+        $recentBlogs = Blog::where('type', $type)
+                        ->orderBy('created_at', 'desc')
+                        ->take(5)
+                        ->get();
 
-        return view('user.blog', compact('blogs', 'types', 'blogType'));
+        return view('user.blog', compact('blogs', 'types', 'blogType', 'recentBlogs', 'type'));
     }
 
-    public function blogShow($blog)
-    {
-        $type = 'blog';
-        $blogs = Blog::where('type', $type)->get();
-        $types = Helper::blogTypes;
-        $blogType = Helper::blogTypes[$type] ?? null;
 
-        return view('user.blogdetail', compact('blog', 'blogs', 'types', 'blogType'));
-    }
 
     public function contact()
     {

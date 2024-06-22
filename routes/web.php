@@ -15,7 +15,7 @@ use App\Models\Testimonial;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Route;
 
-Route::get('/', [ClientController::class, 'index']);
+Route::get('/', [ClientController::class, 'index'])->name('home');
 
 Route::get('/about-us', [ClientController::class, 'about'])->name('about');
 

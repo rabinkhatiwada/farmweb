@@ -27,6 +27,19 @@ class SettingController extends Controller
             $header_phone = $request->h_phone ?? '';
             $meta_description= $request->metadesc ?? '';
 
+            $quickLinks = [];
+            if ($request->has('quick_link_title')) {
+                foreach ($request->quick_link_title as $index => $title) {
+                    if (!empty($title)) {
+                        $quickLinks[] = [
+                            'title' => $title,
+                            'url' => $request->quick_link_url[$index] ?? '',
+                        ];
+                    }
+                }
+            }
+        Helper::setSetting('home_quick_links', json_encode($quickLinks));
+
             $faq_heading= $request->faqheading ?? '';
             $faq_desc= $request->faqdesc ?? '';
 

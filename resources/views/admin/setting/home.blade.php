@@ -85,6 +85,35 @@
             </div>
 
         </div>
+        <div class="col-md-12">
+            <div class="shadow-box p-3 mt-3">
+                <div class="d-flex align-items-center justify-content-between">
+                    <h6 class="mt-1" style="font-weight: 900">Quick Links</h6>
+                    <button type="button" class="btn btn-sm btn-primary" id="addQLinkBtn">Add New Link</button>
+                </div>
+
+                <table class="table mt-3" id="quickLinksTable">
+                    <thead>
+                        <tr>
+                            <th>Title</th>
+                            <th>Link</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach ($data->quick_links as $qlink)
+                        <tr>
+                            <td><input type="text" class="form-control" placeholder="Title" name="quick_link_title[]" value="{{ $qlink['title'] }}"></td>
+                            <td><input type="text" class="form-control" placeholder="Link" name="quick_link_url[]" value="{{ $qlink['url'] }}"></td>
+                            <td>
+                                <button class="btn btn-sm btn-danger delete-row">Remove</button>
+                            </td>
+                        </tr>
+                        @endforeach
+                    </tbody>
+                </table>
+            </div>
+        </div>
         <div class="NewsLetter-section">
             <div class="row mt-2">
                 <h4 style="text-decoration:underline;">Gallery/Projects Section:</h4>
@@ -145,4 +174,27 @@
 
 
     </form>
+@endsection
+
+@section('js')
+<script>
+$('#addQLinkBtn').click(function() {
+    let newRow = `
+        <tr>
+            <td><input type="text" name="quick_link_title[]" class="form-control" placeholder="Title"></td>
+            <td><input type="text" name="quick_link_url[]" class="form-control" placeholder="Link"></td>
+            <td>
+                <button class="btn btn-sm btn-danger delete-row">Remove</button>
+            </td>
+        </tr>
+    `;
+    $('#quickLinksTable tbody').append(newRow);
+});
+
+$(document).on('click', '.delete-row', function() {
+    $(this).closest('tr').remove();
+    showAlert('Link removed successfully!');
+});
+</script>
+
 @endsection

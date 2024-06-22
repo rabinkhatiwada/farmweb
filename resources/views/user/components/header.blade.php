@@ -11,7 +11,7 @@
                 <div class="row align-items-center">
                     <div class="col-xl-3 col-lg-3">
                         <div class="logo">
-                            <a href="index.html"><img src="{{ Storage::url($data->logo) }}" alt="logo"></a>
+                            <a href="{{ route('home')}}"><img src="{{ Storage::url($data->logo) }}" alt="logo"></a>
                         </div>
                     </div>
                     <div class="col-xl-6 col-lg-6">
@@ -20,7 +20,7 @@
                             <nav id="mobile-menu">
                                 <ul>
 
-                                    <li><a href="{{ url('/') }}">Home</a></li>
+                                    <li><a href="{{ route('home')}}">Home</a></li>
 
                                     <li><a href="{{ url('/about-us') }}">About Us</a></li>
                                     <li><a href="{{ url('/services') }}">Services</a></li>

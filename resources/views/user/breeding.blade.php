@@ -3,6 +3,8 @@
 @section('content')
 
     @php
+        $linksdata = App\Helper::getHomePageSetting();
+
         $data = App\Helper::getOtherPageSetting();
         $phone = App\Helper::getContactPageSetting();
     @endphp
@@ -54,11 +56,10 @@
                                     <h2 class="widget-title"> Our Pages List </h2>
                                     <!-- Services Category -->
                                     <ul class="services-categories">
-                                        <li class="active"><a href="{{ route('breeding') }}">Breeding</a></li>
-                                        <li><a href="#">Feeding</a></li>
 
-                                        <li><a href="#">Management</a></li>
-                                        <li><a href="#">Market</a></li>
+                                       @foreach ($linksdata->quick_links as $link)
+                                    <li><a href="{{ $link['url'] }}">{{ $link['title'] }}</a></li>
+                                    @endforeach
 
                                     </ul>
                                 </div>

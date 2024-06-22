@@ -97,12 +97,19 @@ class Helper{
 
 
 
+
+
+
             //section 1
             'heading1' => self::getSetting('home_heading1') ?? '',
             'heading2' => self::getSetting('home_heading2') ?? '',
             'h_phone' => self::getSetting('header_phone') ?? '',
             'buttontext1' => self::getSetting('home_buttontext1') ?? '',
             'buttonlink1' => self::getSetting('home_buttonlink1') ?? '',
+
+
+            'quick_links' => json_decode(self::getSetting('home_quick_links'), true) ?? [],
+
 
 
             'galleryheading1' => self::getSetting('gallery_heading1') ?? '',
