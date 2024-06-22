@@ -26,6 +26,11 @@ Route::get('/blogs', [ClientController::class, 'blogs'])->name('blogs');
 
 Route::get('/contact', [ClientController::class, 'contact'])->name('contact');
 Route::get('/breeding', [ClientController::class, 'breeding'])->name('breeding');
+Route::get('/feeding', [ClientController::class, 'feeding'])->name('feeding');
+Route::get('/management', [ClientController::class, 'management'])->name('management');
+Route::get('/market', [ClientController::class, 'market'])->name('market');
+
+
 
 
 Route::get('/blogs/{blog}', [BlogController::class, 'show'])->name('blog.show');

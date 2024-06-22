@@ -85,8 +85,26 @@
                                 <div class="two-column">
                                     <div class="row">
                                         <div class="image-column col-xl-12 col-lg-12 col-md-12">
-                                            <figure class="image"><img src="{{ asset('blog_images/' . $b->image1) }}"
-                                                    alt="{{$b->title}}"></figure>
+                                            @if ($b->y_url)
+                                                @php
+                                                    $videoId = '';
+                                                    parse_str(parse_url($b->y_url, PHP_URL_QUERY), $params);
+                                                    if (isset($params['v'])) {
+                                                        $videoId = $params['v'];
+                                                    }
+                                                @endphp
+                                                @if ($videoId)
+                                                    <iframe
+                                                        style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; border: none;"
+                                                        src="https://www.youtube.com/embed/{{ $videoId }}"
+                                                        allowfullscreen></iframe>
+
+                                                @endif
+                                            @elseif ($b->image1)
+                                                <figure class="image">
+                                                    <img src="{{ asset('blog_images/' . $b->image1) }}" alt="{{ $b->title }}">
+                                                </figure>
+                                            @endif
                                         </div>
 
 

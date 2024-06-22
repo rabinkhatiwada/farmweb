@@ -98,6 +98,38 @@ class ClientController extends Controller
 
         return view('user.breeding', compact('blogs', 'types', 'blogType', 'breeding'));
     }
+    public function feeding()
+    {
+        $type = 'blog';
+        $blogs = Blog::where('type', $type)->get();
+        $types = Helper::blogTypes;
+        $blogType = Helper::blogTypes[$type] ?? null;
+        $breeding = Blog::where('type', 'feeding')->get();
 
+
+        return view('user.breeding', compact('blogs', 'types', 'blogType', 'breeding'));
+    }
+    public function management()
+    {
+        $type = 'blog';
+        $blogs = Blog::where('type', $type)->get();
+        $types = Helper::blogTypes;
+        $blogType = Helper::blogTypes[$type] ?? null;
+        $management = Blog::where('type', 'management')->get();
+
+
+        return view('user.management', compact('blogs', 'types', 'blogType', 'management'));
+    }
+    public function market()
+    {
+        $type = 'blog';
+        $blogs = Blog::where('type', $type)->get();
+        $types = Helper::blogTypes;
+        $blogType = Helper::blogTypes[$type] ?? null;
+        $market = Blog::where('type', 'market')->get();
+
+
+        return view('user.market', compact('blogs', 'types', 'blogType', 'market'));
+    }
 
 }
