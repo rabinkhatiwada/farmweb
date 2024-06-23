@@ -11,7 +11,11 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::table('sliders', function (Blueprint $table) {
+        Schema::create('gallery_types', function (Blueprint $table) {
+            $table->id();
+            $table->string('title'); 
+
+            $table->timestamps();
         });
     }
 
@@ -20,8 +24,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::table('sliders', function (Blueprint $table) {
-            //
-        });
+        Schema::dropIfExists('gallery_types');
     }
 };

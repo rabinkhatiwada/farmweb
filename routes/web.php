@@ -5,12 +5,14 @@ use App\Http\Controllers\GalleryController;
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\BlogController;
 use App\Http\Controllers\ClientController;
+use App\Http\Controllers\GalleryTypeController;
 use App\Http\Controllers\MsgController;
 use App\Http\Controllers\SettingController;
 use App\Http\Controllers\SliderController;
 use App\Http\Controllers\TestimonialController;
 use App\Models\Blog;
 use App\Models\Gallery;
+use App\Models\GalleryType;
 use App\Models\Testimonial;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Route;
@@ -29,6 +31,8 @@ Route::get('/breeding', [ClientController::class, 'breeding'])->name('breeding')
 Route::get('/feeding', [ClientController::class, 'feeding'])->name('feeding');
 Route::get('/management', [ClientController::class, 'management'])->name('management');
 Route::get('/market', [ClientController::class, 'market'])->name('market');
+Route::get('/gallery', [ClientController::class, 'gallery'])->name('gallery');
+
 
 
 
@@ -74,13 +78,22 @@ Route::prefix('admin')->name('admin.')->middleware('auth')->group(function () {
         Route::delete('delete/{slider}', [SliderController::class, 'destroy'])->name('destroy');
     });
     Route::prefix('gallery')->name('gallery.')->group(function () {
-        Route::get('', [GalleryController::class, 'index'])->name('index');
+        Route::match(['get', 'put'], '/', [GalleryController::class, 'index'])->name('index');
         Route::get('create', [GalleryController::class, 'create'])->name('create');
         Route::post('store', [GalleryController::class, 'store'])->name('store');
         Route::delete('/{id}', [GalleryController::class, 'destroy'])->name('destroy');
 
 
     });
+    Route::prefix('gallerytype')->name('gallerytype.')->group(function () {
+        Route::get('', [GalleryTypeController::class, 'index'])->name('index');
+        Route::get('create', [GalleryTypeController::class, 'create'])->name('create');
+        Route::post('store', [GalleryTypeController::class, 'store'])->name('store');
+        Route::get('edit/{id}', [GalleryTypeController::class, 'edit'])->name('edit');
+        Route::put('update/{id}', [GalleryTypeController::class, 'update'])->name('update');
+        Route::delete('destroy/{id}', [GalleryTypeController::class, 'destroy'])->name('destroy');
+    });
+
     Route::prefix('setting')->name('setting.')->group(function(){
         Route::get('', [SettingController::class, 'index'])->name('index');
         Route::match(['GET', 'POST'],'/home', [SettingController::class, 'homePage'])->name('home');

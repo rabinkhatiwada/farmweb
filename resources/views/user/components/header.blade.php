@@ -25,6 +25,8 @@
                                     <li><a href="{{ url('/about-us') }}">About Us</a></li>
                                     <li><a href="{{ url('/services') }}">Services</a></li>
                                     <li><a href="{{ url('/blogs') }}">Blogs</a></li>
+                                    <li><a href="{{ url('/gallery') }}">Gallery</a></li>
+
 
 
                                     <li class="has-sub">
@@ -34,11 +36,7 @@
                                             <li><a href="{{ url('/feeding') }}">Feeding</a></li>
                                             <li><a href="{{ url('/management') }}">Management</a></li>
                                             <li><a href="{{ url('/market') }}">Market</a></li>
-                                            <li><a href="{{ url('/government-support') }}">Government Support</a></li>
-                                            <li><a href="{{ url('/youth-engagement') }}">Youth Engagement</a></li>
-                                            <li><a href="{{ url('/cattle-farming-potential') }}">Cattle Farming
-                                                    Potential</a></li>
-                                            <li><a href="{{ url('/government-support') }}">Gallery</a></li>
+                                            
 
                                         </ul>
                                     </li>

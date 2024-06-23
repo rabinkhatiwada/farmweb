@@ -188,6 +188,10 @@ public function blogPage(Request $request)
         $data = Helper::getOtherPageSetting();
         return view('admin.setting.page', compact('data'));
     } else {
+        if ($request->hasFile('g_image')) {
+            $imagePath = $request->file('g_image')->storeAs('public/images', $request->file('g_image')->getClientOriginalName());
+            Helper::setSetting('other_g_image', $imagePath);
+        }
         if ($request->hasFile('b_image')) {
             $imagePath = $request->file('b_image')->storeAs('public/images', $request->file('b_image')->getClientOriginalName());
             Helper::setSetting('other_b_image', $imagePath);

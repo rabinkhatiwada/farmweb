@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Blog;
 use App\Helper;
 use App\Models\Gallery;
+use App\Models\GalleryType;
 use App\Models\Slider;
 use App\Models\Testimonial;
 
@@ -25,12 +26,21 @@ class ClientController extends Controller
         $blogType = Helper::blogTypes[$type] ?? null;
         $testimonial = Testimonial::all();
         $sliders = Slider::all();
-        $galleryItems = Gallery::all();
+        $galleryTypes = GalleryType::all(); // Fetch all gallery types
 
+        // Initialize an empty array to hold gallery items for each type
+        $galleryItems = [];
 
+        foreach ($galleryTypes as $galleryType) {
+            // Fetch the latest 4 gallery items for each gallery type
+            $items = Gallery::where('gallery_type_id', $galleryType->id)
+                            ->orderBy('created_at', 'desc')
+                            ->take(4)
+                            ->get();
+            $galleryItems[$galleryType->id] = $items;
+        }
 
-
-        return view('user.home', compact('blogs', 'types','testimonial', 'blogType', 'faqs', 'brands', 'teams', 'services', 'objectives', 'features', 'sliders', 'galleryItems'));
+        return view('user.home', compact('blogs', 'types', 'testimonial', 'blogType', 'faqs', 'brands', 'teams', 'services', 'objectives', 'features', 'sliders', 'galleryTypes', 'galleryItems'));
     }
 
     public function about()
@@ -130,6 +140,31 @@ class ClientController extends Controller
 
 
         return view('user.market', compact('blogs', 'types', 'blogType', 'market'));
+    }
+    public function gallery()
+    {
+        $type = 'blog';
+        $blogs = Blog::where('type', $type)->get();
+        $types = Helper::blogTypes;
+        $blogType = Helper::blogTypes[$type] ?? null;
+        $market = Blog::where('type', 'market')->get();
+        $galleryTypes = GalleryType::all(); // Fetch all gallery types
+
+        // Initialize an empty array to hold gallery items for each type
+        $galleryItems = [];
+
+        foreach ($galleryTypes as $galleryType) {
+            // Fetch the latest 4 gallery items for each gallery type
+            $items = Gallery::where('gallery_type_id', $galleryType->id)
+                            ->orderBy('created_at', 'desc')
+                            ->take(4)
+                            ->get();
+            $galleryItems[$galleryType->id] = $items;
+        }
+
+
+
+        return view('user.gallery', compact('blogs', 'types', 'blogType', 'market', 'galleryTypes', 'galleryItems'));
     }
 
 }

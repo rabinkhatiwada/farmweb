@@ -3,7 +3,7 @@
 
 @section('jumbo')
     <li class="breadcrumb-item active" aria-current="page">
-        <a href="{{ route('admin.gallery.index') }}">Gallery</a>
+        <a href="{{ route('admin.gallerytype.index') }}">Gallery</a>
     </li>
     / <li class="breadcrumb-item active" aria-current="page">Add</li>
 @endsection
@@ -30,9 +30,10 @@
             </div>
         @endif
 
-        <h5>Create New Gallery Item</h5>
+        <h5>Add New Image/Video for {{ $galleryType->title }}</h5>
         <form action="{{ route('admin.gallery.store') }}" method="POST" enctype="multipart/form-data">
             @csrf
+            <input type="hidden" name="gallery_type_id" value="{{ $galleryType->id }}">
             <div class="row mb-3">
                 <div class="col-md-6">
                     <div class="mb-3">
@@ -87,8 +88,6 @@
         </div>
     @endforeach
 </div>
-
-
 
 @endsection
 

@@ -12,7 +12,7 @@
                 </a>
             </li>
             <li class="sidebar-item">
-                <a href="{{ route('admin.gallery.index') }}" class="sidebar-link">
+                <a href="{{ route('admin.gallerytype.index') }}" class="sidebar-link">
                     <i class="fa fa-edit"></i>
                     Gallery
                 </a>

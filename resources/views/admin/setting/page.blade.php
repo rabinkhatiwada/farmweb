@@ -37,6 +37,13 @@
             <div class="row mt-3">
                 <div class="col-md-12">
 
+                    <label for="bgimage">Gallery Page Background Image(Top):</label>
+
+                    <input type="file" class="form-control image-upload dropify" id="image" name="g_image"
+                        data-default-file="{{ Storage::url($data->g_image) }}" accept="image/*">
+                </div>
+                <div class="col-md-12">
+
                     <label for="bgimage">Breeding Page Background Image(Top):</label>
 
                     <input type="file" class="form-control image-upload dropify" id="image" name="b_image"

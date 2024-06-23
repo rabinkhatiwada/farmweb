@@ -181,6 +181,8 @@ class Helper{
     }
     public static function getOtherPageSetting(){
         return (object)[
+            'g_image' => self::getSetting('other_g_image') ?? '',
+
             'b_image' => self::getSetting('other_b_image') ?? '',
             'f_image' => self::getSetting('other_f_image') ?? '',
             'mgmt_image' => self::getSetting('other_mgmt_image') ?? '',

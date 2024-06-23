@@ -333,37 +333,36 @@
 
                         </div>
                     </div>
-
-                    <div class="row mb-3">
-                        @foreach ($galleryItems->take(-3)->reverse() as $item)
-                            <div class="col-md-4 mt-1">
-                                <div style="position: relative; height: 0; padding-bottom: 56.25%; overflow: hidden;"
-                                    class="embed-responsive embed-responsive-16by9">
-                                    @if ($item->youtube_url)
-                                        @php
-                                            // Extract video ID from YouTube watch URL
-                                            $videoId = '';
-                                            parse_str(parse_url($item->youtube_url, PHP_URL_QUERY), $params);
-                                            if (isset($params['v'])) {
-                                                $videoId = $params['v'];
-                                            }
-                                        @endphp
-                                        <iframe
-                                            style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; border: none;"
-                                            src="https://www.youtube.com/embed/{{ $videoId }}"
-                                            allowfullscreen></iframe>
-                                    @elseif ($item->image)
-                                        <a href="#"><img
-                                                style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; object-fit: cover;"
-                                                src="{{ Storage::url($item->image) }}" alt="{{ $item->title }}"
-                                                class="card-img-top"></a>
-                                    @endif
-                                </div>
-                            </div>
-                        @endforeach
-                        <div class="blog__btn" style="text-align: center; margin-top:20px;">
-                            <a href="" class="btn" style="display: inline-block;">View All <i
-                                    class="fal fa-long-arrow-right"></i></a>
+                    <div class="container">
+                        <div class="row">
+                            @foreach ($galleryTypes->chunk(3) as $chunk) <!-- Split into rows of 3 -->
+                                @foreach ($chunk as $galleryType)
+                                    <div class="col-md-4 mb-4">
+                                        <div class="gallery-type-card">
+                                            <h3 style="text-align: center; color:#fff;">{{ $galleryType->title }}</h3>
+                                            <div class="gallery-images">
+                                                @foreach ($galleryItems[$galleryType->id]->take(2) as $item)
+                                                    <div class="gallery-image">
+                                                        @if ($item->youtube_url)
+                                                            @php
+                                                                // Extract video ID from YouTube watch URL
+                                                                $videoId = '';
+                                                                parse_str(parse_url($item->youtube_url, PHP_URL_QUERY), $params);
+                                                                if (isset($params['v'])) {
+                                                                    $videoId = $params['v'];
+                                                                }
+                                                            @endphp
+                                                            <iframe src="https://www.youtube.com/embed/{{ $videoId }}" allowfullscreen></iframe>
+                                                        @elseif ($item->image)
+                                                            <img src="{{ Storage::url($item->image) }}" alt="{{ $item->title }}">
+                                                        @endif
+                                                    </div>
+                                                @endforeach
+                                            </div>
+                                        </div>
+                                    </div>
+                                @endforeach
+                            @endforeach
                         </div>
                     </div>
 
@@ -653,5 +652,31 @@
             pointer-events: none;
             /* Ensures the video fills the iframe container */
         }
+
+        .gallery-type-card {
+            padding: 20px;
+            background-color: #00715D;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+        .gallery-images {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 10px;
+        }
+        .gallery-image {
+            position: relative;
+            padding-bottom: 100%; /* 1:1 aspect ratio for each image */
+            overflow: hidden;
+        }
+        .gallery-image img, .gallery-image iframe {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
     </style>
 @endsection

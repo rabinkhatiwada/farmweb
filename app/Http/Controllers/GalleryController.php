@@ -4,14 +4,20 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Gallery;
+use App\Models\GalleryType;
 
 class GalleryController extends Controller
 {
-    public function index()
-    {
-        $galleryItems = Gallery::all(); // Retrieve all gallery items
-        return view('admin.gallery.index', compact('galleryItems'));
-    }
+    public function index(Request $request)
+{
+    $galleryTypeId = $request->input('gallery_type_id');
+    $galleryType = GalleryType::findOrFail($galleryTypeId);
+    $galleryItems = Gallery::where('gallery_type_id', $galleryTypeId)->get();
+
+
+    return view('admin.gallery.index', compact('galleryItems', 'galleryTypeId', 'galleryType'));
+}
+
 
     public function store(Request $request)
     {
@@ -25,6 +31,8 @@ class GalleryController extends Controller
             $imagePath = $request->file('image')->store('public/gallery_images');
             $galleryItem->image = $imagePath;
         }
+        $galleryItem->gallery_type_id = $request->input('gallery_type_id');
+
 
         $galleryItem->save();
 
