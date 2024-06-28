@@ -154,7 +154,7 @@
                     <div class="col-lg-7 col-md-12 col-sm-12">
                         <div class="s-about-img p-relative  wow fadeInLeft animated" data-animation="fadeInLeft"
                             data-delay=".4s">
-                            <img src="{{ Storage::url($adata->aboutimage1) }}" alt="img">
+                            <img src="{{ asset($adata->aboutimage1) }}" alt="img">
 
                             <div class="about-text second-about">
                                 <img src="img/features/about-play.png" alt="img">
@@ -223,7 +223,7 @@
 
                     <div class="col-lg-6 col-md-12">
                         <div class="wow fadeInLeft animated" data-animation="fadeInLeft" data-delay=".4s">
-                            <img src="{{ Storage::url($adata->aboutimage2) }}" alt="class image">
+                            <img src="{{ asset($adata->aboutimage2) }}" alt="class image">
                         </div>
 
                     </div>
@@ -354,7 +354,7 @@
                                                             @endphp
                                                             <iframe src="https://www.youtube.com/embed/{{ $videoId }}" allowfullscreen></iframe>
                                                         @elseif ($item->image)
-                                                            <img src="{{ Storage::url($item->image) }}" alt="{{ $item->title }}">
+                                                            <img src="{{ asset($item->image) }}" alt="{{ $item->title }}">
                                                         @endif
                                                     </div>
                                                 @endforeach

@@ -10,7 +10,7 @@
 
         <!-- breadcrumb-area -->
         <section class="breadcrumb-area d-flex  p-relative align-items-center"
-            style="background-image:url({{ Storage::url($sdata->bgimage) }})">
+            style="background-image:url({{ asset($sdata->bgimage) }})">
 
             <div class="container">
                 <div class="row align-items-center">

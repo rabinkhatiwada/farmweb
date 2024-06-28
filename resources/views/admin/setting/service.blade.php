@@ -40,7 +40,7 @@
                     <label for="bgimage">Background Image(Top):</label>
 
                     <input type="file" class="form-control image-upload dropify" id="image" name="bgimage"
-                        data-default-file="{{ Storage::url($data->bgimage) }}" accept="image/*">
+                        data-default-file="{{ asset($data->bgimage) }}" accept="image/*">
                 </div>
 
 

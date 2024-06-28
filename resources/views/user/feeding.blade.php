@@ -12,7 +12,7 @@
         @foreach ($feeding as $f)
             <!-- breadcrumb-area -->
             <section class="breadcrumb-area d-flex p-relative align-items-center"
-                style="background-image:url({{ Storage::url($data->b_image) }})">
+                style="background-image:url({{ asset($data->f_image) }})">
                 <div class="container">
                     <div class="row align-items-center">
                         <div class="col-xl-12 col-lg-12">
@@ -84,7 +84,7 @@
                                                             style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; border: none;"
                                                             src="https://www.youtube.com/embed/{{ $videoId }}"
                                                             allowfullscreen></iframe>
-                                                    
+
                                                     @endif
                                                 @elseif ($f->image1)
                                                     <figure class="image">

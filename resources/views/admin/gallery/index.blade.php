@@ -77,7 +77,7 @@
                     @endphp
                     <iframe style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; border: none;" src="https://www.youtube.com/embed/{{ $videoId }}" allowfullscreen></iframe>
                 @elseif ($item->image)
-                    <img style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; object-fit: cover;" src="{{ Storage::url($item->image) }}" alt="{{ $item->title }}" class="card-img-top">
+                    <img style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; object-fit: cover;" src="{{ asset($item->image) }}" alt="{{ $item->title }}" class="card-img-top">
                 @endif
                 <form action="{{ route('admin.gallery.destroy', ['id' => $item->id]) }}" method="POST" style="position: absolute; top: 5px; right: 5px;">
                     @csrf

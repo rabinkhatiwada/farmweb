@@ -44,14 +44,14 @@
                             <label for="Welcome Image">LOGO:</label>
 
                             <input type="file" class="form-control image-upload dropify" id="image" name="logo"
-                                data-default-file="{{ Storage::url($data->logo) }}" accept="image/*">
+                                data-default-file="{{ asset($data->logo) }}" accept="image/*">
                         </div>
                         <div class="col-md-4">
 
                             <label for="Welcome Image">FAV Icon:</label>
 
                             <input type="file" class="form-control image-upload dropify" id="image" name="favicon"
-                                data-default-file="{{ Storage::url($data->favicon) }}" accept="image/*">
+                                data-default-file="{{ asset($data->favicon) }}" accept="image/*">
                         </div>
                     </div>
 

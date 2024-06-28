@@ -10,7 +10,7 @@
 
         <!-- breadcrumb-area -->
         <section class="breadcrumb-area d-flex  p-relative align-items-center"
-            style="background-image:url({{ Storage::url($data->bgimage) }})">
+            style="background-image:url({{ asset($data->bgimage) }})">
 
             <div class="container">
                 <div class="row align-items-center">
@@ -53,7 +53,7 @@
                     <div class="col-lg-7 col-md-12 col-sm-12">
                         <div class="s-about-img p-relative  wow fadeInLeft animated" data-animation="fadeInLeft"
                             data-delay=".4s">
-                            <img src="{{ Storage::url($data->aboutimage1) }}" alt="img">
+                            <img src="{{ asset($data->aboutimage1) }}" alt="img">
 
                             <div class="about-text second-about">
                                 <img src="img/features/about-play.png" alt="img">
@@ -119,7 +119,7 @@
 
                     <div class="col-lg-6 col-md-12">
                         <div class="wow fadeInLeft animated" data-animation="fadeInLeft" data-delay=".4s">
-                            <img src="{{ Storage::url($data->aboutimage2) }}" alt="class image">
+                            <img src="{{ asset($data->aboutimage2) }}" alt="class image">
                         </div>
 
                     </div>

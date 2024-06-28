@@ -28,9 +28,14 @@ class GalleryController extends Controller
         $galleryItem->youtube_url = $request->input('youtube_url');
 
         if ($request->hasFile('image')) {
-            $imagePath = $request->file('image')->store('public/gallery_images');
-            $galleryItem->image = $imagePath;
+            $imageFile = $request->file('image');
+            $imageName = $imageFile->getClientOriginalName(); // Get the original file name
+
+            $imageFile->move(public_path('gallery_images'), $imageName);
+
+            $galleryItem->image = 'gallery_images/' . $imageName;
         }
+
         $galleryItem->gallery_type_id = $request->input('gallery_type_id');
 
 

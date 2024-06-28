@@ -40,7 +40,7 @@
                     <label for="bgimage">Background Image(Top):</label>
 
                     <input type="file" class="form-control image-upload dropify" id="image" name="bgimage"
-                        data-default-file="{{ Storage::url($data->bgimage) }}" accept="image/*">
+                        data-default-file="{{ asset($data->bgimage) }}" accept="image/*">
                 </div>
 
                 <div class="row mt-2">
@@ -63,7 +63,7 @@
                             <label for="bgimage">Side Image(Right):</label>
 
                             <input type="file" class="form-control image-upload dropify" id="image" name="aboutimage1"
-                                data-default-file="{{ Storage::url($data->aboutimage1) }}" accept="image/*">
+                                data-default-file="{{ asset($data->aboutimage1) }}" accept="image/*">
                         </div>
                     </div>
 
@@ -83,7 +83,7 @@
                     <label for="aboutimage">Section 2 Image(Left):</label>
 
                     <input type="file" class="form-control image-upload dropify" id="image" name="aboutimage2"
-                        data-default-file="{{ Storage::url($data->aboutimage2) }}" accept="image/*">
+                        data-default-file="{{ asset($data->aboutimage2) }}" accept="image/*">
                 </div>
 
                 <div class="col-md-8">

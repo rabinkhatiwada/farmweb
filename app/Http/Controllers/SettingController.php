@@ -15,13 +15,22 @@ class SettingController extends Controller
         } else {
 
             if ($request->hasFile('logo')) {
-                $imagePath = $request->file('logo')->storeAs('public/images', $request->file('logo')->getClientOriginalName());
+                $imageFile = $request->file('logo');
+                $imageName = $imageFile->getClientOriginalName();
+                $imageFile->move(public_path('images'), $imageName);
+                $imagePath = 'images/' . $imageName;
                 Helper::setSetting('header_logo', $imagePath);
             }
+
             if ($request->hasFile('favicon')) {
-                $imagePath = $request->file('favicon')->storeAs('public/images', $request->file('favicon')->getClientOriginalName());
+                $imageFile = $request->file('favicon');
+                $imageName = $imageFile->getClientOriginalName();
+                $imageFile->move(public_path('images'), $imageName);
+                $imagePath = 'images/' . $imageName;
                 Helper::setSetting('web_favicon', $imagePath);
             }
+
+
 
             $web_title = $request->webtitle ?? '';
             $header_phone = $request->h_phone ?? '';
@@ -83,17 +92,23 @@ class SettingController extends Controller
 
         // Handle file uploads (logo and favicon)
         if ($request->hasFile('bgimage')) {
-            $bgImagePath = $request->file('bgimage')->store('public/images'); // Adjust as per your storage configuration
+            $bgImage = $request->file('bgimage');
+            $bgImagePath = 'images/' . $bgImage->getClientOriginalName();
+            $bgImage->move(public_path('images'), $bgImage->getClientOriginalName());
             Helper::setSetting('about_bg_image', $bgImagePath);
         }
 
         if ($request->hasFile('aboutimage1')) {
-            $aboutImage1Path = $request->file('aboutimage1')->store('public/images');
+            $aboutImage1 = $request->file('aboutimage1');
+            $aboutImage1Path = 'images/' . $aboutImage1->getClientOriginalName();
+            $aboutImage1->move(public_path('images'), $aboutImage1->getClientOriginalName());
             Helper::setSetting('about_image1', $aboutImage1Path);
         }
 
         if ($request->hasFile('aboutimage2')) {
-            $aboutImage2Path = $request->file('aboutimage2')->store('public/images');
+            $aboutImage2 = $request->file('aboutimage2');
+            $aboutImage2Path = 'images/' . $aboutImage2->getClientOriginalName();
+            $aboutImage2->move(public_path('images'), $aboutImage2->getClientOriginalName());
             Helper::setSetting('about_image2', $aboutImage2Path);
         }
 
@@ -118,7 +133,9 @@ public function servicePage(Request $request)
     } else {
 
         if ($request->hasFile('bgimage')) {
-            $bgImagePath = $request->file('bgimage')->store('public/images'); // Adjust as per your storage configuration
+            $bgImage = $request->file('bgimage');
+            $bgImagePath = 'images/' . $bgImage->getClientOriginalName();
+            $bgImage->move(public_path('images'), $bgImage->getClientOriginalName());
             Helper::setSetting('service_bg_image', $bgImagePath);
         }
 
@@ -142,9 +159,12 @@ public function blogPage(Request $request)
     } else {
 
         if ($request->hasFile('bgimage')) {
-            $bgImagePath = $request->file('bgimage')->store('public/images'); // Adjust as per your storage configuration
+            $bgImage = $request->file('bgimage');
+            $bgImagePath = 'images/' . $bgImage->getClientOriginalName();
+            $bgImage->move(public_path('images'), $bgImage->getClientOriginalName());
             Helper::setSetting('blog_bg_image', $bgImagePath);
         }
+
 
 
         return redirect()->back()->with('success', 'Blog Page settings updated successfully.');
@@ -158,7 +178,9 @@ public function blogPage(Request $request)
         } else {
 
             if ($request->hasFile('bgimage')) {
-                $bgImagePath = $request->file('bgimage')->store('public/images');
+                $bgImage = $request->file('bgimage');
+                $bgImagePath = 'images/' . $bgImage->getClientOriginalName();
+                $bgImage->move(public_path('images'), $bgImage->getClientOriginalName());
                 Helper::setSetting('contact_bg_image', $bgImagePath);
             }
             $contact_heading = $request->heading ?? '';
@@ -189,25 +211,30 @@ public function blogPage(Request $request)
         return view('admin.setting.page', compact('data'));
     } else {
         if ($request->hasFile('g_image')) {
-            $imagePath = $request->file('g_image')->storeAs('public/images', $request->file('g_image')->getClientOriginalName());
-            Helper::setSetting('other_g_image', $imagePath);
+            $gImagePath = $request->file('g_image')->move(public_path('images'), $request->file('g_image')->getClientOriginalName());
+            Helper::setSetting('other_g_image', 'images/' . $request->file('g_image')->getClientOriginalName());
         }
+
         if ($request->hasFile('b_image')) {
-            $imagePath = $request->file('b_image')->storeAs('public/images', $request->file('b_image')->getClientOriginalName());
-            Helper::setSetting('other_b_image', $imagePath);
+            $bImagePath = $request->file('b_image')->move(public_path('images'), $request->file('b_image')->getClientOriginalName());
+            Helper::setSetting('other_b_image', 'images/' . $request->file('b_image')->getClientOriginalName());
         }
+
         if ($request->hasFile('f_image')) {
-            $imagePath = $request->file('f_image')->storeAs('public/images', $request->file('f_image')->getClientOriginalName());
-            Helper::setSetting('other_f_image', $imagePath);
+            $fImagePath = $request->file('f_image')->move(public_path('images'), $request->file('f_image')->getClientOriginalName());
+            Helper::setSetting('other_f_image', 'images/' . $request->file('f_image')->getClientOriginalName());
         }
+
         if ($request->hasFile('mgmt_image')) {
-            $imagePath = $request->file('mgmt_image')->storeAs('public/images', $request->file('mgmt_image')->getClientOriginalName());
-            Helper::setSetting('other_mgmt_image', $imagePath);
+            $mgmtImagePath = $request->file('mgmt_image')->move(public_path('images'), $request->file('mgmt_image')->getClientOriginalName());
+            Helper::setSetting('other_mgmt_image', 'images/' . $request->file('mgmt_image')->getClientOriginalName());
         }
+
         if ($request->hasFile('m_image')) {
-            $imagePath = $request->file('m_image')->storeAs('public/images', $request->file('m_image')->getClientOriginalName());
-            Helper::setSetting('other_m_image', $imagePath);
+            $mImagePath = $request->file('m_image')->move(public_path('images'), $request->file('m_image')->getClientOriginalName());
+            Helper::setSetting('other_m_image', 'images/' . $request->file('m_image')->getClientOriginalName());
         }
+
 
 
         return redirect()->back()->with('success', 'Page settings updated successfully.');
@@ -223,9 +250,11 @@ public function blogPage(Request $request)
             return view('admin.setting.footer', compact('data'));
         } else {
             if ($request->hasFile('logo')) {
-                $imagePath = $request->file('logo')->storeAs('public/images', $request->file('logo')->getClientOriginalName());
-                Helper::setSetting('footer_logo', $imagePath);
+                $logoFile = $request->file('logo');
+                $logoFile->move(public_path('images'), $logoFile->getClientOriginalName());
+                Helper::setSetting('footer_logo', 'images/' . $logoFile->getClientOriginalName());
             }
+
             $description = $request->description ?? '';
             $phone = $request->phone ?? '';
             $email = $request->email ?? '';

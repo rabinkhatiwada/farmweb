@@ -40,35 +40,35 @@
                     <label for="bgimage">Gallery Page Background Image(Top):</label>
 
                     <input type="file" class="form-control image-upload dropify" id="image" name="g_image"
-                        data-default-file="{{ Storage::url($data->g_image) }}" accept="image/*">
+                        data-default-file="{{ asset($data->g_image) }}" accept="image/*">
                 </div>
                 <div class="col-md-12">
 
                     <label for="bgimage">Breeding Page Background Image(Top):</label>
 
                     <input type="file" class="form-control image-upload dropify" id="image" name="b_image"
-                        data-default-file="{{ Storage::url($data->b_image) }}" accept="image/*">
+                        data-default-file="{{ asset($data->b_image) }}" accept="image/*">
                 </div>
                 <div class="col-md-12">
 
                     <label for="bgimage">Feeding Page Background Image(Top):</label>
 
                     <input type="file" class="form-control image-upload dropify" id="image" name="f_image"
-                        data-default-file="{{ Storage::url($data->f_image) }}" accept="image/*">
+                        data-default-file="{{ asset($data->f_image) }}" accept="image/*">
                 </div>
                 <div class="col-md-12">
 
                     <label for="bgimage">Mangement Page Background Image(Top):</label>
 
                     <input type="file" class="form-control image-upload dropify" id="image" name="mgmt_image"
-                        data-default-file="{{ Storage::url($data->mgmt_image) }}" accept="image/*">
+                        data-default-file="{{ asset($data->mgmt_image) }}" accept="image/*">
                 </div>
                 <div class="col-md-12">
 
                     <label for="bgimage">Market Page Background Image(Top):</label>
 
                     <input type="file" class="form-control image-upload dropify" id="image" name="m_image"
-                        data-default-file="{{ Storage::url($data->m_image) }}" accept="image/*">
+                        data-default-file="{{ asset($data->m_image) }}" accept="image/*">
                 </div>
 
 
