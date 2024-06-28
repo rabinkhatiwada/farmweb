@@ -52,34 +52,35 @@
                                 <a href="{{ route('admin.gallery.index', ['gallery_type_id' => $galleryType->id]) }}" class="btn btn-info btn-sm">Manage</a>
                             </td>
                         </tr>
+                        <div class="modal fade" id="editModal" tabindex="-1" aria-labelledby="editModalLabel" aria-hidden="true">
+                            <div class="modal-dialog">
+                                <div class="modal-content" style="background-color: #00715D; color: white;">
+                                    <div class="modal-header" >
+                                        <h5 class="modal-title" id="editModalLabel">Edit Gallery Type</h5>
+                                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                    </div>
+                                    <form id="editForm" action="{{ route('admin.gallerytype.update', $galleryType->id) }}" method="POST">
+                                        @csrf
+                                        @method('PUT')
+                                        <div class="modal-body">
+                                            <div class="form-group">
+                                                <label for="editTitle" class="form-label">Gallery Title:</label>
+                                                <input type="text" class="form-control" id="editTitle" name="title" value="{{ $galleryType->title }}">
+                                            </div>
+                                        </div>
+                                        <div class="modal-footer">
+                                            <button type="submit" class="btn btn-success">Update</button>
+                                            <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Close</button>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
                     @endforeach
                 </tbody>
             </table>
 
-            <div class="modal fade" id="editModal" tabindex="-1" aria-labelledby="editModalLabel" aria-hidden="true">
-                <div class="modal-dialog">
-                    <div class="modal-content" style="background-color: #00715D; color: white;">
-                        <div class="modal-header" >
-                            <h5 class="modal-title" id="editModalLabel">Edit Gallery Type</h5>
-                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                        </div>
-                        <form id="editForm" action="{{ route('admin.gallerytype.update', $galleryType->id) }}" method="POST">
-                            @csrf
-                            @method('PUT')
-                            <div class="modal-body">
-                                <div class="form-group">
-                                    <label for="editTitle" class="form-label">Gallery Title:</label>
-                                    <input type="text" class="form-control" id="editTitle" name="title" value="{{ $galleryType->title }}">
-                                </div>
-                            </div>
-                            <div class="modal-footer">
-                                <button type="submit" class="btn btn-success">Update</button>
-                                <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Close</button>
-                            </div>
-                        </form>
-                    </div>
-                </div>
-            </div>
+
 
         </div>
     </div>

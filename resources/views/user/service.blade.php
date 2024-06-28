@@ -93,7 +93,7 @@
                                         </div>
                                         <div id="collapse{{ $faq->id }}" class="collapse"
                                             aria-labelledby="heading{{ $faq->id }}" data-parent="#accordionExample">
-                                            <div class="card-body">
+                                            <div class="card-body" style="background-color:#f9f9f9; color:#000000;">
                                                 {!! $faq->sdesc !!}
                                             </div>
                                         </div>
