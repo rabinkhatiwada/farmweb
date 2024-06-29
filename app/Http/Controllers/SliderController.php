@@ -110,6 +110,6 @@ class SliderController extends Controller
 
     function render(){
         $sliders=Slider::all();
-        file_put_contents(resource_path('viewS/user/cache/slider.blade.php'),view('admin.slider.template',compact('sliders'))->render());
+        file_put_contents(resource_path('views/user/cache/slider.blade.php'),view('admin.slider.template',compact('sliders'))->render());
     }
 }
