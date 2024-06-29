@@ -21,8 +21,8 @@ $(".skill-per").each(function() {
     }
   );
 });
-    
-    
+
+
 // sticky
 $(window).on('scroll', function () {
 	var scroll = $(window).scrollTop();
@@ -60,7 +60,7 @@ $(".menu-tigger").on("click", function () {
 $(".menu-close,.offcanvas-overly").on("click", function () {
 	$(".offcanvas-menu,.offcanvas-overly").removeClass("active");
 });
-    
+
 
 
 // menu toggle
@@ -98,6 +98,7 @@ function mainSlider() {
 		dots:false ,
 		fade: true,
 		arrows: true,
+        adaptiveHeight: true,
 		prevArrow: '<button type="button" class="slick-prev"><i class="far fa-angle-left"></i></button>',
 		nextArrow: '<button type="button" class="slick-next"><i class="far fa-angle-right"></i></button>',
 		responsive: [
@@ -122,7 +123,7 @@ function mainSlider() {
 	}
 }
 mainSlider();
-    
+
 // Magnet Cursor
     function magnetize(el, e) {
         var mX = e.pageX,
@@ -156,7 +157,7 @@ mainSlider();
     function lerp(a, b, n) {
         return (1 - n) * a + n * b
     }
-    
+
     // Mouse Cursor
     class Cursor {
         constructor() {
@@ -212,7 +213,7 @@ mainSlider();
             $('.cursor').toggleClass('drag');
         });
     }
-    
+
 // services-active
 $('.services-active').slick({
 	dots: true,
@@ -247,7 +248,7 @@ $('.services-active').slick({
 		}
 	]
 });
-    
+
     // team-active
 $('.team-active').slick({
 	dots: false,
@@ -493,7 +494,7 @@ $('.slider-nav').slick({
   dots:false,
   arrows:true,
   centerMode: true,
-  focusOnSelect: true, 
+  focusOnSelect: true,
   variableWidth:true,
     prevArrow: '<button type="button" class="slick-prev"><i class="fas fa-arrow-left"></i></button>',
 	nextArrow: '<button type="button" class="slick-next"><i class="fas fa-arrow-right"></i></button>',
@@ -574,7 +575,7 @@ $('.home-blog-active2').slick({
 
 
 
-    
+
 // blog
 $('.blog-active').slick({
 	dots: false,
@@ -589,7 +590,7 @@ $('.blog-active').slick({
 });
 
 
-    
+
 
 // counterUp
 
@@ -658,7 +659,7 @@ $.scrollUp({
 	// filter items on button click
 	$('.button-group').on('click', 'button', function () {
 		var filterValue = $(this).attr('data-filter');
-		$grid.isotope({ filter: filterValue });		
+		$grid.isotope({ filter: filterValue });
 	});
 
 });
@@ -680,13 +681,13 @@ $('.button-group > button').on('click', function(event) {
 
 // WOW active
 new WOW().init();
-    
+
 //Tabs Box
 	if($('.tabs-box').length){
 		$('.tabs-box .tab-buttons .tab-btn').on('click', function(e) {
 			e.preventDefault();
 			var target = $($(this).attr('data-tab'));
-			
+
 			if ($(target).is(':visible')){
 				return false;
 			}else{

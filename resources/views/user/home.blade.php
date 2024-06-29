@@ -54,7 +54,7 @@
                                 $videoId = $params['v'];
                             }
                             $content =
-                                '<div class="video-background">
+                                '<div class="video-background" style="aspect-ratio:'.$slider->aspect_ratio.'">
                                     <div class="video-foreground">
                                         <iframe src="https://www.youtube.com/embed/' .
                                 $videoId .
@@ -71,7 +71,7 @@
                         }
                     @endphp
 
-                    <div class="single-slider slider-bg slider-bg2 d-flex align-items-center" style="{{ $backgroundStyle }}">
+                    <div class="single-slider {{$slider->youtubeurl?"":"slider-bg slider-bg2"}} d-flex align-items-center" style="{{ $backgroundStyle }}aspect-ratio:{{$slider->aspect_ratio}}">
                         <div class="container">
                             <div class="row justify-content-center align-items-center">
                                 <div class="col-lg-7 col-md-8">
@@ -626,13 +626,15 @@
             top: 0;
             left: 0;
             width: 100%;
-            height: 100%;
+            /* height: 100%; */
             overflow: hidden;
+
         }
 
         .video-background {
             width: 100%;
             height: 100%;
+
         }
 
         .video-foreground {
@@ -643,12 +645,12 @@
             height: 100%;
             object-fit: cover;
 
+
         }
 
         .video-foreground iframe {
             width: 100%;
             height: 100%;
-            object-fit: cover;
             pointer-events: none;
             /* Ensures the video fills the iframe container */
         }

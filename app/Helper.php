@@ -4,9 +4,7 @@ namespace App;
 use App\Models\Setting;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\DB;
-
-
-
+use Illuminate\Support\Facades\Http;
 
 class Helper{
 
@@ -201,6 +199,32 @@ class Helper{
 
         ];
 
+    }
+
+    public static function  getAspectRatio($url)
+    {
+        // Define the API URL
+        $apiUrl = 'https://www.youtube.com/oembed?url='.$url;
+
+        // Make a GET request to the API
+        $response = Http::get($apiUrl);
+
+        // Check if the request was successful
+        if ($response->successful()) {
+            // Decode the JSON data
+            $data = $response->json();
+
+            // Extract width and height
+            $width = $data['width'];
+            $height = $data['height'];
+
+            // Return the extracted data
+            return $width ." / ". $height;
+
+        } else {
+            // Handle the error
+            return '16 / 9';
+        }
     }
 
 }

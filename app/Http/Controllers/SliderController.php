@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Helper;
 use App\Models\Slider;
 use Illuminate\Http\Request;
 
@@ -47,6 +48,7 @@ class SliderController extends Controller
         } else {
             $slider->image = '';
             $slider->youtubeurl = $request->input('youtubeurl');
+            $slider->aspect_ratio = Helper::getAspectRatio($slider->youtubeurl);
         }
 
         $slider->save();
@@ -81,10 +83,11 @@ class SliderController extends Controller
             $imageName = time() . '.' . $image->getClientOriginalExtension();
             $image->move(public_path('slider_images'), $imageName);
             $slider->image = $imageName;
-            $slider->youtubeurl = null;  // Clear YouTube URL if a new image is uploaded
+            $slider->youtubeurl = null;
         } else {
-            $slider->image = null;
+            $slider->image = '';
             $slider->youtubeurl = $request->input('youtubeurl');
+            $slider->aspect_ratio = Helper::getAspectRatio($slider->youtubeurl);
         }
 
         $slider->save();
