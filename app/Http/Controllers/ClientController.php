@@ -25,7 +25,6 @@ class ClientController extends Controller
         $types = Helper::blogTypes;
         $blogType = Helper::blogTypes[$type] ?? null;
         $testimonial = Testimonial::all();
-        $sliders = Slider::all();
         $galleryTypes = GalleryType::all(); // Fetch all gallery types
 
         // Initialize an empty array to hold gallery items for each type
@@ -40,7 +39,7 @@ class ClientController extends Controller
             $galleryItems[$galleryType->id] = $items;
         }
 
-        return view('user.home', compact('blogs', 'types', 'testimonial', 'blogType', 'faqs', 'brands', 'teams', 'services', 'objectives', 'features', 'sliders', 'galleryTypes', 'galleryItems'));
+        return view('user.home', compact('blogs', 'types', 'testimonial', 'blogType', 'faqs', 'brands', 'teams', 'services', 'objectives', 'features', 'galleryTypes', 'galleryItems'));
     }
 
     public function about()

@@ -52,6 +52,7 @@ class SliderController extends Controller
         }
 
         $slider->save();
+        $this->render();
 
         return redirect()->route('admin.sliders.index')->with('success', 'Slider created successfully.');
     }
@@ -91,6 +92,7 @@ class SliderController extends Controller
         }
 
         $slider->save();
+        $this->render();
 
         return redirect()->route('admin.sliders.index')->with('success', 'Slider updated successfully.');
     }
@@ -102,7 +104,12 @@ class SliderController extends Controller
     {
         $slider = Slider::findOrFail($id);
         $slider->delete();
-
+        $this->render();
         return redirect()->route('admin.sliders.index')->with('success', 'Slider deleted successfully.');
+    }
+
+    function render(){
+        $sliders=Slider::all();
+        file_put_contents(resource_path('viewS/user/cache/slider.blade.php'),view('admin.slider.template',compact('sliders'))->render());
     }
 }
