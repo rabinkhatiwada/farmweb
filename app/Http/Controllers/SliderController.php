@@ -36,6 +36,7 @@ class SliderController extends Controller
         $slider->subtitle = $request->input('subtitle');
         $slider->button_text = $request->input('button_text');
         $slider->button_link = $request->input('button_link');
+        $slider->image='';
 
         if ($request->hasFile('image')) {
             $image = $request->file('image');
