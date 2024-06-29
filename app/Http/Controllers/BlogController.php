@@ -127,7 +127,7 @@ class BlogController extends Controller
         $type=$blog->type;
         $blogType = Helper::blogTypes[$type];
 
-        return view('admin.blogs.edit', compact('blog', 'type', 'blogType'));
+        return view('admin.Blogs.edit', compact('blog', 'type', 'blogType'));
     }
 
     /**
