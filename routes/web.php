@@ -33,10 +33,6 @@ Route::get('/management', [ClientController::class, 'management'])->name('manage
 Route::get('/market', [ClientController::class, 'market'])->name('market');
 Route::get('/gallery', [ClientController::class, 'gallery'])->name('gallery');
 
-
-
-
-
 Route::get('/blogs/{blog}', [BlogController::class, 'show'])->name('blog.show');
 
 

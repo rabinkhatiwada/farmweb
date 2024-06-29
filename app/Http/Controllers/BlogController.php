@@ -92,24 +92,25 @@ class BlogController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show($id, $type)
+    public function show($blog)
 {
-    $blogType = Helper::blogTypes[$type];
+    $blog = Blog::findOrFail($blog);
 
-    $blogs = DB::table('blogs')->where('type', $type)->get();
-    $blog = Blog::findOrFail($id);
+    $blogType = Helper::blogTypes[$blog->type];
+
+    $blogs = DB::table('blogs')->where('type', $blog->destroytype)->get();
 
     $previousBlog = Blog::where('id', '<', $blog->id)
-                        ->where('type', $type)
+                        ->where('type', $blog->type)
                         ->orderBy('id', 'desc')
                         ->first();
 
     $nextBlog = Blog::where('id', '>', $blog->id)
-                    ->where('type', $type)
+                    ->where('type', $blog->type)
                     ->orderBy('id')
                     ->first();
 
-    $recentBlogs = Blog::where('type', $type)
+    $recentBlogs = Blog::where('type', $blog->type)
                         ->orderBy('created_at', 'desc')
                         ->take(5)
                         ->get();

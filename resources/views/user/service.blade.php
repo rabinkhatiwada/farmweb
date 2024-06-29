@@ -81,12 +81,12 @@
                     <div class="col-lg-6">
                         <div class="faq-wrap pr-30 wow fadeInUp animated" data-animation="fadeInUp" data-delay=".4s">
                             <div class="accordion" id="accordionExample">
-                                @foreach ($faqs as $faq)
+                                @foreach ($faqs as $key=>$faq)
                                     <div class="card">
                                         <div class="card-header" id="heading{{ $faq->id }}">
                                             <h2 class="mb-0">
-                                                <button class="faq-btn" type="button" data-bs-toggle="collapse"
-                                                    data-bs-target="#collapse{{ $faq->id }}" aria-expanded="true">
+                                                <button class="faq-btn collapsed" type="button" data-bs-toggle="collapse"
+                                                    data-bs-target="#collapse{{ $faq->id }}" aria-expanded="{{$key==0?'true':'false'}}">
                                                     {{ $faq->title }}
                                                 </button>
                                             </h2>
