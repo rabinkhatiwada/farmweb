@@ -45,7 +45,7 @@ class SliderController extends Controller
             $slider->image = $imageName;
             $slider->youtubeurl = null;  // Clear YouTube URL if an image is uploaded
         } else {
-            $slider->image = null;
+            $slider->image = '';
             $slider->youtubeurl = $request->input('youtubeurl');
         }
 
