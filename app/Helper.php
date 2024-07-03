@@ -1,4 +1,5 @@
 <?php
+
 namespace App;
 
 use App\Models\Setting;
@@ -6,90 +7,92 @@ use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Http;
 
-class Helper{
+class Helper
+{
 
     //key=>title plural,singular,has_sort_description,has_long_description,extras=[],show image
     //extra type,name,col-md,title
-    public const blogTypes=[
-        'blog'=>['Blogs','Blog',false,true,[],true],
-        'notice'=>['Notices','Notice',true,false,[
-            ['file','extra_file','3','Notice File']
-        ],true],
-        'faq'=>['Faq', 'FAQ',true, false,[],false],
+    public const blogTypes = [
+        'blog' => ['Blogs', 'Blog', false, true, [], true],
+        'notice' => ['Notices', 'Notice', true, false, [
+            ['file', 'extra_file', '3', 'Notice File']
+        ], true],
+        'faq' => ['Faq', 'FAQ', true, false, [], false],
         'brand' => ['Brands', 'Brand', false, false, [], true],
         'team' => ['Teams', 'Team', true, false, [
-        ['text', 'facebook', '3', 'Facebook Link'],
-        ['text', 'twitter', '3', 'Twitter Link'],
-        ['text', 'linkedin', '3', 'LinkedIn Link']
-    ], true],
-    'service' => [
-        'Services', 'Service', true, true, [], true
-    ],
-    'objective' => [
-        'Objectives', 'Objective', true, false, [
-        ], true
-    ],
-    'feature' => [
-        'Features', 'Feature', true, false, [
-        ], true
-    ],
-    'management' => [
-        'Management Page', 'Management', false, true, [],
-        true
-    ],
-    'breeding' => [
-        'Breeding Page', 'Breeding', false, true, [],
-        true
-    ],
-    'feeding' => [
-        'Feeding Page', 'Feeding', false, true, [],
-        true
-    ],
-    'market' => [
-        'Market Page', 'Market', false, true, [],
-        true
-    ],
+            ['text', 'facebook', '3', 'Facebook Link'],
+            ['text', 'twitter', '3', 'Twitter Link'],
+            ['text', 'linkedin', '3', 'LinkedIn Link']
+        ], true],
+        'service' => [
+            'Services', 'Service', true, true, [], true
+        ],
+        'objective' => [
+            'Objectives', 'Objective', true, false, [], true
+        ],
+        'feature' => [
+            'Features', 'Feature', true, false, [], true
+        ],
+        'management' => [
+            'Management Page', 'Management', false, true, [],
+            true
+        ],
+        'breeding' => [
+            'Breeding Page', 'Breeding', false, true, [],
+            true
+        ],
+        'feeding' => [
+            'Feeding Page', 'Feeding', false, true, [],
+            true
+        ],
+        'market' => [
+            'Market Page', 'Market', false, true, [],
+            true
+        ],
 
 
     ];
 
 
 
-    public static function getSetting($key){
+    public static function getSetting($key)
+    {
         //Cache::rememberForever($key,function()use($key){
-            $data= DB::table('settings')->where('key',$key)->first('value');
-            if($data){
-                return $data->value;
-            }
+        $data = DB::table('settings')->where('key', $key)->first('value');
+        if ($data) {
+            return $data->value;
+        }
 
 
 
-            return '';
-       // });
+        return '';
+        // });
     }
 
 
 
-    public static function setSetting($key,$value){
-        $data=DB::table('settings')->where('key',$key)->first();
-        if($data){
-            DB::table('settings')->where('key',$key)->update(['value'=>$value]);
-        }else{
-           $setting=new Setting();
-           $setting->key=$key;
-           $setting->value=$value;
-           $setting->save();
+    public static function setSetting($key, $value)
+    {
+        $data = DB::table('settings')->where('key', $key)->first();
+        if ($data) {
+            DB::table('settings')->where('key', $key)->update(['value' => $value]);
+        } else {
+            $setting = new Setting();
+            $setting->key = $key;
+            $setting->value = $value;
+            $setting->save();
         }
         Cache::forget($key);
     }
 
 
 
-    public static function getHomePageSetting(){
+    public static function getHomePageSetting()
+    {
         return (object)[
 
-            'logo'=>self::getSetting('header_logo')??'',
-            'favicon'=>self::getSetting('web_favicon')??'',
+            'logo' => self::getSetting('header_logo') ?? '',
+            'favicon' => self::getSetting('web_favicon') ?? '',
             'webtitle' => self::getSetting('web_title') ?? '',
             'metadesc' => self::getSetting('meta_description') ?? '',
 
@@ -124,22 +127,23 @@ class Helper{
         ];
     }
     public static function getAboutPageSettings()
-{
-    return (object)[
-        'bgimage' => self::getSetting('about_bg_image') ?? '',
-        'heading1' => self::getSetting('about_heading1') ?? '',
-        'desc1' => self::getSetting('about_desc1') ?? '',
-        'aboutimage1' => self::getSetting('about_image1') ?? '',
-        'aboutimage2' => self::getSetting('about_image2') ?? '',
-        'heading2' => self::getSetting('about_heading2') ?? '',
-        'desc2' => self::getSetting('about_desc2') ?? '',
-    ];
-}
+    {
+        return (object)[
+            'bgimage' => self::getSetting('about_bg_image') ?? '',
+            'heading1' => self::getSetting('about_heading1') ?? '',
+            'desc1' => self::getSetting('about_desc1') ?? '',
+            'aboutimage1' => self::getSetting('about_image1') ?? '',
+            'aboutimage2' => self::getSetting('about_image2') ?? '',
+            'heading2' => self::getSetting('about_heading2') ?? '',
+            'desc2' => self::getSetting('about_desc2') ?? '',
+        ];
+    }
 
 
 
 
-    public static function getContactPageSetting(){
+    public static function getContactPageSetting()
+    {
         return (object)[
             'bgimage' => self::getSetting('contact_bg_image') ?? '',
             'heading' => self::getSetting('contact_heading') ?? '',
@@ -152,7 +156,8 @@ class Helper{
         ];
     }
 
-    public static function getFooterSetting() {
+    public static function getFooterSetting()
+    {
         return (object)[
             'logo' => self::getSetting('footer_logo'),
             'description' => self::getSetting('footer_desc'),
@@ -168,16 +173,17 @@ class Helper{
     }
 
 
-    public static function getServicePageSetting(){
+    public static function getServicePageSetting()
+    {
         return (object)[
             'bgimage' => self::getSetting('service_bg_image') ?? '',
             'heading1' => self::getSetting('service_heading1') ?? '',
             'heading2' => self::getSetting('service_heading2') ?? '',
 
         ];
-
     }
-    public static function getOtherPageSetting(){
+    public static function getOtherPageSetting()
+    {
         return (object)[
             'g_image' => self::getSetting('other_g_image') ?? '',
 
@@ -188,23 +194,22 @@ class Helper{
 
 
         ];
-
     }
 
 
-    public static function getBlogPageSetting(){
+    public static function getBlogPageSetting()
+    {
         return (object)[
             'bgimage' => self::getSetting('blog_bg_image') ?? '',
 
 
         ];
-
     }
 
     public static function  getAspectRatio($url)
     {
         // Define the API URL
-        $apiUrl = 'https://www.youtube.com/oembed?url='.$url;
+        $apiUrl = 'https://www.youtube.com/oembed?url=' . $url;
 
         // Make a GET request to the API
         $response = Http::get($apiUrl);
@@ -219,12 +224,82 @@ class Helper{
             $height = $data['height'];
 
             // Return the extracted data
-            return $width ." / ". $height;
-
+            return $width . " / " . $height;
         } else {
             // Handle the error
             return '16 / 9';
         }
     }
 
+    public static function createThumbnail($sourceFilePath, $destinationDirectory, $maxWidth = 150, $maxHeight = 150)
+    {
+        if (!file_exists($sourceFilePath)) {
+            return false;
+        }
+
+        $fileExtension = strtolower(pathinfo($sourceFilePath, PATHINFO_EXTENSION));
+        $supportedFormats = ['jpg', 'jpeg', 'png', 'gif', 'webp'];
+
+        if (!in_array($fileExtension, $supportedFormats)) {
+            return false;
+        }
+
+        switch ($fileExtension) {
+            case 'jpg':
+            case 'jpeg':
+                $originalImage = imagecreatefromjpeg($sourceFilePath);
+                break;
+            case 'png':
+                $originalImage = imagecreatefrompng($sourceFilePath);
+                break;
+            case 'gif':
+                $originalImage = imagecreatefromgif($sourceFilePath);
+                break;
+            case 'webp':
+                $originalImage = imagecreatefromwebp($sourceFilePath);
+                break;
+            default:
+                return false;
+        }
+
+        $originalWidth = imagesx($originalImage);
+        $originalHeight = imagesy($originalImage);
+
+        if ($originalWidth > $originalHeight) {
+            $newWidth = $maxWidth;
+            $newHeight = ($originalHeight / $originalWidth) * $maxWidth;
+        } else {
+            $newHeight = $maxHeight;
+            $newWidth = ($originalWidth / $originalHeight) * $maxHeight;
+        }
+
+        $newImage = imagecreatetruecolor($newWidth, $newHeight);
+        imagecopyresampled($newImage, $originalImage, 0, 0, 0, 0, $newWidth, $newHeight, $originalWidth, $originalHeight);
+
+        $fileNameWithoutExtension = pathinfo($sourceFilePath, PATHINFO_FILENAME);
+        $thumbnailFileName = $fileNameWithoutExtension . '_thumb.' . $fileExtension;
+        $retpath = $destinationDirectory . '/' . $thumbnailFileName;
+        $thumbnailFilePath = public_path($retpath);
+
+        switch ($fileExtension) {
+            case 'jpg':
+            case 'jpeg':
+                imagejpeg($newImage, $thumbnailFilePath);
+                break;
+            case 'png':
+                imagepng($newImage, $thumbnailFilePath);
+                break;
+            case 'gif':
+                imagegif($newImage, $thumbnailFilePath);
+                break;
+            case 'webp':
+                imagewebp($newImage, $thumbnailFilePath);
+                break;
+        }
+
+        imagedestroy($originalImage);
+        imagedestroy($newImage);
+
+        return $retpath;
+    }
 }

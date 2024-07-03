@@ -266,35 +266,18 @@
                     </div>
                     <div class="container">
                         <div class="row">
-                            @foreach ($galleryTypes->chunk(3) as $chunk) <!-- Split into rows of 3 -->
-                                @foreach ($chunk as $galleryType)
-                                    <div class="col-md-4 mb-4">
-                                        <div class="gallery-type-card">
-                                            <h3 style="text-align: center; color:#fff;">{{ $galleryType->title }}</h3>
-                                            <div class="gallery-images">
-                                                @foreach ($galleryItems[$galleryType->id]->take(2) as $item)
-                                                    <div class="gallery-image">
-                                                        @if ($item->youtube_url)
-                                                            @php
-                                                                // Extract video ID from YouTube watch URL
-                                                                $videoId = '';
-                                                                parse_str(parse_url($item->youtube_url, PHP_URL_QUERY), $params);
-                                                                if (isset($params['v'])) {
-                                                                    $videoId = $params['v'];
-                                                                }
-                                                            @endphp
-                                                            <iframe src="https://www.youtube.com/embed/{{ $videoId }}" allowfullscreen></iframe>
-                                                        @elseif ($item->image)
-                                                            <img src="{{ asset($item->image) }}" alt="{{ $item->title }}">
-                                                        @endif
-                                                    </div>
-                                                @endforeach
-                                            </div>
+                            @foreach ($galleryTypes as $galleryType)
+                                <div class="col-md-3 mb-4">
+                                    <div class="gallery-type-card">
+                                        <h3>{{ $galleryType->title }}</h3>
+                                        <div class="gtypeimage">
+                                            <img src="{{ asset('gallery_types/' . $galleryType->image) }}" alt="{{ $galleryType->title }}">
                                         </div>
                                     </div>
-                                @endforeach
+                                </div>
                             @endforeach
                         </div>
+
                     </div>
 
 
@@ -585,31 +568,61 @@
             pointer-events: none;
             /* Ensures the video fills the iframe container */
         }
-
         .gallery-type-card {
-            padding: 20px;
-            background-color: #00715D;
-            border: 1px solid #ccc;
-            border-radius: 5px;
-        }
-        .gallery-images {
-            display: grid;
-            grid-template-columns: repeat(2, 1fr);
-            gap: 10px;
-        }
-        .gallery-image {
-            position: relative;
-            padding-bottom: 100%; /* 1:1 aspect ratio for each image */
-            overflow: hidden;
-        }
-        .gallery-image img, .gallery-image iframe {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-        }
+    position: relative;
+    overflow: hidden;
+    border-radius: 15px;
+    box-shadow: 0 4px 5px rgba(0, 0, 0, 0.3);
+    text-align: center;
+    color: #fff;
+    background-color: rgba(0, 0, 0, 0.7);
+    transition: transform 0.3s, box-shadow 0.3s;
+    cursor: pointer;
+    min-height: 300px;
+}
+
+.gallery-type-card:hover {
+    transform: scale(1.05);
+    box-shadow: 0 8px 15px rgba(0, 0, 0, 0.5);
+}
+
+.gallery-type-card h3 {
+    position: relative;
+    z-index: 2;
+    font-size: 2em;
+    margin: 20px 0;
+    color: #f0f0f0;
+    text-shadow: 2px 2px 6px rgba(0, 0, 0, 0.8);
+}
+
+.gtypeimage {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 1;
+    opacity: 0.5; /* Set the opacity of the background image */
+}
+
+.gtypeimage img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+@media (max-width: 768px) {
+    .gallery-type-card {
+        margin-bottom: 20px;
+    }
+
+    .gallery-type-card h3 {
+        font-size: 1.5em;
+    }
+}
+
+
+
 
         @media (max-width:768px){
             .slider-bg-youtube{

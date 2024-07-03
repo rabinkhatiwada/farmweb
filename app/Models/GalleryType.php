@@ -8,9 +8,8 @@ use Illuminate\Database\Eloquent\Model;
 class GalleryType extends Model
 {
     use HasFactory;
-    protected $fillable = [
-        'title',
-    ];
+    protected $fillable = ['title', 'image'];
+
     public function galleries()
     {
         return $this->hasMany(Gallery::class);

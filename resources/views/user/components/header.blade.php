@@ -23,7 +23,6 @@
                                     <li><a href="{{ route('home')}}">Home</a></li>
 
                                     <li><a href="{{ url('/about-us') }}">About Us</a></li>
-                                    <li><a href="{{ url('/services') }}">Services</a></li>
                                     <li><a href="{{ url('/blogs') }}">Blogs</a></li>
                                     <li><a href="{{ url('/gallery') }}">Gallery</a></li>
 
@@ -78,8 +77,7 @@
         <ul class="menu">
             <li class="menu-item menu-item-type-custom menu-item-object-custom"><a href="{{ url('/') }}">Home</a></li>
             <li class="menu-item menu-item-type-custom menu-item-object-custom"><a href="{{ url('/about-us') }}">About Us</a></li>
-            <li class="menu-item menu-item-type-custom menu-item-object-custom"><a href="{{ url('/services') }}">Services</a>
-            </li>
+
             <li class="menu-item menu-item-type-custom menu-item-object-custom"><a href="{{ url('/blogs') }}">Blogs </a></li>
             <li class="menu-item menu-item-type-custom menu-item-object-custom"><a href="{{ url('/contact') }}">Contact </a></li>
             <li class="menu-item menu-item-type-custom menu-item-object-custom"><a href="{{ url('/gallery') }}">Gallery</a>
