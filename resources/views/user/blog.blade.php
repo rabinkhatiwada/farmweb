@@ -4,11 +4,31 @@
 
     <main>
         @php
-        $data=App\Helper::getBlogPageSetting();
-        $socialmediadata = App\Helper::getFooterSetting();
+            $data = App\Helper::getBlogPageSetting();
+            $socialmediadata = App\Helper::getFooterSetting();
 
+            function getYouTubeThumbnail($url)
+            {
+                parse_str(parse_url($url, PHP_URL_QUERY), $params);
 
+                $videoId = $params['v'] ?? null;
+
+                if ($videoId) {
+                    $thumbnailUrl = "https://img.youtube.com/vi/{$videoId}/maxresdefault.jpg";
+                    return $thumbnailUrl;
+                }
+
+                return null;
+            }
+
+            // Check if $data->blogvideo exists before using it
+            $thumbnailUrl = isset($data->blogvideo) ? getYouTubeThumbnail($data->blogvideo) : null;
         @endphp
+        <!-- slider-area -->
+
+
+
+        <!-- slider-area-end -->
 
         <!-- breadcrumb-area -->
         <section class="breadcrumb-area d-flex  p-relative align-items-center"
@@ -49,22 +69,44 @@
                             @if ($counter < 5)
                                 <div class="bsingle__post mb-50">
                                     <div style="height: 600px; overflow:hidden;" class="bsingle__post-thumb">
-                                        <img style="width: 100%; object-fit: cover;"
-                                            src="{{ asset('blog_images/' . $blog->image1) }}" alt="">
+                                        <div class="blog-entry">
+
+                                            <div class="blog-entry">
+                                                @if (!empty($blog->y_url))
+                                                    @php
+                                                        $videoId = App\Helper::getYouTubeVideoId($blog->y_url);
+                                                        $thumbnailUrl = "https://img.youtube.com/vi/{$videoId}/maxresdefault.jpg";
+                                                    @endphp
+                                                    <iframe width="100%" height="600px"
+                                                        src="https://www.youtube.com/embed/{{ $videoId }}"
+                                                        frameborder="0" allowfullscreen></iframe>
+                                                    {{-- <img style="width: 100%; object-fit: cover;" src="{{ $thumbnailUrl }}"
+                                                        alt="YouTube Thumbnail"> --}}
+                                                @else
+                                                    <img style="width: 100%; object-fit: cover;"
+                                                        src="{{ asset('blog_images/' . $blog->image1) }}" alt="Blog Image">
+                                                @endif
+                                            </div>
+
+                                        </div>
+
                                     </div>
                                     <div class="bsingle__content">
                                         <div class="meta-info">
                                             <ul>
                                                 <li><i class="fal fa-eye"></i> 100 Views </li>
                                                 <li><i class="fal fa-comments"></i> 35 Comments</li>
-                                                <li><i class="fal fa-calendar-alt"></i> {{ $blog->created_at->format('d F, Y') }}</li>
+                                                <li><i class="fal fa-calendar-alt"></i>
+                                                    {{ $blog->created_at->format('d F, Y') }}</li>
                                             </ul>
                                         </div>
-                                        <h2><a href="{{ route('blog.show', ['type' => $blog->type, 'blog' => $blog->id]) }}">{{ $blog->title }}</a></h2>
+                                        <h2><a
+                                                href="{{ route('blog.show', ['type' => $blog->type, 'blog' => $blog->id]) }}">{{ $blog->title }}</a>
+                                        </h2>
                                         <p>{!! substr(strip_tags($blog->content), 0, 350) !!}</p>
                                         <div class="blog__btn">
-                                            <a href="{{ route('blog.show', ['type' => $blog->type, 'blog' => $blog->id]) }}" class="btn">Read More <i
-                                                    class="fal fa-long-arrow-right"></i></a>
+                                            <a href="{{ route('blog.show', ['type' => $blog->type, 'blog' => $blog->id]) }}"
+                                                class="btn">Read More <i class="fal fa-long-arrow-right"></i></a>
                                         </div>
                                     </div>
                                 </div>
@@ -112,9 +154,9 @@
                             <div class="textwidget custom-html-widget">
                                 <div class="widget-social">
                                     @foreach ($socialmediadata->social_links as $link)
-                                    <a href="{{ $link['link'] }}"><i class="fab fa-{{ $link['name'] }}"
-                                            style="font-size: 20px; padding:10px;"></i></a>
-                                @endforeach
+                                        <a href="{{ $link['link'] }}"><i class="fab fa-{{ $link['name'] }}"
+                                                style="font-size: 20px; padding:10px;"></i></a>
+                                    @endforeach
 
                                 </div>
                             </div>
@@ -130,10 +172,11 @@
                                     @if ($blogType[0])
                                         @php $count++; @endphp
                                         @if ($count <= 5)
-
                                             <li>
-                                                <a href="{{ route('blog.show', ['type' => $blog->type, 'blog' => $blog->id]) }}">{{ $blog->title }}</a>
-                                                <span class="post-date">{{ $blog->created_at->format('d F, Y') }}</span>
+                                                <a
+                                                    href="{{ route('blog.show', ['type' => $blog->type, 'blog' => $blog->id]) }}">{{ $blog->title }}</a>
+                                                <span
+                                                    class="post-date">{{ $blog->created_at->format('d F, Y') }}</span>
 
                                             </li>
                                         @endif

@@ -32,7 +32,7 @@
                                         <a href="#">Pages</a>
                                         <ul>
                                             <li><a href="{{ url('/breeding') }}">Breeding</a></li>
-                                            <li><a href="{{ url('/feeding') }}">Feeding</a></li>
+                                            <li><a href="{{ url('/feeding') }}">Fooder</a></li>
                                             <li><a href="{{ url('/management') }}">Management</a></li>
                                             <li><a href="{{ url('/market') }}">Market</a></li>
 

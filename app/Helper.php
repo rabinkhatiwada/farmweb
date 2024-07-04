@@ -201,9 +201,17 @@ class Helper
     {
         return (object)[
             'bgimage' => self::getSetting('blog_bg_image') ?? '',
+            'blogvideo' => self::getSetting('y_url') ?? '',
+
 
 
         ];
+    }
+    public static function getYouTubeVideoId($url)
+    {
+        // Extract video ID from YouTube URL
+        parse_str(parse_url($url, PHP_URL_QUERY), $params);
+        return $params['v'] ?? null;
     }
 
     public static function  getAspectRatio($url)

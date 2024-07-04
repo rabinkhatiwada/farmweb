@@ -173,6 +173,47 @@
                 </div>
             </div>
         </section>
+         <section class="faq-area pb-120 p-relative fix">
+            <div class="container">
+                <div class="row justify-content-center">
+
+                    <div class="col-lg-6">
+                        <div class="faq-wrap pr-30 wow fadeInUp animated" data-animation="fadeInUp" data-delay=".4s">
+                            <div class="accordion" id="accordionExample">
+                                @foreach ($faqs as $faq)
+                                    <div class="card">
+                                        <div class="card-header" id="heading{{ $faq->id }}">
+                                            <h2 class="mb-0">
+                                                <button class="faq-btn" type="button" data-bs-toggle="collapse"
+                                                    data-bs-target="#collapse{{ $faq->id }}" aria-expanded="true">
+                                                    {{ $faq->title }}
+                                                </button>
+                                            </h2>
+                                        </div>
+                                        <div id="collapse{{ $faq->id }}" class="collapse"
+                                            aria-labelledby="heading{{ $faq->id }}" data-parent="#accordionExample">
+                                            <div class="card-body" style="background-color:#f9f9f9; color:#000000;">
+                                                {!! $faq->sdesc !!}
+                                            </div>
+                                        </div>
+                                    </div>
+                                @endforeach
+
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-6">
+                        <div class="section-title wow fadeInLeft animated mb-20" data-animation="fadeInDown animated"
+                            data-delay=".2s">
+                            <h5>Our FAQ</h5>
+                            {{-- <h2>{!! $data->faqheading !!}</h2> --}}
+                        </div>
+                        {{-- <p>{!! $data->faqdesc !!}</p> --}}
+
+                    </div>
+                </div>
+            </div>
+        </section>
         <!-- services-area-end -->
     </main>
 @endsection
