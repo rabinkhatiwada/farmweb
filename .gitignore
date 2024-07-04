@@ -18,4 +18,10 @@ yarn-error.log
 /.fleet
 /.idea
 /.vscode
+<<<<<<< HEAD
 # ./public
+=======
+/.public/img
+/.public/blog_images
+/.public/images
+>>>>>>> 95f4f651f3755fed357f23c4c31a9b5025729eec
