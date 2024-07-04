@@ -26,10 +26,10 @@
 
                 return null;
             }
-
+           
             $videoUrl = $data->videourl; // Assuming $data->videourl contains the YouTube URL
             $thumbnailUrl = getYouTubeThumbnail($videoUrl);
-
+            // dd($thumbnailUrl);
         @endphp
 
         @includeif('user.cache.slider')
@@ -42,7 +42,6 @@
                         <div class="col-lg-3 col-md-6 col-sm-12">
                             <div class="services-box mb-30 text-center wow fadeInUp animated" data-animation="fadeInUp"
                                 data-delay=".4s">
-
                                 <div class="sr-contner">
                                     <div class="icon">
                                         <img src="{{ asset('blog_images/' . $feature->image1) }}"
@@ -52,15 +51,9 @@
                                         <h3> <a href="services.html">{{ $feature->title }}</a> </h3>
                                     </div>
                                 </div>
-
-
                             </div>
                         </div>
                     @endforeach
-
-
-
-
                 </div>
             </div>
         </section>
@@ -271,7 +264,8 @@
                                     <div class="gallery-type-card">
                                         <h3>{{ $galleryType->title }}</h3>
                                         <div class="gtypeimage">
-                                            <img src="{{ asset('gallery_types/' . $galleryType->image) }}" alt="{{ $galleryType->title }}">
+                                            <img src="{{ asset('gallery_types/' . $galleryType->image) }}"
+                                                alt="{{ $galleryType->title }}">
                                         </div>
                                     </div>
                                 </div>
@@ -338,47 +332,7 @@
         <!-- testimonial-area-end -->
 
         <!-- frequently-area -->
-        <section class="faq-area pb-120 p-relative fix">
-            <div class="container">
-                <div class="row justify-content-center">
 
-                    <div class="col-lg-6">
-                        <div class="faq-wrap pr-30 wow fadeInUp animated" data-animation="fadeInUp" data-delay=".4s">
-                            <div class="accordion" id="accordionExample">
-                                @foreach ($faqs as $faq)
-                                    <div class="card">
-                                        <div class="card-header" id="heading{{ $faq->id }}">
-                                            <h2 class="mb-0">
-                                                <button class="faq-btn" type="button" data-bs-toggle="collapse"
-                                                    data-bs-target="#collapse{{ $faq->id }}" aria-expanded="true">
-                                                    {{ $faq->title }}
-                                                </button>
-                                            </h2>
-                                        </div>
-                                        <div id="collapse{{ $faq->id }}" class="collapse"
-                                            aria-labelledby="heading{{ $faq->id }}" data-parent="#accordionExample">
-                                            <div class="card-body" style="background-color:#f9f9f9; color:#000000;">
-                                                {!! $faq->sdesc !!}
-                                            </div>
-                                        </div>
-                                    </div>
-                                @endforeach
-
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-lg-6">
-                        <div class="section-title wow fadeInLeft animated mb-20" data-animation="fadeInDown animated"
-                            data-delay=".2s">
-                            <h5>Our FAQ</h5>
-                            <h2>{!! $data->faqheading !!}</h2>
-                        </div>
-                        <p>{!! $data->faqdesc !!}</p>
-
-                    </div>
-                </div>
-            </div>
-        </section>
         <!-- frequently-area-end -->
         <!-- blog-area -->
         <section id="blog" class="blog-area p-relative fix pt-120 pb-90"
@@ -568,79 +522,83 @@
             pointer-events: none;
             /* Ensures the video fills the iframe container */
         }
+
         .gallery-type-card {
-    position: relative;
-    overflow: hidden;
-    border-radius: 15px;
-    box-shadow: 0 4px 5px rgba(0, 0, 0, 0.3);
-    text-align: center;
-    color: #fff;
-    background-color: rgba(0, 0, 0, 0.7);
-    transition: transform 0.3s, box-shadow 0.3s;
-    cursor: pointer;
-    min-height: 300px;
-}
+            position: relative;
+            overflow: hidden;
+            border-radius: 15px;
+            box-shadow: 0 4px 5px rgba(0, 0, 0, 0.3);
+            text-align: center;
+            color: #fff;
+            background-color: rgba(0, 0, 0, 0.7);
+            transition: transform 0.3s, box-shadow 0.3s;
+            cursor: pointer;
+            min-height: 300px;
+        }
 
-.gallery-type-card:hover {
-    transform: scale(1.05);
-    box-shadow: 0 8px 15px rgba(0, 0, 0, 0.5);
-}
+        .gallery-type-card:hover {
+            transform: scale(1.05);
+            box-shadow: 0 8px 15px rgba(0, 0, 0, 0.5);
+        }
 
-.gallery-type-card h3 {
-    position: relative;
-    z-index: 2;
-    font-size: 2em;
-    margin: 20px 0;
-    color: #f0f0f0;
-    text-shadow: 2px 2px 6px rgba(0, 0, 0, 0.8);
-}
+        .gallery-type-card h3 {
+            position: relative;
+            z-index: 2;
+            font-size: 2em;
+            margin: 20px 0;
+            color: #f0f0f0;
+            text-shadow: 2px 2px 6px rgba(0, 0, 0, 0.8);
+        }
 
-.gtypeimage {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    z-index: 1;
-    opacity: 0.5; /* Set the opacity of the background image */
-}
+        .gtypeimage {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 1;
+            opacity: 0.5;
+            /* Set the opacity of the background image */
+        }
 
-.gtypeimage img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-}
+        .gtypeimage img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
 
-@media (max-width: 768px) {
-    .gallery-type-card {
-        margin-bottom: 20px;
-    }
-
-    .gallery-type-card h3 {
-        font-size: 1.5em;
-    }
-}
-
-
-
-
-        @media (max-width:768px){
-            .slider-bg-youtube{
-                min-height: 600px;
-                aspect-ratio:unset !important;
+        @media (max-width: 768px) {
+            .gallery-type-card {
+                margin-bottom: 20px;
             }
-            .video-foreground iframe{
-                height: 600px;
-            }
-            .video-container{
-                height: 100vh;
-                max-height: 600px;
-                overflow: visible;
-                .video-background{
-                    aspect-ratio:unset !important;
-                }
+
+            .gallery-type-card h3 {
+                font-size: 1.5em;
             }
         }
 
+
+
+
+        @media (max-width:768px) {
+            .slider-bg-youtube {
+                min-height: 600px;
+                aspect-ratio: unset !important;
+            }
+
+            .video-foreground iframe {
+                height: 600px;
+            }
+
+            .video-container {
+                height: 100vh;
+                max-height: 600px;
+                overflow: visible;
+
+                .video-background {
+                    aspect-ratio: unset !important;
+                }
+            }
+        }
     </style>
 @endsection

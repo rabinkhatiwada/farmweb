@@ -15,7 +15,6 @@ class ClientController extends Controller
     {
         $type = 'blog';
         $blogs = Blog::where('type', $type)->get();
-        $faqs = Blog::where('type', 'faq')->get();
         $brands = Blog::where('type', 'brand')->get();
         $teams = Blog::where('type', 'team')->get();
         $services = Blog::where('type', 'service')->get();
@@ -33,20 +32,19 @@ class ClientController extends Controller
         foreach ($galleryTypes as $galleryType) {
             // Fetch the latest 4 gallery items for each gallery type
             $items = Gallery::where('gallery_type_id', $galleryType->id)
-                            ->orderBy('created_at', 'desc')
-                            ->take(4)
-                            ->get();
+                ->orderBy('created_at', 'desc')
+                ->take(4)
+                ->get();
             $galleryItems[$galleryType->id] = $items;
         }
 
-        return view('user.home', compact('blogs', 'types', 'testimonial', 'blogType', 'faqs', 'brands', 'teams', 'services', 'objectives', 'features', 'galleryTypes', 'galleryItems'));
+        return view('user.home', compact('blogs', 'types', 'testimonial', 'blogType', 'brands', 'teams', 'services', 'objectives', 'features', 'galleryTypes', 'galleryItems'));
     }
 
     public function about()
     {
         $type = 'blog';
         $blogs = Blog::where('type', $type)->get();
-        $faqs = Blog::where('type', 'faq')->get();
         $brands = Blog::where('type', 'brand')->get();
         $teams = Blog::where('type', 'team')->get();
         $types = Helper::blogTypes;
@@ -54,12 +52,13 @@ class ClientController extends Controller
         $objectives = Blog::where('type', 'objective')->get();
         $services = Blog::where('type', 'service')->get();
 
+        $faqs = Blog::where('type', 'faq')->get();
 
 
-        return view('user.about', compact('blogs', 'types', 'blogType', 'faqs', 'brands', 'teams', 'objectives', 'services'));
+        return view('user.about', compact('blogs', 'types', 'blogType', 'brands', 'teams', 'objectives', 'services','faqs'));
     }
 
-    
+
 
     public function blogs()
     {
@@ -68,9 +67,9 @@ class ClientController extends Controller
         $types = Helper::blogTypes;
         $blogType = Helper::blogTypes[$type] ?? null;
         $recentBlogs = Blog::where('type', $type)
-                        ->orderBy('created_at', 'desc')
-                        ->take(5)
-                        ->get();
+            ->orderBy('created_at', 'desc')
+            ->take(5)
+            ->get();
 
         return view('user.blog', compact('blogs', 'types', 'blogType', 'recentBlogs', 'type'));
     }
@@ -83,8 +82,9 @@ class ClientController extends Controller
         $blogs = Blog::where('type', $type)->get();
         $types = Helper::blogTypes;
         $blogType = Helper::blogTypes[$type] ?? null;
-
-        return view('user.contact', compact('blogs', 'types', 'blogType'));
+        $faqs = Blog::where('type', 'faq')->get();
+// dd($faqs);
+        return view('user.contact', compact('blogs', 'types', 'faqs', 'blogType'));
     }
 
     public function breeding()
@@ -146,9 +146,9 @@ class ClientController extends Controller
         foreach ($galleryTypes as $galleryType) {
             // Fetch the latest 4 gallery items for each gallery type
             $items = Gallery::where('gallery_type_id', $galleryType->id)
-                            ->orderBy('created_at', 'desc')
-                            ->take(4)
-                            ->get();
+                ->orderBy('created_at', 'desc')
+                ->take(4)
+                ->get();
             $galleryItems[$galleryType->id] = $items;
         }
 
@@ -156,5 +156,4 @@ class ClientController extends Controller
 
         return view('user.gallery', compact('blogs', 'types', 'blogType', 'market', 'galleryTypes', 'galleryItems'));
     }
-
 }
