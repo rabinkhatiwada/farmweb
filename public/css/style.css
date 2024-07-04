@@ -5363,6 +5363,7 @@ left: 0;
     z-index: 1;
 }
 .blog-content2 {
+    width: 100%;
 padding:45px 30px 30px;
 border-radius: 0 0 8px 8px;
 float: left;
@@ -6297,7 +6298,7 @@ position: relative;
     z-index: 2;
     text-align: left;
 }
-.gallery-image::before {
+/* .gallery-image::before {
     content: "\e035";
     font-family: "dripicons-v2" !important;
     position: absolute;
@@ -6318,8 +6319,8 @@ position: relative;
 .gallery-image:hover::before {
     top: 50%;
     opacity: 1;
-}
-.gallery-image::after {
+} */
+/* .gallery-image::after {
     content: "";
     position: absolute;
     left: 0;
@@ -6329,7 +6330,7 @@ position: relative;
     background: #fdcc0d;
     opacity: 0;
     transition: .3s;
-}
+} */
 
 .gallery-image:hover::after {
 
@@ -7486,7 +7487,7 @@ pre cite {
   }
 }
 .img, img {
-    max-width: 25%;
+    max-width: 100%;
     transition: all 0.3s ease-out 0s;
 }
 .pro-filter select {

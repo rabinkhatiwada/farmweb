@@ -26,7 +26,7 @@
 
                 return null;
             }
-           
+
             $videoUrl = $data->videourl; // Assuming $data->videourl contains the YouTube URL
             $thumbnailUrl = getYouTubeThumbnail($videoUrl);
             // dd($thumbnailUrl);
@@ -257,22 +257,73 @@
 
                         </div>
                     </div>
+                    
                     <div class="container">
                         <div class="row">
                             @foreach ($galleryTypes as $galleryType)
-                                <div class="col-md-3 mb-4">
-                                    <div class="gallery-type-card">
-                                        <h3>{{ $galleryType->title }}</h3>
-                                        <div class="gtypeimage">
-                                            <img src="{{ asset('gallery_types/' . $galleryType->image) }}"
-                                                alt="{{ $galleryType->title }}">
-                                        </div>
+                                @if ($galleryType->slug)
+                                    <div class="col-md-3 mb-4">
+                                        <a href="{{ route('gallerybyslug', ['slug' => $galleryType->slug]) }}">
+                                            <div class="gallery-type-card">
+                                                <div class="gtypeimage">
+                                                    <img src="{{ asset('gallery_types/' . $galleryType->image) }}"
+                                                        alt="{{ $galleryType->title }}">
+                                                    <div class="overlay">
+                                                        <h3>{{ $galleryType->title }}</h3>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </a>
                                     </div>
-                                </div>
+                                @endif
                             @endforeach
                         </div>
-
                     </div>
+                    <style>
+                        .gallery-type-card {
+                            position: relative;
+                            overflow: hidden;
+                        }
+
+                        .gtypeimage {
+                            position: relative;
+                        }
+
+                        .overlay {
+                            position: absolute;
+                            top: 0;
+                            left: 0;
+                            width: 100%;
+                            height: 100%;
+                            color: white;
+                            background-color: rgba(0, 0, 0, 0.5);
+                            opacity: 0;
+                            transition: opacity 0.3s ease;
+                        }
+
+                        .gallery-type-card:hover .overlay {
+                            opacity: 1;
+                            color: white;
+
+                        }
+
+                        .gallery-type-card a {
+                            color: #fff;
+
+                            text-decoration: none;
+                        }
+
+                        .overlay h3 {
+                            position: absolute;
+                            bottom: 10px;
+                            left: 10px;
+                            margin: 0;
+                            align-content: center;
+                            text-align: center;
+                            padding: 0;
+                            color: #fff;
+                        }
+                    </style>
 
 
 

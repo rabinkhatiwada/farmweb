@@ -14,4 +14,11 @@ class GalleryType extends Model
     {
         return $this->hasMany(Gallery::class);
     }
+    protected static function boot() {
+        parent::boot();
+    
+        static::creating(function ($galliestype) {
+            $galliestype->slug = \Str::slug($galliestype->title);
+        });
+    }
 }
