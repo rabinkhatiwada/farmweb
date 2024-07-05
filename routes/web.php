@@ -33,8 +33,9 @@ Route::get('/feeding', [ClientController::class, 'feeding'])->name('feeding');
 Route::get('/management', [ClientController::class, 'management'])->name('management');
 Route::get('/market', [ClientController::class, 'market'])->name('market');
 Route::get('/gallery', [ClientController::class, 'gallery'])->name('gallery');
-
-Route::get('/blogs/{blog}', [BlogController::class, 'show'])->name('blog.show');
+// 
+// Route::get('/blog/{slug}', [BlogController::class, 'show'])->name('blog.show');
+Route::get('/blogs/{slug1}', [ClientController::class, 'show'])->name('blog.show');
 
 
 Route::post('/contact', [MsgController::class, 'store'])->name('msg.send');

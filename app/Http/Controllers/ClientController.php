@@ -8,6 +8,7 @@ use App\Models\Gallery;
 use App\Models\GalleryType;
 use App\Models\Slider;
 use App\Models\Testimonial;
+use Illuminate\Support\Facades\DB;
 
 class ClientController extends Controller
 {
@@ -70,6 +71,7 @@ class ClientController extends Controller
             ->orderBy('created_at', 'desc')
             ->take(5)
             ->get();
+        // dd($recentBlogs);
 
         return view('user.blog', compact('blogs', 'types', 'blogType', 'recentBlogs', 'type'));
     }
@@ -163,8 +165,8 @@ class ClientController extends Controller
     {
         $galleryType = GalleryType::where('slug', $slug)->firstOrFail();
 
-         $galleryItems = $galleryType->galleries()->get();
- 
+        $galleryItems = $galleryType->galleries()->get();
+
 
 
         $type = 'blog';
@@ -172,11 +174,61 @@ class ClientController extends Controller
         $types = Helper::blogTypes;
         $blogType = Helper::blogTypes[$type] ?? null;
         $market = Blog::where('type', 'market')->get();
-      
-       
 
-        
-        
         return view('user.gallery_show', compact('blogs', 'types', 'blogType', 'market', 'galleryType', 'galleryItems'));
     }
+
+
+
+
+    public function show($slug1)
+    {
+        $blog = Blog::where('slug', $slug1)->firstOrFail();
+
+        $blogType = Helper::blogTypes[$blog->type];
+
+        $blogs = DB::table('blogs')->where('type', $blog->destroytype)->get();
+
+        $previousBlog = Blog::where('id', '<', $blog->id)
+            ->where('type', $blog->type)
+            ->orderBy('id', 'desc')
+            ->first();
+
+        $nextBlog = Blog::where('id', '>', $blog->id)
+            ->where('type', $blog->type)
+            ->orderBy('id')
+            ->first();
+
+        $recentBlogs = Blog::where('type', $blog->type)
+            ->orderBy('created_at', 'desc')
+            ->take(5)
+            ->get();
+        // dd($recentBlogs);
+        return view('user.blogdetail', compact('blog', 'blogs', 'previousBlog', 'nextBlog', 'recentBlogs', 'blogType'));
+    }
+    // public function show($slug1)
+    // {
+    //     $blogs = Blog::where('slug', $slug1)->firstOrFail();
+         
+    //     $blogType = Helper::blogTypes[$blogs->type];
+
+    //     $blog = DB::table('blogs')->where('type', $blogs->destroytype)->get();
+
+    //     $previousBlog = Blog::where('id', '<', $blogs->id)
+    //         ->where('type', $blogs->type)
+    //         ->orderBy('id', 'desc')
+    //         ->first();
+
+    //     $nextBlog = Blog::where('id', '>', $blogs->id)
+    //         ->where('type', $blogs->type)
+    //         ->orderBy('id')
+    //         ->first();
+
+    //     $recentBlogs = Blog::where('type', $blogs->type)
+    //         ->orderBy('created_at', 'desc')
+    //         ->take(5)
+    //         ->get();
+    //     // // dd($recentBlogs);
+    //     return view('user.blogdetail', compact('blog','blogs','previousBlog','nextBlog','recentBlogs'));
+    // }
 }
