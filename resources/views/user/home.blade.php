@@ -257,7 +257,7 @@
 
                         </div>
                     </div>
-                    
+
                     <div class="container">
                         <div class="row">
                             @foreach ($galleryTypes as $galleryType)
@@ -386,65 +386,72 @@
 
         <!-- frequently-area-end -->
         <!-- blog-area -->
-        <section id="blog" class="blog-area p-relative fix pt-120 pb-90" style="background: url(img/bg/services-bg.png); background-repeat: no-repeat;">
+        <section id="blog" class="blog-area p-relative fix pt-120 pb-90"
+            style="background: url(img/bg/services-bg.png); background-repeat: no-repeat;">
             <div class="container">
-                <div class="row align-items-center"> 
+                <div class="row align-items-center">
                     <div class="col-lg-12">
-                        <div class="section-title center-align mb-50 text-center wow fadeInDown animated" data-animation="fadeInDown" data-delay=".4s">
+                        <div class="section-title center-align mb-50 text-center wow fadeInDown animated"
+                            data-animation="fadeInDown" data-delay=".4s">
                             <h5><i class="fal fa-graduation-cap"></i> Our Blog</h5>
                             <h2>
-                             Latest Blog & News
+                                Latest Blog & News
                             </h2>
-                           
+
                         </div>
-                       
+
                     </div>
                 </div>
                 <div class="row">
                     @php
-                    $count = 0;
-                @endphp
-                @foreach ($blogs->reverse() as $blog)
-                @if ($blogType[0])
-                @php $count++; @endphp
-                @if ($count <= 3)
-                   <div class="col-lg-4 col-md-6">
-                        <div class="single-post2 hover-zoomin mb-30 wow fadeInUp animated" data-animation="fadeInUp" data-delay=".4s">
-                            <div class="blog-thumb2">
-                            <a href="{{ route('blog.show', ['blog' => $blog->id]) }}">
-                                                <img src="{{ asset('blog_images/' . $blog->image1) }}" alt="img"
-                                                    style="width: 100%; height: 100%; object-fit: cover;">
-                                            </a>                            </div>                    
-                            <div class="blog-content2">    
-                                 <div class="date-home">
-                                    <i class="fal fa-calendar-alt"></i> 
-                                    {{ $blog->created_at->format('d F, Y') }}
+                        $count = 0;
+                    @endphp
+                    @foreach ($blogs->reverse() as $blog)
+                        @if ($blogType[0])
+                            @php $count++; @endphp
+                            @if ($count <= 3)
+                                     <div class="col-lg-4 col-md-6">
+                                        <div class="single-post2 hover-zoomin mb-30 wow fadeInUp animated"
+                                            data-animation="fadeInUp" data-delay=".4s">
+                                            <div class="blog-thumb2">
+                                                <a href="{{route('blog.show',['slug1'=>$blog->slug])}}">
+                                                    <img src="{{ asset('blog_images/' . $blog->image1) }}" alt="img"
+                                                        style="width: 100%; height: 100%; object-fit: cover;">
+                                                </a>
+                                            </div>
+                                            <div class="blog-content2">
+                                                <div class="date-home">
+                                                    <i class="fal fa-calendar-alt"></i>
+                                                    {{ $blog->created_at->format('d F, Y') }}
 
-                                </div>
-                               <div class="b-meta">
-                                    <div class="meta-info">
-                                        <ul>
-                                            <li><i class="fal fa-user"></i> By Admin </li>
-                                            <li><i class="fal fa-comments"></i> 3 Comments</li>
-                                        </ul>
+                                                </div>
+                                                <div class="b-meta">
+                                                    <div class="meta-info">
+                                                        <ul>
+                                                            <li><i class="fal fa-user"></i> By Admin </li>
+                                                            <li><i class="fal fa-comments"></i> 3 Comments</li>
+                                                        </ul>
+                                                    </div>
+                                                </div>
+                                                <h4><a
+                                                         href="{{route('blog.show',['slug1'=>$blog->slug])}}">{!! substr(strip_tags($blog->title), 0, 25) !!}..</a>
+                                                    <p>{!! substr(strip_tags($blog->content), 0, 90) !!}</p>
+                                                    <div class="blog-btn"><a
+                                                         href="{{route('blog.show',['slug1'=>$blog->slug])}}"
+                                                            >Read
+                                                            More
+                                                            <i class="fal fa-long-arrow-right"></i></a></div>
+                                            </div>
+                                        </div>
                                     </div>
-                                </div>
-                                <h4><a          href="{{ route('blog.show', ['blog' => $blog->id]) }}">{!! substr(strip_tags($blog->title), 0, 25) !!}..</a>
-                                <p>{!! substr(strip_tags($blog->content), 0, 90) !!}</p>
-                                <div class="blog-btn"><a
-                                                    href="{{ route('blog.show', ['blog' => $blog->id]) }}">Read More <i
-                                                        class="fal fa-long-arrow-right"></i></a></div>                            </div>
-                        </div>
-                    </div>
-                    
-                    @endif
-                    @endif
+                             @endif
+                        @endif
                     @endforeach
 
                 </div>
             </div>
         </section>
-       
+
         <!-- blog-area-end -->
 
         <!-- brand-area -->

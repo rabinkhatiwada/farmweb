@@ -114,9 +114,9 @@
                                                         style="height: 100%; object-fit: cover;">
                                                 </div>
                                                 <div class="text">
-                                                    <a
+                                                    {{-- <a
                                                         href="{{ route('blog.show', ['blog' => $blog->id]) }}">{{ $blog->title }}</a>
-                                                    <span>{{ $blog->created_at->format('d F, Y') }}</span>
+                                                    <span>{{ $blog->created_at->format('d F, Y') }}</span> --}}
                                                 </div>
                                             </li>
                                         @endif

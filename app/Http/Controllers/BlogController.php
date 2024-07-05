@@ -92,31 +92,31 @@ class BlogController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show($blog)
-{
-    $blog = Blog::findOrFail($blog);
+    // public function show($slug)
+    // {
+    //     $blog = Blog::findOrFail($slug);
 
-    $blogType = Helper::blogTypes[$blog->type];
+    //     $blogType = Helper::blogTypes[$blog->type];
 
-    $blogs = DB::table('blogs')->where('type', $blog->destroytype)->get();
+    //     $blogs = DB::table('blogs')->where('type', $blog->destroytype)->get();
 
-    $previousBlog = Blog::where('id', '<', $blog->id)
-                        ->where('type', $blog->type)
-                        ->orderBy('id', 'desc')
-                        ->first();
+    //     $previousBlog = Blog::where('id', '<', $blog->id)
+    //         ->where('type', $blog->type)
+    //         ->orderBy('id', 'desc')
+    //         ->first();
 
-    $nextBlog = Blog::where('id', '>', $blog->id)
-                    ->where('type', $blog->type)
-                    ->orderBy('id')
-                    ->first();
+    //     $nextBlog = Blog::where('id', '>', $blog->id)
+    //         ->where('type', $blog->type)
+    //         ->orderBy('id')
+    //         ->first();
 
-    $recentBlogs = Blog::where('type', $blog->type)
-                        ->orderBy('created_at', 'desc')
-                        ->take(5)
-                        ->get();
+    //     $recentBlogs = Blog::where('type', $blog->type)
+    //         ->orderBy('created_at', 'desc')
+    //         ->take(5)
+    //         ->get();
 
-    return view('user.blogdetail', compact('blog', 'blogs', 'previousBlog', 'nextBlog', 'recentBlogs', 'blogType'));
-}
+    //     return view('user.blogdetail', compact('blog', 'blogs', 'previousBlog', 'nextBlog', 'recentBlogs', 'blogType'));
+    // }
 
 
     /**
@@ -124,8 +124,8 @@ class BlogController extends Controller
      */
     public function edit($id)
     {
-        $blog = Blog::where('id',$id)->first();
-        $type=$blog->type;
+        $blog = Blog::where('id', $id)->first();
+        $type = $blog->type;
         $blogType = Helper::blogTypes[$type];
 
         return view('admin.Blogs.edit', compact('blog', 'type', 'blogType'));
@@ -135,58 +135,58 @@ class BlogController extends Controller
      * Update the specified resource in storage.
      */
     public function update(Request $request, $id)
-{
-    $type = $request->input('type');
-    $blogType = Helper::blogTypes[$type];
+    {
+        $type = $request->input('type');
+        $blogType = Helper::blogTypes[$type];
 
-    $request->validate([]);
+        $request->validate([]);
 
-    $blog = Blog::findOrFail($id);
+        $blog = Blog::findOrFail($id);
 
-    if ($request->hasFile('image1')) {
-        $image1 = $request->file('image1');
-        $imageName1 = time() . '.' . $image1->getClientOriginalExtension();
-        $image1->move(public_path('blog_images'), $imageName1);
-        $blog->image1 = $imageName1;
-    }
-
-    if ($request->hasFile('image2')) {
-        $image2 = $request->file('image2');
-        $imageName2 = time() . '_2.' . $image2->getClientOriginalExtension();
-        $image2->move(public_path('blog_images'), $imageName2);
-        $blog->image2 = $imageName2;
-    }
-
-    $blog->type = $type;
-    $blog->title = $request->input('title', '');
-    $blog->y_url = $request->input('y_url', '');
-    $blog->fimg_Type = $request->filled('fimg_type') ? 2 : 1;
-    $blog->content = $request->input('content', '');
-    $blog->sdesc = $request->input('sdesc', '');
-    $blog->facebook_url = $request->input('facebook_url', '#');
-    $blog->instagram_url = $request->input('instagram_url', '#');
-    $blog->linkedin_url = $request->input('linkedin_url', '#');
-    $blog->twitter_url = $request->input('twitter_url', '#');
-
-    // Handle extra fields
-    $datas = [];
-    foreach ($blogType[4] as $input) {
-        if ($input[0] == 'file' && $request->hasFile($input[1])) {
-            $file = $request->file($input[1]);
-            $fileName = time() . '_' . $file->getClientOriginalName();
-            $file->move(public_path('blog_files'), $fileName);
-            $datas[$input[1]] = $fileName;
-        } else {
-            $datas[$input[1]] = $request->input($input[1], '');
+        if ($request->hasFile('image1')) {
+            $image1 = $request->file('image1');
+            $imageName1 = time() . '.' . $image1->getClientOriginalExtension();
+            $image1->move(public_path('blog_images'), $imageName1);
+            $blog->image1 = $imageName1;
         }
+
+        if ($request->hasFile('image2')) {
+            $image2 = $request->file('image2');
+            $imageName2 = time() . '_2.' . $image2->getClientOriginalExtension();
+            $image2->move(public_path('blog_images'), $imageName2);
+            $blog->image2 = $imageName2;
+        }
+
+        $blog->type = $type;
+        $blog->title = $request->input('title', '');
+        $blog->y_url = $request->input('y_url', '');
+        $blog->fimg_Type = $request->filled('fimg_type') ? 2 : 1;
+        $blog->content = $request->input('content', '');
+        $blog->sdesc = $request->input('sdesc', '');
+        $blog->facebook_url = $request->input('facebook_url', '#');
+        $blog->instagram_url = $request->input('instagram_url', '#');
+        $blog->linkedin_url = $request->input('linkedin_url', '#');
+        $blog->twitter_url = $request->input('twitter_url', '#');
+
+        // Handle extra fields
+        $datas = [];
+        foreach ($blogType[4] as $input) {
+            if ($input[0] == 'file' && $request->hasFile($input[1])) {
+                $file = $request->file($input[1]);
+                $fileName = time() . '_' . $file->getClientOriginalName();
+                $file->move(public_path('blog_files'), $fileName);
+                $datas[$input[1]] = $fileName;
+            } else {
+                $datas[$input[1]] = $request->input($input[1], '');
+            }
+        }
+
+        $blog->extra = json_encode($datas);
+
+        $blog->save();
+
+        return redirect()->route('admin.blogs.edit', ['blog' => $blog->id, 'type' => $type])->with('success', $blogType[1] . ' updated successfully!');
     }
-
-    $blog->extra = json_encode($datas);
-
-    $blog->save();
-
-    return redirect()->route('admin.blogs.edit', ['blog' => $blog->id, 'type' => $type])->with('success', $blogType[1] . ' updated successfully!');
-}
 
 
     /**
