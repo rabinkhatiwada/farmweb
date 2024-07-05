@@ -410,11 +410,12 @@
                         @if ($blogType[0])
                             @php $count++; @endphp
                             @if ($count <= 3)
-                                     <div class="col-lg-4 col-md-6">
+                                @if ($blog->slug)
+                                    <div class="col-lg-4 col-md-6">
                                         <div class="single-post2 hover-zoomin mb-30 wow fadeInUp animated"
                                             data-animation="fadeInUp" data-delay=".4s">
                                             <div class="blog-thumb2">
-                                                <a href="{{route('blog.show',['slug1'=>$blog->slug])}}">
+                                                <a href="{{ route('blog.show', ['slug1' => $blog->slug]) }}">
                                                     <img src="{{ asset('blog_images/' . $blog->image1) }}" alt="img"
                                                         style="width: 100%; height: 100%; object-fit: cover;">
                                                 </a>
@@ -434,17 +435,17 @@
                                                     </div>
                                                 </div>
                                                 <h4><a
-                                                         href="{{route('blog.show',['slug1'=>$blog->slug])}}">{!! substr(strip_tags($blog->title), 0, 25) !!}..</a>
+                                                        href="{{ route('blog.show', ['slug1' => $blog->slug]) }}">{!! substr(strip_tags($blog->title), 0, 25) !!}..</a>
                                                     <p>{!! substr(strip_tags($blog->content), 0, 90) !!}</p>
                                                     <div class="blog-btn"><a
-                                                         href="{{route('blog.show',['slug1'=>$blog->slug])}}"
-                                                            >Read
+                                                            href="{{ route('blog.show', ['slug1' => $blog->slug]) }}">Read
                                                             More
                                                             <i class="fal fa-long-arrow-right"></i></a></div>
                                             </div>
                                         </div>
                                     </div>
-                             @endif
+                                @endif
+                            @endif
                         @endif
                     @endforeach
 
