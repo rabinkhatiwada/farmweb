@@ -55,7 +55,7 @@ class ClientController extends Controller
         $faqs = Blog::where('type', 'faq')->get();
 
 
-        return view('user.about', compact('blogs', 'types', 'blogType', 'brands', 'teams', 'objectives', 'services','faqs'));
+        return view('user.about', compact('blogs', 'types', 'blogType', 'brands', 'teams', 'objectives', 'services', 'faqs'));
     }
 
 
@@ -83,7 +83,7 @@ class ClientController extends Controller
         $types = Helper::blogTypes;
         $blogType = Helper::blogTypes[$type] ?? null;
         $faqs = Blog::where('type', 'faq')->get();
-// dd($faqs);
+        // dd($faqs);
         return view('user.contact', compact('blogs', 'types', 'faqs', 'blogType'));
     }
 
@@ -155,5 +155,28 @@ class ClientController extends Controller
 
 
         return view('user.gallery', compact('blogs', 'types', 'blogType', 'market', 'galleryTypes', 'galleryItems'));
+    }
+
+
+
+    public function gallerybyslug($slug)
+    {
+        $galleryType = GalleryType::where('slug', $slug)->firstOrFail();
+
+         $galleryItems = $galleryType->galleries()->get();
+ 
+
+
+        $type = 'blog';
+        $blogs = Blog::where('type', $type)->get();
+        $types = Helper::blogTypes;
+        $blogType = Helper::blogTypes[$type] ?? null;
+        $market = Blog::where('type', 'market')->get();
+      
+       
+
+        
+        
+        return view('user.gallery_show', compact('blogs', 'types', 'blogType', 'market', 'galleryType', 'galleryItems'));
     }
 }

@@ -24,6 +24,7 @@ Route::get('/about-us', [ClientController::class, 'about'])->name('about');
 Route::get('/services', [ClientController::class, 'services'])->name('services');
 
 Route::get('/blogs', [ClientController::class, 'blogs'])->name('blogs');
+Route::get('gallery/{slug}',[ClientController::class,'gallerybyslug'])->name('gallerybyslug');
 
 
 Route::get('/contact', [ClientController::class, 'contact'])->name('contact');
@@ -78,6 +79,7 @@ Route::prefix('admin')->name('admin.')->middleware('auth')->group(function () {
         Route::get('create', [GalleryController::class, 'create'])->name('create');
         Route::post('store', [GalleryController::class, 'store'])->name('store');
         Route::delete('/{id}', [GalleryController::class, 'destroy'])->name('destroy');
+        
 
 
     });
