@@ -59,6 +59,7 @@
         </section>
         <!-- service-details2-area-end -->
         <!-- about-area -->
+        {{-- <br><br><br><br> --}}
         <section class="about-area about-p pt-120 pb-120 p-relative fix">
             <div class="container">
                 <div class="row justify-content-center align-items-center">
@@ -420,7 +421,7 @@
                                                         style="width: 100%; height: 100%; object-fit: cover;">
                                                 </a>
                                             </div>
-                                            <div class="blog-content2">
+                                            <div class="blog-content2" style="width: 100%">
                                                 <div class="date-home">
                                                     <i class="fal fa-calendar-alt"></i>
                                                     {{ $blog->created_at->format('d F, Y') }}
