@@ -11,7 +11,7 @@
                 <div class="row align-items-center">
                     <div class="col-xl-3 col-lg-3">
                         <div class="logo">
-                            <a href="{{ route('home')}}"><img src="{{ asset($data->logo) }}" alt="logo"></a>
+                            <a href="{{ route('home')}}"><img src="{{ asset($data->logo) }}" style="width: 55%" alt="logo"></a>
                         </div>
                     </div>
                     <div class="col-xl-6 col-lg-6">

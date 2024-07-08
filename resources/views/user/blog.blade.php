@@ -100,15 +100,18 @@
                                                     {{ $blog->created_at->format('d F, Y') }}</li>
                                             </ul>
                                         </div>
-                                         <h2>
-                                            <a href="{{ route('blog.show', ['type' => $blog->type, 'blog' => $blog->id ,'slug1'=>$blog->slug]) }}">{{ $blog->title }}</a>
-                                        </h2>
+                                        @if ($blog->slug)
+                                            <h2>
+                                                <a
+                                                    href="{{ route('blog.show', ['type' => $blog->type, 'blog' => $blog->id, 'slug1' => $blog->slug]) }}">{{ $blog->title }}</a>
+                                            </h2>
 
-                                        <p>{!! substr(strip_tags($blog->content), 0, 350) !!}</p>
-                                        <div class="blog__btn">
-                                            <a  href="{{ route('blog.show', ['type' => $blog->type, 'blog' => $blog->id ,'slug1'=>$blog->slug]) }}"
-                                                class="btn">Read More <i class="fal fa-long-arrow-right"></i></a>
-                                        </div>
+                                            <p>{!! substr(strip_tags($blog->content), 0, 350) !!}</p>
+                                            <div class="blog__btn">
+                                                <a href="{{ route('blog.show', ['type' => $blog->type, 'blog' => $blog->id, 'slug1' => $blog->slug]) }}"
+                                                    class="btn">Read More <i class="fal fa-long-arrow-right"></i></a>
+                                            </div>
+                                        @endif
                                     </div>
                                 </div>
                                 @php
@@ -173,14 +176,16 @@
                                     @if ($blogType[0])
                                         @php $count++; @endphp
                                         @if ($count <= 5)
-                                        <li>
+                                            @if ($blog->slug)
+                                                <li>
 
-                                            <a
-                                                href="{{ route('blog.show', ['type' => $blog->type, 'blog' => $blog->id , 'slug1'=>$blog->slug]) }}">{{ $blog->title }}</a>
-                                            <span
-                                                class="post-date">{{ $blog->created_at->format('d F, Y') }}</span>
+                                                    <a
+                                                        href="{{ route('blog.show', ['type' => $blog->type, 'blog' => $blog->id, 'slug1' => $blog->slug]) }}">{{ $blog->title }}</a>
+                                                    <span
+                                                        class="post-date">{{ $blog->created_at->format('d F, Y') }}</span>
 
-                                        </li>
+                                                </li>
+                                            @endif
                                         @endif
                                     @endif
                                 @endforeach
