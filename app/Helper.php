@@ -359,7 +359,7 @@ class Helper
          $thumbnailFileName = $fileNameWithoutExtension . '_thumb.' . $fileExtension;
          $retpath = $destinationDirectory . '/' . $thumbnailFileName;
          $thumbnailFilePath = ($retpath);
-     dd($thumbnailFilePath);
+    //  dd($thumbnailFilePath);
 
          switch ($fileExtension) {
              case 'jpg':
