@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\GalleryType;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\File;
 
 class GalleryTypeController extends Controller
@@ -12,6 +13,7 @@ class GalleryTypeController extends Controller
     public function index()
     {
         $galleryTypes = GalleryType::all();
+
         return view('admin.gallerytype.index', compact('galleryTypes'));
     }
 
@@ -24,9 +26,7 @@ class GalleryTypeController extends Controller
     // Store a new gallery type
     public function store(Request $request)
     {
-        $request->validate([
-
-        ]);
+        $request->validate([]);
 
         if ($request->hasFile('image')) {
             $image = $request->file('image');
@@ -46,35 +46,37 @@ class GalleryTypeController extends Controller
     }
 
     // Show the form for editing the specified resource
-    public function edit($id)
+    public function edit(Request $request, GalleryType $galleryType)
     {
-        $galleryType = GalleryType::findOrFail($id);
+        if ($request->getMethod() == 'POST') {
+            $imagePath = $galleryType->image;
 
-        return view('admin.gallerytype.update', compact('galleryType'));
+            if ($request->hasFile('image')) {
+                $image = $request->file('image');
+                $imageName = time() . '.' . $image->getClientOriginalExtension();
+                $image->move(public_path('gallery_types'), $imageName);
+            } else {
+                $imageName = null;
+            }
+            $galleryType->title = $request->input('title');
+            $galleryType->image = $imageName;
+            // dd($galleryType);
+            $galleryType->save();
+            return redirect()->route('admin.gallerytype.index')->with('success','Gallery Type Edited Successfully');
+        } else {
+            return view('admin.gallerytype.edit', compact('galleryType'));
+        }
     }
 
     // Update the specified resource in storage
-    public function update(Request $request, $id)
-    {
-        $request->validate([
-        ]);
+    // public function update(, $id)
+    // {
+    //     $request->validate([
+    //     ]);
 
-        $galleryType = GalleryType::findOrFail($id);
-        $imagePath = $galleryType->image;
 
-        if ($request->hasFile('image')) {
-            $image = $request->file('image');
-            $imageName = time() . '.' . $image->getClientOriginalExtension();
-            $image->move(public_path('gallery_types'), $imageName);
-        } else {
-            $imageName = null;
-        }
-        $galleryType->title = $request->input('title');
-        $galleryType->image = $imageName;
-        $galleryType->save();
 
-        return redirect()->route('admin.gallerytype.index')->with('success', 'Gallery type updated successfully.');
-    }
+    // }
 
     // Remove the specified resource from storage
     public function destroy($id)
