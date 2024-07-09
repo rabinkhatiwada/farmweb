@@ -42,79 +42,37 @@
                         <div class="col-lg-12">
                             <div class="section-title text-center wow fadeInLeft  animated" data-animation="fadeInLeft"
                                 data-delay=".4s">
-                                
+
 
                             </div>
 
                         </div>
                     </div>
-                    
-                    <div class="container">
-                        <div class="row">
-                            @foreach ($galleryTypes as $galleryType)
-                                @if ($galleryType->slug)
-                                    <div class="col-md-3 mb-4">
+
+                    {{-- <div class="container"> --}}
+                    <div class="row">
+                        @foreach ($galleryTypes as $galleryType)
+                            @if ($galleryType->slug)
+                                <div class="col-md-3 col-6 p-1 p-md-2 ">
+                                    <div class="overlay-container">
                                         <a href="{{ route('gallerybyslug', ['slug' => $galleryType->slug]) }}">
-                                            <div class="gallery-type-card">
-                                                <div class="gtypeimage">
-                                                    <img src="{{ asset('gallery_types/' . $galleryType->image) }}"
-                                                        alt="{{ $galleryType->title }}">
-                                                    <div class="overlay">
-                                                        <h3>{{ $galleryType->title }}</h3>
-                                                    </div>
-                                                </div>
+                                            <img src="{{ asset('gallery_types/' . $galleryType->image) }}"
+                                                alt="{{ $galleryType->title }}" class="image">
+                                            <div class="overlays">
+                                                <h3>{{ $galleryType->title }}</h3>
                                             </div>
                                         </a>
                                     </div>
-                                @endif
-                            @endforeach
-                        </div>
+                                </div>
+                            @endif
+                        @endforeach
+
                     </div>
-                    <style>
-                        .gallery-type-card {
-                            position: relative;
-                            overflow: hidden;
-                        }
 
-                        .gtypeimage {
-                            position: relative;
-                        }
 
-                        .overlay {
-                            position: absolute;
-                            top: 0;
-                            left: 0;
-                            width: 100%;
-                            height: 100%;
-                            color: white;
-                            background-color: rgba(0, 0, 0, 0.5);
-                            opacity: 0;
-                            transition: opacity 0.3s ease;
-                        }
+                    {{-- </div> --}}
 
-                        .gallery-type-card:hover .overlay {
-                            opacity: 1;
-                            color: white;
 
-                        }
-
-                        .gallery-type-card a {
-                            color: #fff;
-
-                            text-decoration: none;
-                        }
-
-                        .overlay h3 {
-                            position: absolute;
-                            bottom: 10px;
-                            left: 10px;
-                            margin: 0;
-                            align-content: center;
-                            text-align: center;
-                            padding: 0;
-                            color: #fff;
-                        }
-                    </style>
 
 
 
@@ -129,6 +87,85 @@
     </main>
 @endsection
 @section('css')
+    <style>
+        .overlay-container {
+            position: relative;
+            /* width: 100%; */
+            max-width: 1000px;
+        }
+
+        .image {
+            display: block;
+            width: 100%;
+            height: auto;
+        }
+
+        .overlays {
+            position: absolute;
+            bottom: 0;
+            background: linear-gradient(180deg, rgba(251, 211, 90, 0.13) 0%, rgba(251, 211, 90, 0.13) 51%, rgb(251, 212, 90) 100%);
+            color: #f1f1f1;
+            width: 100%;
+            transition: .5s ease;
+            opacity: 0;
+            font-size: 20px;
+            padding: 20px;
+            text-align: center;
+        }
+
+        .overlays h3 {
+            color: rgb(0, 0, 0);
+        }
+
+        .overlay-container:hover .overlays {
+            opacity: 1;
+        }
+    </style>
+    {{-- <style>
+        .gallery-type-card {
+            position: relative;
+            overflow: hidden;
+        }
+
+        /* .gtypeimage {
+                position: relative;
+            } */
+
+        .overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            color: white;
+            background-color: rgba(0, 0, 0, 0.5);
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .gallery-type-card:hover .overlay {
+            opacity: 1;
+            color: white;
+
+        }
+
+        .gallery-type-card a {
+            color: #fff;
+
+            text-decoration: none;
+        }
+
+        .overlay h3 {
+            position: absolute;
+            bottom: 10px;
+            left: 10px;
+            margin: 0;
+            align-content: center;
+            text-align: center;
+            padding: 0;
+            color: #fff;
+        }
+    </style> --}}
     <style>
         .services-box-05 {
             margin-bottom: 30px;
@@ -265,7 +302,7 @@
         .gtypeimage img {
             width: 100%;
             height: 100%;
-            /* object-fit: cover; */
+            object-fit: cover;
         }
 
         @media (max-width: 768px) {
@@ -303,4 +340,3 @@
         }
     </style>
 @endsection
-
