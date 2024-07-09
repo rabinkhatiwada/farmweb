@@ -421,7 +421,7 @@
                                                         style="width: 100%; height: 100%; object-fit: cover;">
                                                 </a>
                                             </div>
-                                            <div class="blog-content2" style="width: 100%">
+                                            <div class="blog-content2" style="width: 100%; padding:30px;">
                                                 <div class="date-home">
                                                     <i class="fal fa-calendar-alt"></i>
                                                     {{ $blog->created_at->format('d F, Y') }}
