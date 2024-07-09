@@ -379,7 +379,7 @@ class Helper
 
          imagedestroy($originalImage);
          imagedestroy($newImage);
-          dd($retpath);
+        //   dd($retpath);
         return $retpath;
     }
 }
