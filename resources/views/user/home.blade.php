@@ -408,6 +408,7 @@
                         $count = 0;
                     @endphp
                     @foreach ($blogs->reverse() as $blog)
+                    
                         @if ($blogType[0])
                             @php $count++; @endphp
                             @if ($count <= 3)
@@ -437,7 +438,7 @@
                                                 </div>
                                                 <h4><a
                                                         href="{{ route('blog.show', ['slug1' => $blog->slug]) }}">{!! substr(strip_tags($blog->title), 0, 25) !!}..</a>
-                                                    <p>{!! substr(strip_tags($blog->content), 0, 90) !!}</p>
+                                                    {{-- <p>{!! substr(strip_tags($blog->content), 0, 90) !!}</p> --}}
                                                     <div class="blog-btn"><a
                                                             href="{{ route('blog.show', ['slug1' => $blog->slug]) }}">Read
                                                             More
