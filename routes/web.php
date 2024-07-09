@@ -24,7 +24,7 @@ Route::get('/about-us', [ClientController::class, 'about'])->name('about');
 Route::get('/services', [ClientController::class, 'services'])->name('services');
 
 Route::get('/blogs', [ClientController::class, 'blogs'])->name('blogs');
-Route::get('gallery/{slug}',[ClientController::class,'gallerybyslug'])->name('gallerybyslug');
+Route::get('gallery/{slug}', [ClientController::class, 'gallerybyslug'])->name('gallerybyslug');
 
 
 Route::get('/contact', [ClientController::class, 'contact'])->name('contact');
@@ -40,7 +40,7 @@ Route::get('/blogs/{slug1}', [ClientController::class, 'show'])->name('blog.show
 
 Route::post('/contact', [MsgController::class, 'store'])->name('msg.send');
 
-Route::match(['GET','POST'],'/login', [AdminController::class, 'login'])->name('login');
+Route::match(['GET', 'POST'], '/login', [AdminController::class, 'login'])->name('login');
 Route::match(['GET', 'POST'], '/logout', [AdminController::class, 'logout'])->name('logout');
 
 Route::prefix('admin')->name('admin.')->middleware('auth')->group(function () {
@@ -48,7 +48,7 @@ Route::prefix('admin')->name('admin.')->middleware('auth')->group(function () {
 
     Route::prefix('blogs')->name('blogs.')->group(function () {
         Route::get('/@{type}', [BlogController::class, 'index'])->name('index');
-        Route::match(['GET','POST'],'add/@{type}', [BlogController::class, 'store'])->name('store');
+        Route::match(['GET', 'POST'], 'add/@{type}', [BlogController::class, 'store'])->name('store');
         Route::match(['get', 'put'], 'edit/{blog}', [BlogController::class, 'edit'])->name('edit');
         Route::match(['get', 'put'], 'update/{blog}', [BlogController::class, 'update'])->name('update');
         Route::delete('/delete/{blog}', [BlogController::class, 'destroy'])->name('delete');
@@ -60,8 +60,8 @@ Route::prefix('admin')->name('admin.')->middleware('auth')->group(function () {
     });
     Route::prefix('testimonials')->name('testimonials.')->group(function () {
         Route::get('', [TestimonialController::class, 'index'])->name('index');
-        Route::match(['GET','POST'],'add/', [TestimonialController::class, 'create'])->name('add');
-        Route::match(['GET','POST'],'store/', [TestimonialController::class, 'store'])->name('store');
+        Route::match(['GET', 'POST'], 'add/', [TestimonialController::class, 'create'])->name('add');
+        Route::match(['GET', 'POST'], 'store/', [TestimonialController::class, 'store'])->name('store');
 
         Route::match(['get', 'put'], 'edit/{testimonial}', [TestimonialController::class, 'edit'])->name('edit');
         Route::match(['get', 'put'], 'update/{testimonial}', [TestimonialController::class, 'update'])->name('update');
@@ -80,37 +80,27 @@ Route::prefix('admin')->name('admin.')->middleware('auth')->group(function () {
         Route::get('create', [GalleryController::class, 'create'])->name('create');
         Route::post('store', [GalleryController::class, 'store'])->name('store');
         Route::delete('/{id}', [GalleryController::class, 'destroy'])->name('destroy');
-        
-
-
     });
     Route::prefix('gallerytype')->name('gallerytype.')->group(function () {
         Route::get('', [GalleryTypeController::class, 'index'])->name('index');
         Route::get('create', [GalleryTypeController::class, 'create'])->name('create');
         Route::post('store', [GalleryTypeController::class, 'store'])->name('store');
-        Route::get('edit/{id}', [GalleryTypeController::class, 'edit'])->name('edit');
-        Route::put('update/{id}', [GalleryTypeController::class, 'update'])->name('update');
+        Route::match(['GET', 'POST'], 'edit/{galleryType}', [GalleryTypeController::class, 'edit'])->name('edit');
+        // Route::get('', [GalleryTypeController::class, 'edit'])->name('edit');
+        // Route::put('update/{id}', [GalleryTypeController::class, 'update'])->name('update');
         Route::delete('destroy/{id}', [GalleryTypeController::class, 'destroy'])->name('destroy');
     });
 
-    Route::prefix('setting')->name('setting.')->group(function(){
+    Route::prefix('setting')->name('setting.')->group(function () {
         Route::get('', [SettingController::class, 'index'])->name('index');
-        Route::match(['GET', 'POST'],'/home', [SettingController::class, 'homePage'])->name('home');
-        Route::match(['GET', 'POST'],'/contact', [SettingController::class, 'contactPage'])->name('contact');
-        Route::match(['GET', 'POST'],'/footer', [SettingController::class, 'footerPage'])->name('footer');
-        Route::match(['GET', 'POST'],'/about', [SettingController::class, 'aboutPage'])->name('about');
-        Route::match(['GET', 'POST'],'/service', [SettingController::class, 'servicePage'])->name('service');
-        Route::match(['GET', 'POST'],'/blog', [SettingController::class, 'blogPage'])->name('blog');
-        Route::match(['GET', 'POST'],'/other-pages', [SettingController::class, 'otherPage'])->name('page');
-
-
-
-
-
-
+        Route::match(['GET', 'POST'], '/home', [SettingController::class, 'homePage'])->name('home');
+        Route::match(['GET', 'POST'], '/contact', [SettingController::class, 'contactPage'])->name('contact');
+        Route::match(['GET', 'POST'], '/footer', [SettingController::class, 'footerPage'])->name('footer');
+        Route::match(['GET', 'POST'], '/about', [SettingController::class, 'aboutPage'])->name('about');
+        Route::match(['GET', 'POST'], '/service', [SettingController::class, 'servicePage'])->name('service');
+        Route::match(['GET', 'POST'], '/blog', [SettingController::class, 'blogPage'])->name('blog');
+        Route::match(['GET', 'POST'], '/other-pages', [SettingController::class, 'otherPage'])->name('page');
     });
-
-
 });
 
 Route::get('/admin', function () {
