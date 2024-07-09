@@ -17,11 +17,7 @@ return new class extends Migration
             $table->foreignId('gallery_type_id')->constrained()->onDelete('cascade'); // Add foreign key
 
         });
-        GalleryType::create([
-            'title' => 'Gallery Type image',
-            'gallery_type_id' => 1,
-            'slug' => ''
-        ]);
+       
     }
 
 
