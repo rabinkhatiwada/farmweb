@@ -239,148 +239,147 @@ class Helper
         }
     }
 
-    public static function createThumbnail($sourceFilePath, $destinationDirectory, $maxWidth = 150, $maxHeight = 150)
-    {
-        if (!file_exists($sourceFilePath)) {
-            return false;
-        }
+    //  public static function createThumbnail($sourceFilePath, $destinationDirectory, $maxWidth = 150, $maxHeight = 150)
+    //  {
+    //      if (!file_exists($sourceFilePath)) {
+    //          return false;
+    //      }
 
-        $fileExtension = strtolower(pathinfo($sourceFilePath, PATHINFO_EXTENSION));
-        $supportedFormats = ['jpg', 'jpeg', 'png', 'gif', 'webp'];
+    //      $fileExtension = strtolower(pathinfo($sourceFilePath, PATHINFO_EXTENSION));
+    //      $supportedFormats = ['jpg', 'jpeg', 'png', 'gif', 'webp'];
 
-        if (!in_array($fileExtension, $supportedFormats)) {
-            return false;
-        }
+    //      if (!in_array($fileExtension, $supportedFormats)) {
+    //          return false;
+    //      }
 
-        switch ($fileExtension) {
-            case 'jpg':
-            case 'jpeg':
-                $originalImage = imagecreatefromjpeg($sourceFilePath);
-                break;
-            case 'png':
-                $originalImage = imagecreatefrompng($sourceFilePath);
-                break;
-            case 'gif':
-                $originalImage = imagecreatefromgif($sourceFilePath);
-                break;
-            case 'webp':
-                $originalImage = imagecreatefromwebp($sourceFilePath);
-                break;
-            default:
-                return false;
-        }
+    //      switch ($fileExtension) {
+    //          case 'jpg':
+    //          case 'jpeg':
+    //              $originalImage = imagecreatefromjpeg($sourceFilePath);
+    //              break;
+    //          case 'png':
+    //              $originalImage = imagecreatefrompng($sourceFilePath);
+    //              break;
+    //          case 'gif':
+    //              $originalImage = imagecreatefromgif($sourceFilePath);
+    //              break;
+    //          case 'webp':
+    //              $originalImage = imagecreatefromwebp($sourceFilePath);
+    //              break;
+    //          default:
+    //              return false;
+    //      }
 
-        $originalWidth = imagesx($originalImage);
-        $originalHeight = imagesy($originalImage);
+    //      $originalWidth = imagesx($originalImage);
+    //      $originalHeight = imagesy($originalImage);
 
-        if ($originalWidth > $originalHeight) {
-            $newWidth = $maxWidth;
-            $newHeight = ($originalHeight / $originalWidth) * $maxWidth;
-        } else {
-            $newHeight = $maxHeight;
-            $newWidth = ($originalWidth / $originalHeight) * $maxHeight;
-        }
+    //      if ($originalWidth > $originalHeight) {
+    //          $newWidth = $maxWidth;
+    //          $newHeight = ($originalHeight / $originalWidth) * $maxWidth;
+    //      } else {
+    //          $newHeight = $maxHeight;
+    //          $newWidth = ($originalWidth / $originalHeight) * $maxHeight;
+    //      }
 
-        $newImage = imagecreatetruecolor($newWidth, $newHeight);
-        imagecopyresampled($newImage, $originalImage, 0, 0, 0, 0, $newWidth, $newHeight, $originalWidth, $originalHeight);
+    //      $newImage = imagecreatetruecolor($newWidth, $newHeight);
+    //      imagecopyresampled($newImage, $originalImage, 0, 0, 0, 0, $newWidth, $newHeight, $originalWidth, $originalHeight);
 
-        $fileNameWithoutExtension = pathinfo($sourceFilePath, PATHINFO_FILENAME);
-        $thumbnailFileName = $fileNameWithoutExtension . '_thumb.' . $fileExtension;
-        $retpath = $destinationDirectory . '/' . $thumbnailFileName;
-        $thumbnailFilePath = public_path($retpath);
+    //      $fileNameWithoutExtension = pathinfo($sourceFilePath, PATHINFO_FILENAME);
+    //      $thumbnailFileName = $fileNameWithoutExtension . '_thumb.' . $fileExtension;
+    //      $retpath = $destinationDirectory . '/' . $thumbnailFileName;
+    //      $thumbnailFilePath = public_path($retpath);
+    //      dd($thumbnailFilePath);
+    //      switch ($fileExtension) {
+    //          case 'jpg':
+    //          case 'jpeg':
+    //              imagejpeg($newImage, $thumbnailFilePath);
+    //              break;
+    //          case 'png':
+    //              imagepng($newImage, $thumbnailFilePath);
+    //              break;
+    //          case 'gif':
+    //              imagegif($newImage, $thumbnailFilePath);
+    //              break;
+    //          case 'webp':
+    //              imagewebp($newImage, $thumbnailFilePath);
+    //              break;
+    //      }
 
-        switch ($fileExtension) {
-            case 'jpg':
-            case 'jpeg':
-                imagejpeg($newImage, $thumbnailFilePath);
-                break;
-            case 'png':
-                imagepng($newImage, $thumbnailFilePath);
-                break;
-            case 'gif':
-                imagegif($newImage, $thumbnailFilePath);
-                break;
-            case 'webp':
-                imagewebp($newImage, $thumbnailFilePath);
-                break;
-        }
+    //      imagedestroy($originalImage);
+    //      imagedestroy($newImage);
 
-        imagedestroy($originalImage);
-        imagedestroy($newImage);
+    //      return $retpath;
+    //  }
+     public static function createThumbnail($sourceFilePath, $destinationDirectory, $maxWidth = 150, $maxHeight = 150)
+     {
+         if (!file_exists($sourceFilePath)) {
+             return false;
+         }
 
+         $fileExtension = strtolower(pathinfo($sourceFilePath, PATHINFO_EXTENSION));
+         $supportedFormats = ['jpg', 'jpeg', 'png', 'gif', 'webp'];
+
+         if (!in_array($fileExtension, $supportedFormats)) {
+             return false;
+         }
+
+         switch ($fileExtension) {
+             case 'jpg':
+             case 'jpeg':
+                 $originalImage = imagecreatefromjpeg($sourceFilePath);
+                 break;
+             case 'png':
+                 $originalImage = imagecreatefrompng($sourceFilePath);
+                 break;
+             case 'gif':
+                 $originalImage = imagecreatefromgif($sourceFilePath);
+                 break;
+             case 'webp':
+                 $originalImage = imagecreatefromwebp($sourceFilePath);
+                 break;
+             default:
+                 return false;
+         }
+
+         $originalWidth = imagesx($originalImage);
+         $originalHeight = imagesy($originalImage);
+
+         if ($originalWidth > $originalHeight) {
+             $newWidth = $maxWidth;
+             $newHeight = ($originalHeight / $originalWidth) * $maxWidth;
+         } else {
+             $newHeight = $maxHeight;
+             $newWidth = ($originalWidth / $originalHeight) * $maxHeight;
+         }
+
+         $newImage = imagecreatetruecolor($newWidth, $newHeight);
+         imagecopyresampled($newImage, $originalImage, 0, 0, 0, 0, $newWidth, $newHeight, $originalWidth, $originalHeight);
+
+         $fileNameWithoutExtension = pathinfo($sourceFilePath, PATHINFO_FILENAME);
+         $thumbnailFileName = $fileNameWithoutExtension . '_thumb.' . $fileExtension;
+         $retpath = $destinationDirectory . '/' . $thumbnailFileName;
+         $thumbnailFilePath = ($retpath);
+     dd($thumbnailFilePath);
+
+         switch ($fileExtension) {
+             case 'jpg':
+             case 'jpeg':
+                 imagejpeg($newImage, $thumbnailFilePath);
+                 break;
+             case 'png':
+                 imagepng($newImage, $thumbnailFilePath);
+                 break;
+             case 'gif':
+                 imagegif($newImage, $thumbnailFilePath);
+                 break;
+             case 'webp':
+                 imagewebp($newImage, $thumbnailFilePath);
+                 break;
+         }
+
+         imagedestroy($originalImage);
+         imagedestroy($newImage);
+          dd($retpath);
         return $retpath;
     }
 }
-
-// public static function createThumbnail($sourceFilePath, $destinationDirectory, $maxWidth = 150, $maxHeight = 150)
-// {
-//     if (!file_exists($sourceFilePath)) {
-//         return false;
-//     }
-
-//     $fileExtension = strtolower(pathinfo($sourceFilePath, PATHINFO_EXTENSION));
-//     $supportedFormats = ['jpg', 'jpeg', 'png', 'gif', 'webp'];
-
-//     if (!in_array($fileExtension, $supportedFormats)) {
-//         return false;
-//     }
-
-//     switch ($fileExtension) {
-//         case 'jpg':
-//         case 'jpeg':
-//             $originalImage = imagecreatefromjpeg($sourceFilePath);
-//             break;
-//         case 'png':
-//             $originalImage = imagecreatefrompng($sourceFilePath);
-//             break;
-//         case 'gif':
-//             $originalImage = imagecreatefromgif($sourceFilePath);
-//             break;
-//         case 'webp':
-//             $originalImage = imagecreatefromwebp($sourceFilePath);
-//             break;
-//         default:
-//             return false;
-//     }
-
-//     $originalWidth = imagesx($originalImage);
-//     $originalHeight = imagesy($originalImage);
-
-//     if ($originalWidth > $originalHeight) {
-//         $newWidth = $maxWidth;
-//         $newHeight = ($originalHeight / $originalWidth) * $maxWidth;
-//     } else {
-//         $newHeight = $maxHeight;
-//         $newWidth = ($originalWidth / $originalHeight) * $maxHeight;
-//     }
-
-//     $newImage = imagecreatetruecolor($newWidth, $newHeight);
-//     imagecopyresampled($newImage, $originalImage, 0, 0, 0, 0, $newWidth, $newHeight, $originalWidth, $originalHeight);
-
-//     $fileNameWithoutExtension = pathinfo($sourceFilePath, PATHINFO_FILENAME);
-//     $thumbnailFileName = $fileNameWithoutExtension . '_thumb.' . $fileExtension;
-//     $retpath = $destinationDirectory . '/' . $thumbnailFileName;
-//     $thumbnailFilePath =($retpath);
-//     // dd($thumbnailFilePath);
-
-//     switch ($fileExtension) {
-//         case 'jpg':
-//         case 'jpeg':
-//             imagejpeg($newImage, $thumbnailFilePath);
-//             break;
-//         case 'png':
-//             imagepng($newImage, $thumbnailFilePath);
-//             break;
-//         case 'gif':
-//             imagegif($newImage, $thumbnailFilePath);
-//             break;
-//         case 'webp':
-//             imagewebp($newImage, $thumbnailFilePath);
-//             break;
-//     }
-
-//     imagedestroy($originalImage);
-//     imagedestroy($newImage);
-
-//     return $retpath;
-// }
