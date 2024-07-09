@@ -13,6 +13,9 @@ return new class extends Migration
     {
         Schema::create('gallery_types', function (Blueprint $table) {
             $table->id();
+            $table->text('slug');
+
+ 
             $table->string('title'); 
 
             $table->timestamps();
