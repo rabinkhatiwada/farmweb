@@ -109,7 +109,7 @@ class ClientController extends Controller
         $breeding = Blog::where('type', 'feeding')->get();
 
 
-        return view('user.breeding', compact('blogs', 'types', 'blogType', 'breeding'));
+        return view('user.feeding', compact('blogs', 'types', 'blogType', 'breeding'));
     }
     public function management()
     {
