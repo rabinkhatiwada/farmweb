@@ -436,6 +436,7 @@
                                                         </ul>
                                                     </div>
                                                 </div>
+                                                
                                                 <h4><a
                                                         href="{{ route('blog.show', ['slug1' => $blog->slug]) }}">{!! substr(strip_tags($blog->title), 0, 25) !!}..</a>
                                                     {{-- <p>{!! substr(strip_tags($blog->content), 0, 90) !!}</p> --}}
