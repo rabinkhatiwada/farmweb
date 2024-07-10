@@ -66,7 +66,7 @@
                                                 $videoId = $params['v'];
                                             }
                                         @endphp
-                                        <div class="video-wrapper">
+                                        <div class="video-wrapper" class="lightbox" data-fancybox="gallery" href="https://www.youtube.com/embed/{{ $videoId }}">
                                             <iframe class="iframe-video" height="280px;" style="padding: 0;"
                                                 src="https://www.youtube.com/embed/{{ $videoId }}"
                                                 allowfullscreen></iframe>

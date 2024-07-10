@@ -3,7 +3,7 @@
 @section('content')
     <main>
         @php
-        $data=App\Helper::getContactPageSetting();
+            $data = App\Helper::getContactPageSetting();
 
         @endphp
 
@@ -57,19 +57,22 @@
                                 <div class="row">
                                     <div class="col-lg-4">
                                         <div class="contact-field p-relative c-name mb-30">
-                                            <input type="text" id="firstn" name="name" placeholder="Full Name" required>
+                                            <input type="text" id="firstn" name="name" placeholder="Full Name"
+                                                required>
                                             <i class="icon fal fa-user"></i>
                                         </div>
                                     </div>
                                     <div class="col-lg-4">
                                         <div class="contact-field p-relative c-subject mb-30">
-                                            <input type="email" id="email" name="email" placeholder="Email" required>
+                                            <input type="email" id="email" name="email" placeholder="Email"
+                                                required>
                                             <i class="icon fal fa-envelope"></i>
                                         </div>
                                     </div>
                                     <div class="col-lg-4">
                                         <div class="contact-field p-relative c-subject mb-30">
-                                            <input type="text" id="phone" name="phone" placeholder="Phone No." required>
+                                            <input type="text" id="phone" name="phone" placeholder="Phone No."
+                                                required>
                                             <i class="icon fal fa-phone"></i>
                                         </div>
                                     </div>
@@ -79,7 +82,8 @@
                                             <i class="icon fal fa-edit"></i>
                                         </div>
                                         <div class="slider-btn text-center">
-                                            <button type="submit" class="btn ss-btn" data-animation="fadeInRight" data-delay=".8s">Send<i class="fal fa-long-arrow-right"></i></button>
+                                            <button type="submit" class="btn ss-btn" data-animation="fadeInRight"
+                                                data-delay=".8s">Send<i class="fal fa-long-arrow-right"></i></button>
                                         </div>
                                     </div>
                                 </div>
@@ -102,8 +106,8 @@
 
                 <div class="row">
                     <div class="col-lg-12">
-                        <iframe id="gmap_canvas"
-                            width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy"></iframe>
+                        <iframe id="gmap_canvas" width="600" height="450" style="border:0;" allowfullscreen=""
+                            loading="lazy"></iframe>
                     </div>
                 </div>
             </div>
@@ -118,7 +122,7 @@
                             data-delay=".4s">
                             <h5>Contact Info</h5>
                             <h2>
-                                {!!$data->heading!!}
+                                {!! $data->heading !!}
                             </h2>
 
                         </div>
@@ -133,7 +137,7 @@
                                 <img src="img/bg/contact-icon01.png" alt="image">
                             </div>
                             <div class="services-content2">
-                                <h5><a href="tel:{!!$data->phone!!}+14440008888">{!!$data->phone!!}</a></h5>
+                                <h5><a href="tel:{!! $data->phone !!}+14440008888">{!! $data->phone !!}</a></h5>
                                 <p>Phone Support</p>
                             </div>
                         </div>
@@ -147,7 +151,7 @@
                                 <img src="img/bg/contact-icon02.png" alt="image">
                             </div>
                             <div class="services-content2">
-                                <h5><a href="mailto:{!!$data->email!!}">{!!$data->email!!}</a></h5>
+                                <h5><a href="mailto:{!! $data->email !!}">{!! $data->email !!}</a></h5>
                                 <p>Email Address</p>
 
                             </div>
@@ -162,7 +166,7 @@
                                 <img src="img/bg/contact-icon03.png" alt="image">
                             </div>
                             <div class="services-content2">
-                                <h5>{!!$data->address!!}</h5>
+                                <h5>{!! $data->address !!}</h5>
                                 <p>Office Address</p>
                             </div>
                         </div>
@@ -173,7 +177,7 @@
                 </div>
             </div>
         </section>
-         <section class="faq-area pb-120 p-relative fix">
+        <section class="faq-area pb-120 p-relative fix">
             <div class="container">
                 <div class="row justify-content-center">
 
@@ -182,7 +186,7 @@
                             <div class="accordion" id="accordionExample">
                                 @foreach ($faqs as $faq)
                                     <div class="card">
-                                        <div class="card-header" id="heading{{ $faq->id }}">
+                                        <div class="card-header" id="heading{{ $faq->id }}" style="width: 100%">
                                             <h2 class="mb-0">
                                                 <button class="faq-btn" type="button" data-bs-toggle="collapse"
                                                     data-bs-target="#collapse{{ $faq->id }}" aria-expanded="true">
@@ -191,7 +195,7 @@
                                             </h2>
                                         </div>
                                         <div id="collapse{{ $faq->id }}" class="collapse"
-                                            aria-labelledby="heading{{ $faq->id }}" data-parent="#accordionExample">
+                                            aria-labelledby="heading{{ $faq->id }}" data-parent="#accordionExample" style="width: 100%">
                                             <div class="card-body" style="background-color:#f9f9f9; color:#000000;">
                                                 {!! $faq->sdesc !!}
                                             </div>
@@ -214,6 +218,17 @@
                 </div>
             </div>
         </section>
+
+
+
+
+
+
+
+
+
+
+        
         <!-- services-area-end -->
     </main>
 @endsection
