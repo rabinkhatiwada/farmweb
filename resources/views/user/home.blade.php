@@ -263,7 +263,27 @@
                         <div class="row">
                             @foreach ($galleryTypes as $galleryType)
                                 @if ($galleryType->slug)
-                                    <div class="col-md-3 mb-4">
+                                    <div class="col-md-3 col-6 p-1 p-md-2 ">
+
+                                        <div class="overlay-container">
+                                            <a href="{{ route('gallerybyslug', ['slug' => $galleryType->slug]) }}">
+                                                <img src="{{ asset('gallery_types/' . $galleryType->image) }}"
+                                                    alt="{{ $galleryType->title }}" class="overlay-image">
+                                                <div class="overlays">
+                                                    <h3>{{ $galleryType->title }}</h3>
+                                                </div>
+                                            </a>
+                                        </div>
+                                    </div>
+
+
+
+
+
+
+
+
+                                    {{-- <div class="col-md-3 mb-4">
                                         <a href="{{ route('gallerybyslug', ['slug' => $galleryType->slug]) }}">
                                             <div class="gallery-type-card">
                                                 <div class="gtypeimage">
@@ -275,20 +295,53 @@
                                                 </div>
                                             </div>
                                         </a>
-                                    </div>
+                                    </div> --}}
                                 @endif
                             @endforeach
                         </div>
                     </div>
                     <style>
+                        .overlay-container {
+                            position: relative;
+                            max-width: 1000px;
+                        }
+
+                        .overlay-image {
+                            display: block;
+                            width: 100%;
+                            height: auto;
+                        }
+
+                        .overlays {
+                            position: absolute;
+                            bottom: 0;
+                            background: linear-gradient(180deg, rgba(251, 211, 90, 0.13) 0%, rgba(251, 211, 90, 0.13) 51%, rgb(251, 212, 90) 100%);
+                            color: #f1f1f1;
+                            width: 100%;
+                            transition: .5s ease;
+                            opacity: 0;
+                            font-size: 20px;
+                            padding: 20px;
+                            text-align: center;
+                        }
+
+                        .overlays h3 {
+                            color: rgb(0, 0, 0);
+                        }
+
+                        .overlay-container:hover .overlays {
+                            opacity: 1;
+                        }
+                    </style>
+                    {{-- <style>
                         .gallery-type-card {
                             position: relative;
                             overflow: hidden;
                         }
 
-                        .gtypeimage {
-                            position: relative;
-                        }
+                        /* .gtypeimage {
+                                position: relative;
+                            } */
 
                         .overlay {
                             position: absolute;
@@ -324,7 +377,7 @@
                             padding: 0;
                             color: #fff;
                         }
-                    </style>
+                    </style> --}}
 
 
 
@@ -408,7 +461,7 @@
                         $count = 0;
                     @endphp
                     @foreach ($blogs->reverse() as $blog)
-                    
+
                         @if ($blogType[0])
                             @php $count++; @endphp
                             @if ($count <= 3)
@@ -436,7 +489,7 @@
                                                         </ul>
                                                     </div>
                                                 </div>
-                                                
+
                                                 <h4><a
                                                         href="{{ route('blog.show', ['slug1' => $blog->slug]) }}">{!! substr(strip_tags($blog->title), 0, 25) !!}..</a>
                                                     {{-- <p>{!! substr(strip_tags($blog->content), 0, 90) !!}</p> --}}
