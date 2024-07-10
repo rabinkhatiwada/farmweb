@@ -55,7 +55,7 @@
                             @if ($galleryType->slug)
                                 <div class="col-md-3 col-6 p-1 p-md-2 ">
                                     <div class="overlay-container">
-                                        <a href="{{ route('gallerybyslug', ['slug' => $galleryType->slug]) }}">
+                                        <a href="{{ route('gallerybyslug', ['slug' => $galleryType->slug]) }}" class="gallery-single ">
                                             <img src="{{ asset('gallery_types/' . $galleryType->image) }}"
                                                 alt="{{ $galleryType->title }}" class="image">
                                             <div class="overlays">
@@ -88,6 +88,16 @@
 @endsection
 @section('css')
     <style>
+        .gallery-single {
+            box-shadow: 0px 0px 4px 0px rgba(0, 0, 0, 0.2);
+            display: block;
+            border-radius: 10px;
+            overflow: hidden;
+            position: relative;
+            height: 200px;
+            object-fit: cover;
+        }
+
         .overlay-container {
             position: relative;
             max-width: 1000px;

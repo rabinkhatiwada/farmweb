@@ -264,43 +264,44 @@
                             @foreach ($galleryTypes as $galleryType)
                                 @if ($galleryType->slug)
                                     <div class="col-md-3 col-6 p-1 p-md-2 ">
-
-                                        <div class="overlay-container">
-                                            <a href="{{ route('gallerybyslug', ['slug' => $galleryType->slug]) }}">
-                                                <img src="{{ asset('gallery_types/' . $galleryType->image) }}"
-                                                    alt="{{ $galleryType->title }}" class="overlay-image">
+                                        <div class="overlay-container ">
+                                            <a href="{{ route('gallerybyslug', ['slug' => $galleryType->slug]) }}" class="gallery-single ">
+                                                <div class="fix-width">
+                                                    <img src="{{ asset('gallery_types/' . $galleryType->image) }}"
+                                                        alt="{{ $galleryType->title }}" class="overlay-image new"
+                                                        style="">
+                                                </div>
                                                 <div class="overlays">
                                                     <h3>{{ $galleryType->title }}</h3>
                                                 </div>
                                             </a>
                                         </div>
                                     </div>
-
-
-
-
-
-
-
-
-                                    {{-- <div class="col-md-3 mb-4">
-                                        <a href="{{ route('gallerybyslug', ['slug' => $galleryType->slug]) }}">
-                                            <div class="gallery-type-card">
-                                                <div class="gtypeimage">
-                                                    <img src="{{ asset('gallery_types/' . $galleryType->image) }}"
-                                                        alt="{{ $galleryType->title }}">
-                                                    <div class="overlay">
-                                                        <h3>{{ $galleryType->title }}</h3>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </a>
-                                    </div> --}}
                                 @endif
                             @endforeach
                         </div>
                     </div>
+                    
                     <style>
+                        .gallery-single {
+                            box-shadow: 0px 0px 4px 0px rgba(0, 0, 0, 0.2);
+                            display: block;
+                            border-radius: 10px;
+                            overflow: hidden;
+                            position: relative;
+                            height: 200px;
+                            object-fit: cover;
+                        }
+
+                        /* .fix-width .new {
+                            height: 100%;
+                            display: flex;
+                            align-items: center;
+                            justify-content: center;
+                            overflow: hidden;
+                            border-radius: 10px;
+                        } */
+
                         .overlay-container {
                             position: relative;
                             max-width: 1000px;
